@@ -1,0 +1,49 @@
+--------------------------------1------------------------------------------
+{
+  "username": "john_doe",
+  "email": "john.doe@example.com",
+  "password": "securePassword123",
+  "profile": {
+    "avatarUrl": "https://example.com/avatar.jpg",
+    "bio": "Software developer and tech enthusiast.",
+    "socialLinks": ["https://twitter.com/johndoe", "https://github.com/johndoe"],
+    "locale": "en",
+    "preferences": {
+      "notifications": true,
+      "theme": "dark"
+    }
+  },
+  "roleId": "652345abc1234567890def01", // Replace with a valid ObjectId from your Roles collection
+  "status": {
+    "online": true,
+    "lastActive": "2024-10-23T14:20:00.000Z"
+  },
+  "joinedAt": "2024-10-23T12:00:00.000Z",
+  "lastLogin": "2024-10-23T13:00:00.000Z"
+}
+
+
+
+----------------------------------2---------------------------------------
+{
+  "username": "jane_smith",
+  "email": "jane.smith@example.com",
+  "password": "SuperSecurePass456",
+  "profile": {
+    "avatarUrl": "https://example.com/avatar2.jpg",
+    "bio": "Full-stack developer with a passion for design.",
+    "socialLinks": ["https://linkedin.com/in/janesmith", "https://medium.com/@janesmith"],
+    "locale": "fr",
+    "preferences": {
+      "notifications": false,
+      "theme": "light"
+    }
+  },
+  "roleId": "652345abc1234567890def02", // Replace with a valid ObjectId from your Roles collection
+  "status": {
+    "online": false,
+    "lastActive": "2024-10-22T18:45:00.000Z"
+  },
+  "joinedAt": "2024-09-15T09:30:00.000Z",
+  "lastLogin": "2024-10-21T10:00:00.000Z"
+}
