@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import RoleService from '../services/role.service';
 
-export interface threadUserRequest extends Request {
+export interface roleUserRequest extends Request {
     user?: any;
 };
 
 export const checkRoleAndPermission = (requiredRole: string, requiredPermission: string) => {
-    return async (req: threadUserRequest, res: Response, next: NextFunction): Promise<void> => {
+    return async (req: roleUserRequest, res: Response, next: NextFunction): Promise<void> => {
         try {
             const { roleId } = req.user;
 

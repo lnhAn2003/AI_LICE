@@ -56,8 +56,8 @@
 
   "Posts": {
     "_id": "ObjectId",
-    "threadId": "ObjectId", // Reference to Threads collection
-    "authorId": "ObjectId", // Reference to Users collection
+    "threadId": "ObjectId",
+    "authorId": "ObjectId",
     "content": "String",
     "createdAt": "Date",
     "updatedAt": "Date",

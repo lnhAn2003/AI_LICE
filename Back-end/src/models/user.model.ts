@@ -43,7 +43,7 @@ const UserSchema: Schema<IUser> = new Schema({
       theme: { type: String, default: 'light' },
     },
   },
-  roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: false},
+  roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: false, default: '6718abe7a0cbd054c6794d30'},
   status: {
     online: { type: Boolean, default: false },
     lastActive: { type: Date, default: Date.now },
