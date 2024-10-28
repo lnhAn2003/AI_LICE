@@ -1,5 +1,6 @@
 import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
+import Post, { IPost } from "../models/post.model";
 
 class ThreadService {
     public async createThread(threadData: Partial<IThread>): Promise<IThread> {
@@ -14,11 +15,15 @@ class ThreadService {
     }
 
     public async getThreads(): Promise<IThread[]> {
-        return await Thread.find();
+        return await Thread.find()
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'posts', select: 'content'});
     }
 
     public async getThreadById(id: string): Promise<IThread | null> {
-        return await Thread.findById(id);
+        return await Thread.findById(id)
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'posts', select: 'content'});
     }
 
     public async updateThread(id: string, updateData: Partial<IThread>): Promise<IThread | null> {

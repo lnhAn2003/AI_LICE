@@ -6,7 +6,9 @@ import morgan from 'morgan';
 import userRoutes from './routes/user.routes';
 import roleRoutes from './routes/role.routes';
 import threadRoutes from './routes/thread.routes';
-
+import postRoutes from './routes/post.routes';
+import commentRoutes from './routes/comment.routes';
+import categoryRoutes from './routes/category.routes';
 
 const app = express();
 
@@ -18,6 +20,9 @@ app.use(morgan('dev'));
 app.use('/users', userRoutes);
 app.use('/threads', threadRoutes);
 app.use('/roles', roleRoutes);
+app.use('/posts', postRoutes);
+app.use('/comments', commentRoutes);
+app.use('/category', categoryRoutes);
 
 // Database Connection
 mongoose

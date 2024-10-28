@@ -18,12 +18,16 @@ class PostService {
         return savedPost;
     }
 
-    public async getPost(): Promise<IPost[]> {
-        return await Post.find();
+    public async getPosts(): Promise<IPost[]> {
+        return await Post.find()
+            .populate({ path: 'authorId', select: 'username'})
+            .populate({ path: 'threadId', select: 'title'})
     }
 
     public async getPostById(id: string): Promise<IPost | null> {
-        return await Post.findById(id);
+        return await Post.findById(id)
+            .populate({ path: 'authorId', select: 'username'})
+            .populate({ path: 'threadId', select: 'title'})
     }
 
     public async updatePost(id: String, updateData: Partial<IPost>): Promise<IPost | null> {
@@ -45,3 +49,5 @@ class PostService {
         return await Post.findByIdAndDelete(id);
     }
 }
+
+export default new PostService();

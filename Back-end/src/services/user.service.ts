@@ -1,4 +1,7 @@
 import User, { IUser } from '../models/user.model';
+import Thread, { IThread } from '../models/thread.model';
+import Role, { IRole } from '../models/role.model';
+import Post, { IPost } from '../models/post.model';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
@@ -33,11 +36,17 @@ class UserService {
   }
 
   public async getUsers(): Promise<IUser[]> {
-    return await User.find().select('-password');
+    return await User.find().select('-password')
+      .populate({ path: 'posts', select: 'content'})
+      .populate({ path: 'threads', select: 'title'})
+      .populate({ path: 'roleId', select: 'name'});
   }
 
   public async getUserById(id: string): Promise<IUser | null> {
-    return await User.findById(id).select('-password');
+    return await User.findById(id).select('-password')
+      .populate({ path: 'posts', select: 'content'})
+      .populate({ path: 'threads', select: 'title'})
+      .populate({ path: 'roleId', select: 'name'})
   }
 
   public async updateUser(id: string, updateData: Partial<IUser>): Promise<IUser | null> {

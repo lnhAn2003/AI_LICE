@@ -98,7 +98,7 @@
     "downloadCount": "Number",
     "viewCount": "Number",
     "tags": ["String"],
-    "categories": ["String"],
+    "categories": [{ "type": "String", "ref": "Category" }], // Updated to reference Category collection
     "averageRating": "Number", // Calculated field
     "ratingCount": "Number", // Number of ratings
     "ratings": [
@@ -115,6 +115,16 @@
       "dislikes": "Number",
       "percentage": "Number" // Calculated as (likes / (likes + dislikes)) * 100
     }
+  },
+
+  "Category": {
+    "_id": "String", // Custom ID like "rpg" or "action"
+    "name": "String", // e.g., "RPG"
+    "description": "String", // Optional
+    "icon": "String", // Optional icon URL for UI
+    "parentCategory": { "type": "String", "ref": "Category" }, // Optional field for nested categories
+    "createdAt": "Date",
+    "updatedAt": "Date"
   },
 
   "GameSuccessVotes": {
