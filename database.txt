@@ -1,0 +1,191 @@
+1. Users (Người dùng)
+
+Chức năng: Quản lý thông tin người dùng cho tất cả các phần của hệ thống (AI, Forum, Khóa học).
+
+Thuộc tính:
+
+user_id: ID của người dùng (khóa chính).
+
+username: Tên đăng nhập của người dùng (duy nhất).
+
+email: Địa chỉ email của người dùng.
+
+password: Mật khẩu đã băm (hashed).
+
+avatar: URL đến ảnh đại diện của người dùng.
+
+role: Vai trò của người dùng ("admin", "moderator", "user").
+
+created_at: Ngày và giờ tạo tài khoản.
+
+last_active: Ngày và giờ hoạt động cuối cùng.
+
+2. Forum Categories (Danh mục Diễn đàn)
+
+Chức năng: Nhóm các chủ đề lại với nhau trong forum.
+
+Thuộc tính:
+
+category_id: ID của danh mục (khóa chính).
+
+name: Tên của danh mục.
+
+description: Mô tả ngắn về danh mục.
+
+created_at: Ngày và giờ khi danh mục được tạo.
+
+3. Topics (Chủ đề Forum)
+
+Chức năng: Quản lý các chủ đề thảo luận trong các danh mục.
+
+Thuộc tính:
+
+topic_id: ID của chủ đề (khóa chính).
+
+title: Tiêu đề của chủ đề.
+
+category_id: ID của danh mục (khóa ngoại).
+
+user_id: ID của người dùng tạo chủ đề (khóa ngoại).
+
+created_at: Ngày và giờ tạo chủ đề.
+
+updated_at: Ngày và giờ cập nhật gần nhất.
+
+views: Số lượt xem của chủ đề.
+
+4. Posts (Bài viết Forum)
+
+Chức năng: Quản lý các bài viết trong chủ đề.
+
+Thuộc tính:
+
+post_id: ID của bài viết (khóa chính).
+
+topic_id: ID của chủ đề (khóa ngoại).
+
+user_id: ID của người đăng bài viết (khóa ngoại).
+
+content: Nội dung bài viết (có thể sử dụng Markdown).
+
+created_at: Ngày và giờ tạo bài viết.
+
+updated_at: Ngày và giờ cập nhật gần nhất.
+
+5. Courses (Khóa học)
+
+Chức năng: Quản lý các khóa học miễn phí hoặc do người dùng tự chia sẻ.
+
+Thuộc tính:
+
+course_id: ID của khóa học (khóa chính).
+
+title: Tiêu đề khóa học.
+
+description: Mô tả ngắn về khóa học.
+
+creator_id: ID của người tạo khóa học (khóa ngoại).
+
+content: Nội dung khóa học (có thể là link đến video, tài liệu).
+
+created_at: Ngày và giờ tạo khóa học.
+
+6. AI Sessions (Phiên làm việc với AI)
+
+Chức năng: Lưu lại các lần tương tác của người dùng với AI.
+
+Thuộc tính:
+
+session_id: ID của phiên làm việc (khóa chính).
+
+user_id: ID của người dùng (khóa ngoại).
+
+input: Yêu cầu hoặc câu hỏi của người dùng.
+
+response: Phản hồi của AI.
+
+created_at: Ngày và giờ khi phiên làm việc được tạo.
+
+7. Likes (Thích)
+
+Chức năng: Người dùng có thể thích các bài viết và phản hồi để tăng tính tương tác.
+
+Thuộc tính:
+
+like_id: ID của lượt thích (khóa chính).
+
+post_id: ID của bài viết hoặc phản hồi được thích (khóa ngoại).
+
+user_id: ID của người dùng đã thích (khóa ngoại).
+
+created_at: Ngày và giờ tạo lượt thích.
+
+8. Replies (Phản hồi)
+
+Chức năng: Quản lý các phản hồi cho bài viết trong diễn đàn.
+
+Thuộc tính:
+
+reply_id: ID của phản hồi (khóa chính).
+
+post_id: ID của bài viết gốc (khóa ngoại).
+
+user_id: ID của người phản hồi (khóa ngoại).
+
+content: Nội dung của phản hồi.
+
+created_at: Ngày và giờ tạo phản hồi.
+
+9. Notifications (Thông báo)
+
+Chức năng: Thông báo cho người dùng về các hoạt động liên quan (e.g., khi có người trả lời chủ đề của họ).
+
+Thuộc tính:
+
+notification_id: ID của thông báo (khóa chính).
+
+user_id: ID của người nhận thông báo (khóa ngoại).
+
+content: Nội dung của thông báo.
+
+read: Trạng thái đã đọc (true/false).
+
+created_at: Ngày và giờ tạo thông báo.
+
+10. Messages (Tin nhắn)
+
+Chức năng: Hệ thống nhắn tin trực tiếp giữa các người dùng.
+
+Thuộc tính:
+
+message_id: ID của tin nhắn (khóa chính).
+
+sender_id: ID của người gửi (khóa ngoại).
+
+receiver_id: ID của người nhận (khóa ngoại).
+
+content: Nội dung của tin nhắn.
+
+created_at: Ngày và giờ gửi tin nhắn.
+
+read: Trạng thái đã đọc (true/false).
+
+11. Tags (Thẻ)
+
+Chức năng: Các thẻ dùng để phân loại chủ đề, giúp tìm kiếm và lọc nội dung dễ dàng hơn.
+
+Thuộc tính:
+
+tag_id: ID của thẻ (khóa chính).
+
+name: Tên của thẻ (duy nhất).
+
+12. Topic_Tags (Thẻ chủ đề)
+
+Chức năng: Bảng kết hợp giữa Topics và Tags để lưu thẻ của mỗi chủ đề.
+
+Thuộc tính:
+
+topic_id: ID của chủ đề (khóa ngoại).
+
+tag_id: ID của thẻ (khóa ngoại).

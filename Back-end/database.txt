@@ -1,0 +1,167 @@
+{
+  "Users": {
+    "username": { "type": "String", "required": true, "unique": true },
+    "email": { "type": "String", "required": true, "unique": true },
+    "password": { "type": "String", "required": true },
+    "profile": {
+      "avatarUrl": { "type": "String" },
+      "bio": { "type": "String" },
+      "socialLinks": [{ "type": "String" }],
+      "locale": { "type": "String", "default": "en" },
+      "preferences": {
+        "notifications": { "type": "Boolean", "default": true },
+        "theme": { "type": "String", "default": "light" }
+      }
+    },
+    "roleId": { "type": "ObjectId", "ref": "Role", "required": false },
+    "status": {
+      "online": { "type": "Boolean", "default": false },
+      "lastActive": { "type": "Date", "default": "Date.now" }
+    },
+    "joinedAt": { "type": "Date", "default": "Date.now" },
+    "lastLogin": { "type": "Date", "default": "Date.now" },
+    "threads": [{ "type": "ObjectId", "ref": "Thread" }],
+    "posts": [{ "type": "ObjectId", "ref": "Post" }],
+    "gamesShared": [{ "type": "ObjectId", "ref": "GamesShared" }],
+    "aiInteractions": [{ "type": "ObjectId", "ref": "AIInteraction" }]
+  },
+
+  "Roles": {
+    "_id": "ObjectId",
+    "name": "String",
+    "permissions": ["String"], // e.g., ["manage_users", "delete_posts"]
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+
+  "Threads": {
+    "_id": "ObjectId",
+    "title": "String",
+    "authorId": "ObjectId", // Reference to Users collection
+    "postIds": ["ObjectId"], // References to Posts collection
+    "latestPosts": [
+      {
+        "postId": "ObjectId",
+        "excerpt": "String",
+        "createdAt": "Date"
+      }
+    ],
+    "tags": ["String"],
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "views": "Number",
+    "isLocked": "Boolean",
+    "isPinned": "Boolean"
+  },
+
+  "Posts": {
+    "_id": "ObjectId",
+    "threadId": "ObjectId",
+    "authorId": "ObjectId",
+    "content": "String",
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "isEdited": "Boolean",
+    "editHistory": [
+      {
+        "content": "String",
+        "editedAt": "Date"
+      }
+    ]
+  },
+
+  "Comments": {
+    "_id": "ObjectId",
+    "targetType": "String", // "game", "thread", etc.
+    "targetId": "ObjectId", // Reference to the target document
+    "authorId": "ObjectId", // Reference to Users collection
+    "content": "String",
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "isEdited": "Boolean",
+    "editHistory": [
+      {
+        "content": "String",
+        "editedAt": "Date"
+      }
+    ]
+  },
+
+  "GamesShared": {
+    "_id": "ObjectId",
+    "title": "String",
+    "description": "String",
+    "uploadedBy": "ObjectId", // Reference to Users collection
+    "fileUrl": "String",
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "downloadCount": "Number",
+    "viewCount": "Number",
+    "tags": ["String"],
+    "categories": [{ "type": "String", "ref": "Category" }], // Updated to reference Category collection
+    "averageRating": "Number", // Calculated field
+    "ratingCount": "Number", // Number of ratings
+    "ratings": [
+      {
+        "userId": "ObjectId",
+        "rating": "Number", // e.g., 1 to 5 stars
+        "createdAt": "Date"
+      }
+    ],
+    "commentIds": ["ObjectId"], // References to Comments collection
+    "isFeatured": "Boolean",
+    "successVotes": {
+      "likes": "Number",
+      "dislikes": "Number",
+      "percentage": "Number" // Calculated as (likes / (likes + dislikes)) * 100
+    }
+  },
+
+  "Category": {
+    "_id": "String", // Custom ID like "rpg" or "action"
+    "name": "String", // e.g., "RPG"
+    "description": "String", // Optional
+    "icon": "String", // Optional icon URL for UI
+    "parentCategory": { "type": "String", "ref": "Category" }, // Optional field for nested categories
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+
+  "GameSuccessVotes": {
+    "_id": "ObjectId",
+    "gameId": "ObjectId", // Reference to GamesShared collection
+    "userId": "ObjectId", // Reference to Users collection
+    "vote": "String", // "like" or "dislike"
+    "createdAt": "Date"
+  },
+
+  "AIInteractions": {
+    "_id": "ObjectId",
+    "userId": "ObjectId", // Reference to Users collection
+    "interactionType": "String", // e.g., "code_suggestion", "chatbot"
+    "request": "String",
+    "response": "String",
+    "responseTime": "Number", // In milliseconds
+    "createdAt": "Date"
+  },
+
+  "Notifications": {
+    "_id": "ObjectId",
+    "userId": "ObjectId", // Reference to Users collection
+    "type": "String", // e.g., "new_comment", "game_voted"
+    "referenceId": "ObjectId", // ID of related content
+    "message": "String",
+    "read": "Boolean",
+    "createdAt": "Date"
+  },
+  
+  "Logs": {
+    "_id": "ObjectId",
+    "eventType": "String", // e.g., "user_login", "data_export"
+    "userId": "ObjectId", // Optional
+    "details": "String",
+    "ipAddress": "String",
+    "userAgent": "String",
+    "createdAt": "Date"
+  }
+}

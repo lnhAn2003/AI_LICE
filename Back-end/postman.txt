@@ -1,0 +1,99 @@
+--------------------------------1------------------------------------------
+{
+  "username": "john_doe",
+  "email": "john.doe@example.com",
+  "password": "securePassword123",
+  "profile": {
+    "avatarUrl": "https://example.com/avatar.jpg",
+    "bio": "Software developer and tech enthusiast.",
+    "socialLinks": ["https://twitter.com/johndoe", "https://github.com/johndoe"],
+    "locale": "en",
+    "preferences": {
+      "notifications": true,
+      "theme": "dark"
+    }
+  },
+  "status": {
+    "online": true,
+    "lastActive": "2024-10-23T14:20:00.000Z"
+  },
+  "joinedAt": "2024-10-23T12:00:00.000Z",
+  "lastLogin": "2024-10-23T13:00:00.000Z"
+}
+
+
+
+----------------------------------2---------------------------------------
+{
+  "username": "jane_smith",
+  "email": "admin@example.com",
+  "password": "Admin123456789",
+  "profile": {
+    "avatarUrl": "https://example.com/avatar2.jpg",
+    "bio": "Full-stack developer with a passion for design.",
+    "socialLinks": ["https://linkedin.com/in/janesmith", "https://medium.com/@janesmith"],
+    "locale": "fr",
+    "preferences": {
+      "notifications": false,
+      "theme": "light"
+    }
+  },
+  "roleId": "6718abd5a0cbd054c6794d2c", //admin
+  "status": {
+    "online": false,
+    "lastActive": "2024-10-22T18:45:00.000Z"
+  },
+  "joinedAt": "2024-09-15T09:30:00.000Z",
+  "lastLogin": "2024-10-21T10:00:00.000Z"
+}
+
+----------------------3----------------------------
+{
+  "username": "user_name",
+  "email": "user.name@example.com",
+  "password": "User123456789",
+  "profile": {
+    "avatarUrl": "https://example.com/avatar.jpg",
+    "bio": "Software developer and tech enthusiast.",
+    "socialLinks": ["https://twitter.com/johndoe", "https://github.com/johndoe"],
+    "locale": "en",
+    "preferences": {
+      "notifications": true,
+      "theme": "dark"
+    }
+  },
+  "status": {
+    "online": true,
+    "lastActive": "2024-10-23T14:20:00.000Z"
+  },
+  "joinedAt": "2024-10-23T12:00:00.000Z",
+  "lastLogin": "2024-10-23T13:00:00.000Z"
+}
+----------------------4----------------------------
+{
+  "name": "Admin",
+  "permission": [
+    "manage_users",
+    "manage_roles",
+    "delete_posts",
+    "manage_threads",
+    "view_logs"
+  ]
+}
+{
+  "name": "Moderator",
+  "permission": [
+    "delete_posts",
+    "manage_threads",
+    "edit_comments"
+  ]
+}
+{
+  "name": "User",
+  "permission": [
+    "create_posts",
+    "edit_own_posts",
+    "view_threads",
+    "comment"
+  ]
+}
