@@ -3,12 +3,14 @@ import mongoose from 'mongoose';
 import config from './config';
 import morgan from 'morgan';
 
+//export Routes
 import userRoutes from './routes/user.routes';
 import roleRoutes from './routes/role.routes';
 import threadRoutes from './routes/thread.routes';
 import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import categoryRoutes from './routes/category.routes';
+import gamesharedRoutes from './routes/gameshared.routes';
 
 const app = express();
 
@@ -22,7 +24,8 @@ app.use('/threads', threadRoutes);
 app.use('/roles', roleRoutes);
 app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
-app.use('/category', categoryRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/gameshared', gamesharedRoutes);
 
 // Database Connection
 mongoose

@@ -1,6 +1,5 @@
 import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
-import Post, { IPost } from "../models/post.model";
 
 class ThreadService {
     public async createThread(threadData: Partial<IThread>): Promise<IThread> {
