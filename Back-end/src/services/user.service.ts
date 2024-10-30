@@ -1,7 +1,4 @@
 import User, { IUser } from '../models/user.model';
-import Thread, { IThread } from '../models/thread.model';
-import Role, { IRole } from '../models/role.model';
-import Post, { IPost } from '../models/post.model';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 

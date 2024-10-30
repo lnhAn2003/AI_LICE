@@ -7,6 +7,7 @@ const router = Router();
 
 router.post("/", authenticateJWT, gameSharedController.createGameShared.bind(gameSharedController));
 router.get("/", gameSharedController.getAllGameShared.bind(gameSharedController));
+router.get('/search',gameSharedController.searchGames.bind(gameSharedController));
 router.get("/:id", gameSharedController.getGameSharedById.bind(gameSharedController));
 router.put("/:id", authenticateJWT, checkGameSharedOwner, gameSharedController.updateGameShared.bind(gameSharedController));
 router.delete("/:id", authenticateJWT, checkGameSharedOwner, gameSharedController.deleteGameShared.bind(gameSharedController));
@@ -16,5 +17,6 @@ router.patch("/:id/addfav", authenticateJWT, gameSharedController.addFavorite.bi
 router.patch("/:id/removefav", authenticateJWT, gameSharedController.removeFavorite.bind(gameSharedController));
 router.patch("/:id/successvote", authenticateJWT, gameSharedController.SuccessVote.bind(gameSharedController));
 router.patch('/:id/changelog', authenticateJWT, checkGameSharedOwner, gameSharedController.addChangelogEntry.bind(gameSharedController));
+
 
 export default router;
