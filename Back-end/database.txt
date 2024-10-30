@@ -92,11 +92,19 @@
     "title": "String",
     "description": "String",
     "uploadedBy": "ObjectId", // Reference to Users collection
+    images: ["String"],
     "fileUrl": "String",
+    "externalLinks": [
+      {
+        "name": "String",
+        "url": "String"
+      }
+    ],
     "createdAt": "Date",
     "updatedAt": "Date",
     "downloadCount": "Number",
     "viewCount": "Number",
+    "favorites": [{ "type": "ObjectId", "ref": "User" }]
     "tags": ["String"],
     "categories": [{ "type": "String", "ref": "Category" }], // Updated to reference Category collection
     "averageRating": "Number", // Calculated field
@@ -109,12 +117,24 @@
       }
     ],
     "commentIds": ["ObjectId"], // References to Comments collection
-    "isFeatured": "Boolean",
+    "newRelease": "Boolean",
     "successVotes": {
       "likes": "Number",
       "dislikes": "Number",
-      "percentage": "Number" // Calculated as (likes / (likes + dislikes)) * 100
-    }
+      "percentage": "Number", // Calculated field
+      "userVotes": [
+          {
+            "userId": "ObjectId", // Reference to User
+            "vote": "String" // Either "like" or "dislike"
+          }
+      ]
+    },
+    "changelog": [
+      {
+        "date": "Date",
+        "description": "String" // Description of updates or changes
+      }
+    ]
   },
 
   "Category": {

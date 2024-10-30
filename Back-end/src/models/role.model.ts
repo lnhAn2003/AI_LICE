@@ -2,7 +2,7 @@ import mongoose, {Schema, Document} from "mongoose";
 
 export interface IRole extends Document {
     name: string;
-    permission: [string];
+    permission: string[];
     createdAt: Date;
     updatedAt: Date;
 };

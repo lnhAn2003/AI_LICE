@@ -5,13 +5,13 @@ export interface IComment extends Document {
     targetId: mongoose.Types.ObjectId;
     authorId: mongoose.Types.ObjectId;
     content: string;
-    createdAt: Date,
-    updatedAt: Date,
-    isEdited: boolean,
-    editHisory: [{
+    createdAt: Date;
+    updatedAt: Date;
+    isEdited: boolean;
+    editHisory: {
         content: string,
         editedAt: Date
-    }]
+    }[];
 };
 
 const CommentSchema: Schema<IComment> = new Schema({
