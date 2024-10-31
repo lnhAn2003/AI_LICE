@@ -3,11 +3,11 @@ import GameShared, { IGameShared } from "../models/gameshared.model";
 import User from "../models/user.model";
 
 class GameSharedService {
-    public async createGameShared(data: Partial<IGameShared>): Promise<IGameShared> {
-      const gameShared = new GameShared(data);
+    public async createGameShared(gameData: Partial<IGameShared>): Promise<IGameShared> {
+      const gameShared = new GameShared(gameData);
       const savedGame = await gameShared.save();
   
-      await User.findByIdAndUpdate(data.uploadedBy, {
+      await User.findByIdAndUpdate(gameData.uploadedBy, {
         $push: { gamesShared: savedGame._id }
       });
   
@@ -177,4 +177,4 @@ class GameSharedService {
 }
        
   
-  export default new GameSharedService();
+export default new GameSharedService();

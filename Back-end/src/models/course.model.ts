@@ -26,7 +26,6 @@ export interface ICourse extends Document {
         createdAt: Date;
     }[];
     favorites: mongoose.Types.ObjectId[];
-    commentIds: mongoose.Types.ObjectId[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -63,7 +62,6 @@ const CourseSchema: Schema<ICourse> = new Schema({
         }
     ],
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
-    commentIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comments' }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
