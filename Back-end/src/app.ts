@@ -11,6 +11,8 @@ import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import categoryRoutes from './routes/category.routes';
 import gamesharedRoutes from './routes/gameshared.routes';
+import courseRoutes from './routes/course.routes';
+import aiRoutes from './routes/ai.routes';
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/gameshared', gamesharedRoutes);
+app.use('/course', courseRoutes);
+app.use('/ai', aiRoutes);
 
 // Database Connection
 mongoose

@@ -140,7 +140,40 @@ class GameSharedService {
 
     await game.save();
     return game;
-}
+  }
+
+  public async searchGames(
+    query: { title?: string; categories?: string[], tags?: string[]; minRating?: number;},
+    page = 1,
+    limit = 10,
+    sortField: keyof IGameShared = 'createdAt',
+    sortOrder: 'asc' | 'desc' = 'desc'
+  ): Promise<IGameShared[]> {
+    const filter: any = {};
+
+    if (query.title) {
+      filter.title = new RegExp(query.title, 'i');
+    }
+
+    if (query.categories && query.categories.length > 0) {
+      filter.categories = { $in: query.categories.slice(0, 5) };
+    }
+
+    if (query.tags && query.tags.length > 0) {
+      filter.tags = { $all: query.tags };
+    }
+
+    if (query.minRating) {
+      filter.averageRating = { $gte: query.minRating };
+    }
+
+    const games = await GameShared.find(filter)
+      .sort({ [sortField]: sortOrder ===  'asc' ? 1 : -1 })
+      .skip(( page - 1) * limit)
+      .limit(limit);
+
+    return games;
+  }
 }
        
   

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import GameSharedService from "../services/gameshared.service";
 import mongoose from "mongoose";
+import { IGameShared } from "../models/gameshared.model";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -175,7 +176,30 @@ class GameSharedController {
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
-}
+  }
+
+  public async searchGames(req: Request, res: Response): Promise<void> {
+    try {
+      const { title, categories, tags, minRating } = req.query;
+      const page = parseInt(req.query.page as string, 10) || 1;
+      const limit = parseInt(req.query.limit as string, 10) || 10;
+      const sortField = (req.query.sortField as string) || 'createdAt';
+      const sortOrder = (req.query.sortOrder as string) || 'desc';
+
+      const games = await GameSharedService.searchGames({
+        title: title as string,
+        categories: categories ? (categories as string).split(',') : undefined,
+        tags: tags ? (tags as string).split(',') : undefined,
+        minRating: minRating ? parseFloat(minRating as string) : undefined
+      },
+      page, limit, sortField as keyof IGameShared, sortOrder as 'asc' | 'desc'
+    );
+
+    res.status(200).json(games);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 export default new GameSharedController();
