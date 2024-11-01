@@ -13,6 +13,7 @@ import categoryRoutes from './routes/category.routes';
 import gamesharedRoutes from './routes/gameshared.routes';
 import courseRoutes from './routes/course.routes';
 import aiRoutes from './routes/ai.routes';
+import logRoutes from './routes/log.routes';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/categories', categoryRoutes);
 app.use('/gameshared', gamesharedRoutes);
 app.use('/course', courseRoutes);
 app.use('/ai', aiRoutes);
+app.use('/logs', logRoutes);
 
 // Database Connection
 mongoose

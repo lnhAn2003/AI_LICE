@@ -7,10 +7,10 @@ export interface IPost extends Document {
     createdAt: Date;
     updatedAt: Date;
     isEdited: boolean;
-    editHistory: Array<{
+    editHistory: {
         content: string;
         editedAt: Date;
-    }>;
+    }[];
 }
 
 const PostSchema: Schema<IPost> = new Schema({

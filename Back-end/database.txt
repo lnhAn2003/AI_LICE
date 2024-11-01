@@ -169,12 +169,14 @@
   
   "Logs": {
     "_id": "ObjectId",
-    "eventType": "String", // e.g., "user_login", "data_export"
     "userId": "ObjectId", // Optional
-    "details": "String",
-    "ipAddress": "String",
-    "userAgent": "String",
-    "createdAt": "Date"
+    "history": [{
+      "eventType": "String", // e.g., "user_login", "data_export"
+      "details": "String",
+      "ipAddress": "String",
+      "userAgent": "String",
+      "createdAt": "Date"
+    }]
   }
 
   "Courses": {
