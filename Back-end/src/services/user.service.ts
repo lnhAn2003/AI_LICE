@@ -1,6 +1,7 @@
-import User, { IUser } from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import bcrypt from 'bcrypt';
+import User, { IUser } from '../models/user.model';
 
 class UserService {
   public async register(userData: Partial<IUser>): Promise<IUser> {
@@ -52,6 +53,28 @@ class UserService {
 
   public async deleteUser(id: string): Promise<IUser | null> {
     return await User.findByIdAndDelete(id);
+  }
+
+  public async changePassword(id: string, oldPassword: string, newPassword: string): Promise<void> {
+    const user = await User.findById(id);
+        if (!user) throw new Error('User not found');
+
+        const isMatch = await user.comparePassword(oldPassword);
+        if (!isMatch) throw new Error('Incorrect old password');
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+  }
+
+  public async updateLastActiveStatus(userId: string, online: boolean): Promise<IUser | null> {
+    return await User.findByIdAndUpdate(
+      userId,
+      {
+        'status.online': online,
+        'status.lastActive': new Date(),
+      },
+      { new: true }
+    ).select('-password');
   }
 }
 

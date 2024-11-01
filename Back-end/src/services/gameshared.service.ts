@@ -45,7 +45,7 @@ class GameSharedService {
       await GameShared.findByIdAndUpdate(id, { $inc: { viewCount: 1 } });
     }
 
-    public async addRating(gameId: string, userId: string, ratingValue: number): Promise<IGameShared> {
+    public async addRating(gameId: string, userId: string, ratingValue: number, comment: string): Promise<IGameShared> {
       const game = await GameShared.findById(gameId);
       if (!game) throw new Error('Game not found');
 
@@ -58,6 +58,7 @@ class GameSharedService {
         game.ratings.push({
           userId: new mongoose.Types.ObjectId(userId),
           rating: ratingValue,
+          comment: comment,
           createdAt: new Date()
         });
         game.ratingCount += 1;

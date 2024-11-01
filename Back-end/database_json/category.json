@@ -1,0 +1,143 @@
+[
+    {
+      "_id": "horror",
+      "name": "Horror",
+      "description": "Games designed to scare and thrill players.",
+      "icon": "https://example.com/icons/horror.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "action",
+      "name": "Action",
+      "description": "Fast-paced games focusing on physical challenges.",
+      "icon": "https://example.com/icons/action.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "adventure",
+      "name": "Adventure",
+      "description": "Games with exploration and story-driven elements.",
+      "icon": "https://example.com/icons/adventure.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "rpg",
+      "name": "RPG",
+      "description": "Role-playing games where players control characters in a fictional setting.",
+      "icon": "https://example.com/icons/rpg.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "strategy",
+      "name": "Strategy",
+      "description": "Games that require careful planning and tactics.",
+      "icon": "https://example.com/icons/strategy.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "puzzle",
+      "name": "Puzzle",
+      "description": "Games focused on problem-solving and logic challenges.",
+      "icon": "https://example.com/icons/puzzle.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "simulation",
+      "name": "Simulation",
+      "description": "Games that mimic real-life activities.",
+      "icon": "https://example.com/icons/simulation.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "sports",
+      "name": "Sports",
+      "description": "Games that simulate real-world sports.",
+      "icon": "https://example.com/icons/sports.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "fighting",
+      "name": "Fighting",
+      "description": "Games that focus on close combat between characters.",
+      "icon": "https://example.com/icons/fighting.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "racing",
+      "name": "Racing",
+      "description": "Games where players compete in races.",
+      "icon": "https://example.com/icons/racing.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "sandbox",
+      "name": "Sandbox",
+      "description": "Games that allow players to create, modify, or destroy their environment.",
+      "icon": "https://example.com/icons/sandbox.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "arcade",
+      "name": "Arcade",
+      "description": "Fast-paced games with simple controls.",
+      "icon": "https://example.com/icons/arcade.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "shooter",
+      "name": "Shooter",
+      "description": "Games that focus on ranged combat with guns or projectiles.",
+      "icon": "https://example.com/icons/shooter.png",
+      "parentCategory": "action"
+    },
+    {
+      "_id": "stealth",
+      "name": "Stealth",
+      "description": "Games where players must avoid detection.",
+      "icon": "https://example.com/icons/stealth.png",
+      "parentCategory": "action"
+    },
+    {
+      "_id": "towerdefense",
+      "name": "Tower Defense",
+      "description": "Games where players defend their base by placing obstacles.",
+      "icon": "https://example.com/icons/towerdefense.png",
+      "parentCategory": "strategy"
+    },
+    {
+      "_id": "music",
+      "name": "Music",
+      "description": "Games that focus on music and rhythm.",
+      "icon": "https://example.com/icons/music.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "platformer",
+      "name": "Platformer",
+      "description": "Games focused on jumping and climbing to reach objectives.",
+      "icon": "https://example.com/icons/platformer.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "survival",
+      "name": "Survival",
+      "description": "Games where players must survive hostile environments.",
+      "icon": "https://example.com/icons/survival.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "visualnovel",
+      "name": "Visual Novel",
+      "description": "Interactive games that focus on storytelling.",
+      "icon": "https://example.com/icons/visualnovel.png",
+      "parentCategory": null
+    },
+    {
+      "_id": "battle_royale",
+      "name": "Battle Royale",
+      "description": "Multiplayer games where players compete until only one remains.",
+      "icon": "https://example.com/icons/battleroyale.png",
+      "parentCategory": "shooter"
+    }
+  ]
+  

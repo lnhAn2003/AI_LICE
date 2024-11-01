@@ -221,7 +221,6 @@
   ],
   
   "favorites": [{ "type": "ObjectId", "ref": "Users" }], // Danh sách người dùng đã yêu thích khóa học
-  "commentIds": [{ "type": "ObjectId", "ref": "Comments" }] // Tham chiếu đến các bình luận cho khóa học
   }
 
 }

@@ -1,0 +1,183 @@
+[
+    {
+      "title": "Introduction to Game Development",
+      "description": "A beginner-friendly course covering the basics of game development.",
+      "createdBy": "603e2f1c4c9b1a001f8b4567",
+      "content": [
+        {
+          "sectionTitle": "Getting Started",
+          "lessons": [
+            {
+              "title": "Overview of Game Development",
+              "videoUrl": "https://example.com/videos/intro_game_dev.mp4",
+              "textContent": "An introduction to the world of game development.",
+              "resources": [
+                { "name": "Course Slides", "url": "https://example.com/resources/intro_slides.pdf" }
+              ],
+              "createdAt": "2024-01-05T10:00:00Z",
+              "updatedAt": "2024-01-05T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["game development", "beginner"],
+      "categories": ["education", "game design"],
+      "averageRating": 4.8,
+      "ratingCount": 5,
+      "ratings": [
+        {
+          "userId": "603e2f1c4c9b1a001f8b4568",
+          "rating": 5,
+          "comment": "Great starting point for beginners!",
+          "createdAt": "2024-01-10T10:00:00Z"
+        }
+      ],
+      "favorites": ["603e2f1c4c9b1a001f8b4568"],
+      "createdAt": "2024-01-01T10:00:00Z",
+      "updatedAt": "2024-01-10T10:00:00Z"
+    },
+    {
+      "title": "Advanced Game Physics",
+      "description": "Explore the physics behind realistic game mechanics.",
+      "createdBy": "603e2f1c4c9b1a001f8b4568",
+      "content": [
+        {
+          "sectionTitle": "Physics Concepts",
+          "lessons": [
+            {
+              "title": "Understanding Rigid Body Dynamics",
+              "videoUrl": "https://example.com/videos/rigid_body.mp4",
+              "textContent": "Detailed coverage of rigid body dynamics.",
+              "resources": [
+                { "name": "Physics Simulation Examples", "url": "https://example.com/resources/physics_examples.zip" }
+              ],
+              "createdAt": "2024-01-07T10:00:00Z",
+              "updatedAt": "2024-01-07T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["physics", "advanced"],
+      "categories": ["game design", "physics"],
+      "averageRating": 4.5,
+      "ratingCount": 10,
+      "ratings": [
+        {
+          "userId": "603e2f1c4c9b1a001f8b4567",
+          "rating": 4,
+          "comment": "Informative, but could use more examples.",
+          "createdAt": "2024-01-15T10:00:00Z"
+        }
+      ],
+      "favorites": ["603e2f1c4c9b1a001f8b4569"],
+      "createdAt": "2024-01-03T10:00:00Z",
+      "updatedAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "title": "Unity Game Development Essentials",
+      "description": "Learn the basics of game development using Unity.",
+      "createdBy": "603e2f1c4c9b1a001f8b4569",
+      "content": [
+        {
+          "sectionTitle": "Unity Basics",
+          "lessons": [
+            {
+              "title": "Setting Up Unity",
+              "videoUrl": "https://example.com/videos/setup_unity.mp4",
+              "textContent": "Guide to setting up the Unity development environment.",
+              "resources": [],
+              "createdAt": "2024-01-08T10:00:00Z",
+              "updatedAt": "2024-01-08T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["unity", "game development"],
+      "categories": ["software", "game development"],
+      "averageRating": 4.0,
+      "ratingCount": 8,
+      "ratings": [
+        {
+          "userId": "603e2f1c4c9b1a001f8b4568",
+          "rating": 4,
+          "comment": "Good intro to Unity.",
+          "createdAt": "2024-01-12T10:00:00Z"
+        }
+      ],
+      "favorites": ["603e2f1c4c9b1a001f8b4571"],
+      "createdAt": "2024-01-06T10:00:00Z",
+      "updatedAt": "2024-01-12T10:00:00Z"
+    },
+    {
+      "title": "3D Modeling for Games",
+      "description": "A course on creating 3D models for games.",
+      "createdBy": "603e2f1c4c9b1a001f8b4570",
+      "content": [
+        {
+          "sectionTitle": "Introduction to 3D Modeling",
+          "lessons": [
+            {
+              "title": "Creating Basic Shapes",
+              "textContent": "Learn to create basic 3D shapes in Blender.",
+              "resources": [],
+              "createdAt": "2024-01-09T10:00:00Z",
+              "updatedAt": "2024-01-09T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["3d modeling", "blender"],
+      "categories": ["art", "3d design"],
+      "averageRating": 3.9,
+      "ratingCount": 7,
+      "ratings": [
+        {
+          "userId": "603e2f1c4c9b1a001f8b4571",
+          "rating": 4,
+          "comment": "Helpful for beginners.",
+          "createdAt": "2024-01-13T10:00:00Z"
+        }
+      ],
+      "favorites": ["603e2f1c4c9b1a001f8b4568"],
+      "createdAt": "2024-01-07T10:00:00Z",
+      "updatedAt": "2024-01-13T10:00:00Z"
+    },
+    {
+      "title": "Level Design Fundamentals",
+      "description": "Covers the fundamentals of creating engaging game levels.",
+      "createdBy": "603e2f1c4c9b1a001f8b4571",
+      "content": [
+        {
+          "sectionTitle": "Basics of Level Design",
+          "lessons": [
+            {
+              "title": "What Makes a Great Level?",
+              "videoUrl": "https://example.com/videos/great_level.mp4",
+              "textContent": "Discusses key elements of engaging level design.",
+              "resources": [
+                { "name": "Reference Images", "url": "https://example.com/resources/level_references.zip" }
+              ],
+              "createdAt": "2024-01-11T10:00:00Z",
+              "updatedAt": "2024-01-11T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["level design", "game design"],
+      "categories": ["game design"],
+      "averageRating": 4.2,
+      "ratingCount": 12,
+      "ratings": [
+        {
+          "userId": "603e2f1c4c9b1a001f8b4567",
+          "rating": 5,
+          "comment": "Great insights into level design.",
+          "createdAt": "2024-01-16T10:00:00Z"
+        }
+      ],
+      "favorites": ["603e2f1c4c9b1a001f8b4570"],
+      "createdAt": "2024-01-10T10:00:00Z",
+      "updatedAt": "2024-01-16T10:00:00Z"
+    }
+  ]
+  

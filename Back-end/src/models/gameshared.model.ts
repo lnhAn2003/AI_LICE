@@ -22,9 +22,9 @@ export interface IGameShared extends Document {
     ratings: {
         userId: mongoose.Types.ObjectId;
         rating: number;
+        comment: string;
         createdAt: Date;
     }[];
-    commentIds: mongoose.Types.ObjectId[];
     newRelease: boolean;
     version: string;
     successVotes: {
@@ -67,10 +67,10 @@ const GameSharedSchema: Schema<IGameShared> = new Schema({
         {
             userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
             rating: { type: Number, required: true },
+            comment: { type: String },
             createdAt: { type: Date, default: Date.now }
         }
     ],
-    commentIds: [{ type: mongoose.Schema.Types.ObjectId }],
     newRelease: { type: Boolean, default: true },
     version: { type: String, default: 'v1.0.0'},
     successVotes: {

@@ -1,0 +1,122 @@
+[
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4578",
+        "authorId": "603e2f1c4c9b1a001f8b4568",
+        "content": "Amazing course for beginners!",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4578",
+        "authorId": "603e2f1c4c9b1a001f8b4567",
+        "content": "Covers all the basics well.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4578",
+        "authorId": "603e2f1c4c9b1a001f8b4569",
+        "content": "Helped me understand game dev concepts easily.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4579",
+        "authorId": "603e2f1c4c9b1a001f8b4570",
+        "content": "Complex but very informative!",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4579",
+        "authorId": "603e2f1c4c9b1a001f8b4567",
+        "content": "Great explanations of physics concepts.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4579",
+        "authorId": "603e2f1c4c9b1a001f8b4569",
+        "content": "Loved the practical examples.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4580",
+        "authorId": "603e2f1c4c9b1a001f8b4568",
+        "content": "Great intro to Unity!",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4580",
+        "authorId": "603e2f1c4c9b1a001f8b4567",
+        "content": "Helpful for setting up and understanding basics.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4580",
+        "authorId": "603e2f1c4c9b1a001f8b4571",
+        "content": "A bit basic, but a solid foundation.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4581",
+        "authorId": "603e2f1c4c9b1a001f8b4568",
+        "content": "Learned so much about 3D modeling!",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4581",
+        "authorId": "603e2f1c4c9b1a001f8b4570",
+        "content": "Perfect for beginners in 3D.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4581",
+        "authorId": "603e2f1c4c9b1a001f8b4571",
+        "content": "Detailed and easy to understand.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4582",
+        "authorId": "603e2f1c4c9b1a001f8b4569",
+        "content": "Very insightful on level design basics.",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4582",
+        "authorId": "603e2f1c4c9b1a001f8b4570",
+        "content": "Loved the examples provided!",
+        "isEdited": false,
+        "editHistory": []
+    },
+    {
+        "targetType": "Course",
+        "targetId": "603e2f1c4c9b1a001f8b4582",
+        "authorId": "603e2f1c4c9b1a001f8b4568",
+        "content": "Gives a clear understanding of level design.",
+        "isEdited": false,
+        "editHistory": []
+    }
+]
