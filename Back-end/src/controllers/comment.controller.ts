@@ -73,7 +73,7 @@ class CommentController {
         }
     }
 
-    public async deleteComment(req: AuthRequest, res: Response): Promise<void> {
+    public async softDeleteComment(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user as { id: string };
             if (!user) {
@@ -81,7 +81,7 @@ class CommentController {
                 return;
             }
 
-            const comment = await CommentService.deleteComment(req.params.id);
+            const comment = await CommentService.softDeleteComment(req.params.id);
             if (!comment) {
                 res.status(404).json({ message: 'Comment not found' });
             } else {

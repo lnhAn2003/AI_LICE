@@ -56,7 +56,6 @@ const UserSchema: Schema<IUser> = new Schema({
   aiInteractions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AIInteraction' }],
 });
 
-// Hash password before saving
 UserSchema.pre<IUser>('save', async function (next) {
   if (this.isModified('password')) {
     const saltRounds = 10;
@@ -65,7 +64,6 @@ UserSchema.pre<IUser>('save', async function (next) {
   next();
 });
 
-// Compare password method
 UserSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
 };
