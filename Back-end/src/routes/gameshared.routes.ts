@@ -10,7 +10,7 @@ const router = Router();
 router.post("/", authenticateJWT, logActivity('user_created_game'), gameSharedController.createGameShared.bind(gameSharedController));
 
 // Get all games with activity logging
-router.get("/", authenticateJWT, logActivity('user_viewed_all_games'), gameSharedController.getAllGameShared.bind(gameSharedController));
+router.get("/", gameSharedController.getAllGameShared.bind(gameSharedController));
 
 // Search games
 router.get('/search', gameSharedController.searchGames.bind(gameSharedController));

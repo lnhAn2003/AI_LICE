@@ -85,7 +85,7 @@ class GameSharedController {
     try {
       const { id: gameId } = req.params;
       const userId = req.user?.id;
-      const { rating } = req.body;
+      const { comment, rating } = req.body;
 
       if (!userId) {
         res.status(401).json({ message: 'Unauthorized' });
@@ -97,7 +97,7 @@ class GameSharedController {
         return;
       }
 
-      const updateGame = await GameSharedService.addRating(gameId, userId, rating);
+      const updateGame = await GameSharedService.addRating(gameId, userId, comment, rating);
       res.status(200).json(updateGame);
     } catch (error: any) {
       res.status(500).json({ message: error.message });

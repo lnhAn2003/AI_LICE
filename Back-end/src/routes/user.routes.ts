@@ -25,4 +25,7 @@ router.put('/:id', authenticateJWT, checkUserOwner, logActivity('User_updated_pr
 // Delete a user account (authentication and ownership check required)
 router.delete('/:id', authenticateJWT, checkUserOwner, logActivity('User_deleted_profile'), UserController.deleteUser.bind(UserController));
 
+// Password change
+router.patch('/changepassword', authenticateJWT, passwordValidation, UserController.changePassword.bind(UserController));
+
 export default router;

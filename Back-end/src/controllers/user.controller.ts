@@ -3,6 +3,10 @@ import UserService from '../services/user.service';
 import LogService from "../services/log.service";
 import mongoose from "mongoose";
 
+export interface AuthRequest extends Request {
+  user?: any;
+}
+
 class UserController {
   public async register(req: Request, res: Response): Promise<void> {
     try {
@@ -10,7 +14,7 @@ class UserController {
       const userId = user._id as mongoose.Types.ObjectId;
 
       await LogService.addEventToLog({
-        eventType: "user_login",
+        eventType: "user_register",
         userId,
         details: "User register in successfully",
         ipAddress: req.ip || "Unknow IP",
@@ -83,6 +87,24 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   }
+
+  public async changePassword(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      const userId = req.user.id; 
+
+      if (!oldPassword || !newPassword) {
+        res.status(400).json({ message: 'Old password and new password are required' });
+        return;
+      }
+
+      await UserService.changePassword(userId, oldPassword, newPassword);
+      res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
 }
 
 export default new UserController();

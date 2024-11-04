@@ -32,16 +32,16 @@ export interface ICourse extends Document {
 
 const CourseSchema: Schema<ICourse> = new Schema({
     title: { type: String, required: true },
-    description: String,
+    description: { type: String },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
     content: [
         {
-            sectionTitle: String,
+            sectionTitle: { type: String },
             lessons: [
                 {
-                    title: String,
-                    videoUrl: String,
-                    textContent: String,
+                    title: { type: String },
+                    videoUrl: { type: String },
+                    textContent: { type: String },
                     resources: [{ name: String, url: String }],
                     createdAt: { type: Date, default: Date.now },
                     updatedAt: { type: Date, default: Date.now }
@@ -49,7 +49,7 @@ const CourseSchema: Schema<ICourse> = new Schema({
             ]
         }
     ],
-    tags: [String],
+    tags: [{type: String}],
     categories: [{ type: String, ref: 'Category' }],
     averageRating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
@@ -57,7 +57,7 @@ const CourseSchema: Schema<ICourse> = new Schema({
         {
             userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
             rating: { type: Number, min: 1, max: 5 },
-            comment: String,
+            comment: { type: String },
             createdAt: { type: Date, default: Date.now }
         }
     ],
