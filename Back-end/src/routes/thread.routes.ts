@@ -25,6 +25,6 @@ router.put('/:id', authenticateJWT, checkThreadOwner, logActivity('user_updated_
 router.delete('/:id', authenticateJWT, checkThreadOwner, logActivity('user_soft_deleted_thread'), ThreadController.softDeleteThread.bind(ThreadController));
 
 // Delete a thread (authentication and ownership check required, activity logged)
-router.delete('/:id', authenticateJWT, checkThreadOwner, logActivity('user_deleted_thread'), ThreadController.deleteThread.bind(ThreadController));
+router.delete('/permanentDel/:id', authenticateJWT, checkThreadOwner, logActivity('user_deleted_thread'), ThreadController.deleteThread.bind(ThreadController));
 
 export default router;

@@ -1,227 +1,106 @@
 [
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "I love horror games that have great storylines. Any recommendations?",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "For horror games, I recommend Resident Evil series and Silent Hill.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Outlast is terrifying and really immersive. A must-play!",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "Looking for some fast-paced action games to try.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "Try Doom Eternal or Devil May Cry!",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4570",
-      "content": "Bayonetta is also a great action game with a unique combat system.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "Can’t believe how intense Sekiro is! Great action game.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "Developers, what puzzle games have you worked on?",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "I recently created a mobile game with logic puzzles.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "I'm interested in hearing about unique puzzle mechanics.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "content": "Has anyone played Monument Valley? Beautiful puzzle game.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Puzzle games are great for developing problem-solving skills.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "RPG fans, what do you think matters more: story or gameplay?",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "I think both are important, but story pulls me in more.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Gameplay is crucial for RPGs, or it can get boring fast.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4570",
-      "content": "I'm working on a story-driven RPG, excited to share!",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "RPGs need a balance of both story and engaging mechanics.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "What are your favorite classic arcade games?",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "content": "Pac-Man and Galaga are my all-time favorites.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Space Invaders is a classic that never gets old.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "Donkey Kong has such simple mechanics, yet so fun!",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4570",
-      "content": "I always play Tetris when I want to relax and unwind.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "content": "Silent Hill 2 is my top horror game. The atmosphere is perfect.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Fatal Frame is underrated, and it's absolutely chilling.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4571",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "I'd love to see more RPGs with innovative combat systems.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "Creating puzzles is one of the hardest parts of game dev.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "content": "Max Payne is a fantastic action game with an incredible story.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4569",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "content": "The latest Devil May Cry was awesome!",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4570",
-      "content": "Frogger is another arcade game that everyone should try.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4568",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "content": "Dead Space is a unique blend of action and horror.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4570",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "content": "Escape rooms are also a great source of inspiration for puzzles.",
-      "isEdited": false,
-      "editHistory": []
-    },
-    {
-      "threadId": "603e2f1c4c9b1a001f8b4572",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "content": "Q*bert is a simple yet challenging arcade classic.",
-      "isEdited": false,
-      "editHistory": []
-    }
-  ]
+  {
+      "threadId": "672988d5d863b18b95a580b8",
+      "content": "If you’re into horror games that truly get under your skin, I recommend *Amnesia: The Dark Descent*! It's older, but the atmosphere and sound design are incredible. Anyone else have some eerie favorites?"
+  },
+  {
+      "threadId": "672988d5d863b18b95a580b8",
+      "content": "Recently played *Outlast*, and honestly, it’s terrifying. The story and suspense keep you on edge the whole time. Any similar games you’d suggest?"
+  },
+  {
+      "threadId": "672988d5d863b18b95a580b8",
+      "content": "For psychological horror, *Silent Hill 2* is still unmatched in my opinion. Love how the story messes with your mind!"
+  },
+  {
+      "threadId": "672988d5d863b18b95a580b8",
+      "content": "Has anyone tried *Phasmophobia* with friends? The ghost hunts get so intense, and playing with others makes it even better!"
+  },
+  {
+      "threadId": "672988d5d863b18b95a580b8",
+      "content": "I’m curious if anyone’s played *Resident Evil Village*—it’s more action but has some really creepy moments too. Thoughts?"
+  },
   
+  {
+      "threadId": "672988ddd863b18b95a580c1",
+      "content": "For action-packed games, I still love *DOOM Eternal*. The fast-paced gameplay and music are on another level!"
+  },
+  {
+      "threadId": "672988ddd863b18b95a580c1",
+      "content": "What’s everyone’s opinion on *Ghost of Tsushima*? I thought the combat and open world were beautifully done. Samurai vibes are strong here!"
+  },
+  {
+      "threadId": "672988ddd863b18b95a580c1",
+      "content": "I’ve been diving into *Devil May Cry 5* recently, and the combat system is a blast! Anyone else a fan of the series?"
+  },
+  {
+      "threadId": "672988ddd863b18b95a580c1",
+      "content": "If you like adrenaline-filled games, *Sekiro: Shadows Die Twice* is worth a try! It's tough, but super rewarding once you get the hang of it."
+  },
+  {
+      "threadId": "672988ddd863b18b95a580c1",
+      "content": "Anyone here played *God of War (2018)*? The combat feels so satisfying, especially with the Leviathan Axe!"
+  },
+  
+  {
+      "threadId": "672988f5d863b18b95a580d2",
+      "content": "Puzzle game devs, how do you make sure your puzzles stay engaging without being frustrating? Balance seems tricky."
+  },
+  {
+      "threadId": "672988f5d863b18b95a580d2",
+      "content": "I find that adding visual clues or hints helps players without making things too easy. Any tips on how to build those into a puzzle game?"
+  },
+  {
+      "threadId": "672988f5d863b18b95a580d2",
+      "content": "Do you prefer puzzles that have a logical solution or ones that require more trial and error? I’d love to know everyone’s thoughts."
+  },
+  {
+      "threadId": "672988f5d863b18b95a580d2",
+      "content": "I’m working on a puzzle game and wondering about difficulty scaling. Do you start easy and gradually increase, or mix it up?"
+  },
+  {
+      "threadId": "672988f5d863b18b95a580d2",
+      "content": "What are some fun ways to reward players after solving a puzzle? Looking for ideas to keep them motivated!"
+  },
+  
+  {
+      "threadId": "6729890ad863b18b95a580dd",
+      "content": "In RPGs, I lean towards games with deep storylines, but I’ve seen debates where people prefer gameplay. Where do you all stand?"
+  },
+  {
+      "threadId": "6729890ad863b18b95a580dd",
+      "content": "Does anyone else think that a strong story can make up for less exciting gameplay in RPGs, or is gameplay always king?"
+  },
+  {
+      "threadId": "6729890ad863b18b95a580dd",
+      "content": "I’m working on an RPG concept and debating how to balance story with engaging combat. What do you all prefer more?"
+  },
+  {
+      "threadId": "6729890ad863b18b95a580dd",
+      "content": "Games like *The Witcher 3* do an amazing job blending story and gameplay, IMO. But some games struggle with this balance. Thoughts?"
+  },
+  {
+      "threadId": "6729890ad863b18b95a580dd",
+      "content": "For RPG developers, any tips on how to design a story that players actually care about while keeping the gameplay engaging?"
+  },
+  
+  {
+      "threadId": "67298931d863b18b95a580ee",
+      "content": "Arcade classics never get old! *Pac-Man* and *Galaga* are still just as fun as they were back in the day."
+  },
+  {
+      "threadId": "67298931d863b18b95a580ee",
+      "content": "*Street Fighter II* was always my favorite in the arcades. Anyone else a fan of fighting games from that era?"
+  },
+  {
+      "threadId": "67298931d863b18b95a580ee",
+      "content": "*Donkey Kong* brings back so many memories! What are your favorite classic arcade games?"
+  },
+  {
+      "threadId": "67298931d863b18b95a580ee",
+      "content": "*Asteroids* and *Space Invaders* were the best! Love how simple but addictive they were."
+  },
+  {
+      "threadId": "67298931d863b18b95a580ee",
+      "content": "Playing *Tetris* in the arcade was the ultimate challenge. Anyone still get competitive with friends over it?"
+  }
+]

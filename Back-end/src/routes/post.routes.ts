@@ -15,6 +15,12 @@ router.get('/', PostController.getPosts.bind(PostController));
 // Get a specific post by ID
 router.get('/:id', PostController.getPostById.bind(PostController));
 
+// Get posts by user ID
+router.get('/user/:userId', PostController.getPostsByUserId.bind(PostController));
+
+// Get posts by thread ID
+router.get('/thread/:threadId', PostController.getPostsByThreadId.bind(PostController));
+
 // Update a post (authentication and ownership check required, activity logged)
 router.put('/:id', authenticateJWT, checkPostOwner, logActivity('user_updated_post'), PostController.updatePost.bind(PostController));
 

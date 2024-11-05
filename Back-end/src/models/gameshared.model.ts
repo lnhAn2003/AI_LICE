@@ -17,6 +17,7 @@ export interface IGameShared extends Document {
     favorites: mongoose.Types.ObjectId[];
     tags: string[];
     categories: string[];
+    commentId: mongoose.Types.ObjectId[];
     averageRating: number;
     ratingCount: number;
     ratings: {
@@ -61,6 +62,7 @@ const GameSharedSchema: Schema<IGameShared> = new Schema({
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     tags: [{ type: String }],
     categories: [{ type: String, ref: 'Category' }],
+    commentId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     averageRating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
     ratings: [

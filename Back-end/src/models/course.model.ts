@@ -17,6 +17,7 @@ export interface ICourse extends Document {
     }[];
     tags: string[];
     categories: string[];
+    commentId: mongoose.Types.ObjectId[];
     averageRating: number;
     ratingCount: number;
     ratings: {
@@ -51,6 +52,7 @@ const CourseSchema: Schema<ICourse> = new Schema({
     ],
     tags: [{type: String}],
     categories: [{ type: String, ref: 'Category' }],
+    commentId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     averageRating: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
     ratings: [
