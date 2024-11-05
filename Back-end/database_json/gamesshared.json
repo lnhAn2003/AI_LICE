@@ -1,198 +1,97 @@
 [
-    {
-      "title": "Horror Escape",
-      "description": "A thrilling escape game set in a haunted mansion.",
-      "uploadedBy": "603e2f1c4c9b1a001f8b4567",
-      "images": ["https://example.com/images/horror_escape_1.png"],
-      "fileUrl": "https://example.com/files/horror_escape.zip",
-      "externalLinks": [{ "name": "Official Trailer", "url": "https://youtube.com/horror_escape_trailer" }],
-      "downloadCount": 100,
-      "viewCount": 500,
-      "favorites": ["603e2f1c4c9b1a001f8b4568"],
-      "tags": ["horror", "escape"],
-      "categories": ["horror", "puzzle"],
-      "averageRating": 4.5,
-      "ratingCount": 10,
-      "ratings": [
-        {
-          "userId": "603e2f1c4c9b1a001f8b4568",
-          "rating": 5,
-          "comment": "Incredibly immersive and scary!",
-          "createdAt": "2024-10-10T10:00:00Z"
-        }
-      ],
-      "newRelease": true,
-      "version": "v1.0.0",
-      "successVotes": {
-        "likes": 30,
-        "dislikes": 5,
-        "percentage": 85,
-        "userVotes": [
-          { "userId": "603e2f1c4c9b1a001f8b4569", "vote": "like" }
-        ]
-      },
-      "changelog": [
-        {
-          "date": "2024-11-01T10:00:00Z",
-          "description": "Initial release of Horror Escape."
-        }
-      ]
-    },
-    {
-      "title": "Fast Track Racing",
-      "description": "An exhilarating racing game with realistic graphics.",
-      "uploadedBy": "603e2f1c4c9b1a001f8b4568",
-      "images": ["https://example.com/images/fast_track_1.png"],
-      "fileUrl": "https://example.com/files/fast_track.zip",
-      "externalLinks": [{ "name": "Gameplay Video", "url": "https://youtube.com/fast_track_gameplay" }],
-      "downloadCount": 200,
-      "viewCount": 800,
-      "favorites": ["603e2f1c4c9b1a001f8b4567", "603e2f1c4c9b1a001f8b4569"],
-      "tags": ["racing", "sports"],
-      "categories": ["racing", "sports"],
-      "averageRating": 4.8,
-      "ratingCount": 15,
-      "ratings": [
-        {
-          "userId": "603e2f1c4c9b1a001f8b4569",
-          "rating": 5,
-          "comment": "The best racing game I’ve played.",
-          "createdAt": "2024-10-15T14:00:00Z"
-        }
-      ],
-      "newRelease": true,
-      "version": "v1.0.0",
-      "successVotes": {
-        "likes": 50,
-        "dislikes": 2,
-        "percentage": 96,
-        "userVotes": [
-          { "userId": "603e2f1c4c9b1a001f8b4567", "vote": "like" }
-        ]
-      },
-      "changelog": [
-        {
-          "date": "2024-10-20T10:00:00Z",
-          "description": "Initial release of Fast Track Racing."
-        }
-      ]
-    },
-    {
-      "title": "Mystery Dungeon",
-      "description": "An RPG adventure set in a mysterious dungeon.",
-      "uploadedBy": "603e2f1c4c9b1a001f8b4569",
-      "images": ["https://example.com/images/mystery_dungeon_1.png"],
-      "fileUrl": "https://example.com/files/mystery_dungeon.zip",
-      "externalLinks": [{ "name": "Gameplay Walkthrough", "url": "https://youtube.com/mystery_dungeon_walkthrough" }],
-      "downloadCount": 150,
-      "viewCount": 700,
-      "favorites": ["603e2f1c4c9b1a001f8b4568"],
-      "tags": ["RPG", "dungeon"],
-      "categories": ["rpg", "adventure"],
-      "averageRating": 4.2,
-      "ratingCount": 8,
-      "ratings": [
-        {
-          "userId": "603e2f1c4c9b1a001f8b4568",
-          "rating": 4,
-          "comment": "Great atmosphere and engaging gameplay.",
-          "createdAt": "2024-10-05T10:00:00Z"
-        }
-      ],
-      "newRelease": true,
-      "version": "v1.0.0",
-      "successVotes": {
-        "likes": 20,
-        "dislikes": 5,
-        "percentage": 80,
-        "userVotes": [
-          { "userId": "603e2f1c4c9b1a001f8b4567", "vote": "like" }
-        ]
-      },
-      "changelog": [
-        {
-          "date": "2024-09-30T10:00:00Z",
-          "description": "Initial release of Mystery Dungeon."
-        }
-      ]
-    },
-    {
-      "title": "Puzzle Paradise",
-      "description": "A challenging puzzle game for all ages.",
-      "uploadedBy": "603e2f1c4c9b1a001f8b4569",
-      "images": ["https://example.com/images/puzzle_paradise_1.png"],
-      "fileUrl": "https://example.com/files/puzzle_paradise.zip",
-      "externalLinks": [],
-      "downloadCount": 300,
-      "viewCount": 1500,
-      "favorites": ["603e2f1c4c9b1a001f8b4570"],
-      "tags": ["puzzle", "logic"],
-      "categories": ["puzzle"],
-      "averageRating": 4.9,
-      "ratingCount": 20,
-      "ratings": [
-        {
-          "userId": "603e2f1c4c9b1a001f8b4570",
-          "rating": 5,
-          "comment": "One of the best puzzle games out there.",
-          "createdAt": "2024-09-15T10:00:00Z"
-        }
-      ],
-      "newRelease": true,
-      "version": "v1.1.0",
-      "successVotes": {
-        "likes": 100,
-        "dislikes": 1,
-        "percentage": 99,
-        "userVotes": [
-          { "userId": "603e2f1c4c9b1a001f8b4568", "vote": "like" }
-        ]
-      },
-      "changelog": [
-        {
-          "date": "2024-10-01T10:00:00Z",
-          "description": "Update with more challenging levels."
-        }
-      ]
-    },
-    {
-      "title": "Zombie Survival",
-      "description": "A survival game in a post-apocalyptic zombie world.",
-      "uploadedBy": "603e2f1c4c9b1a001f8b4570",
-      "images": ["https://example.com/images/zombie_survival_1.png"],
-      "fileUrl": "https://example.com/files/zombie_survival.zip",
-      "externalLinks": [{ "name": "Trailer", "url": "https://youtube.com/zombie_survival_trailer" }],
-      "downloadCount": 400,
-      "viewCount": 2000,
-      "favorites": ["603e2f1c4c9b1a001f8b4571"],
-      "tags": ["zombie", "survival"],
-      "categories": ["survival", "horror"],
-      "averageRating": 4.7,
-      "ratingCount": 25,
-      "ratings": [
-        {
-          "userId": "603e2f1c4c9b1a001f8b4571",
-          "rating": 5,
-          "comment": "Survival mechanics are well-designed.",
-          "createdAt": "2024-08-20T10:00:00Z"
-        }
-      ],
-      "newRelease": false,
-      "version": "v2.0.0",
-      "successVotes": {
-        "likes": 150,
-        "dislikes": 10,
-        "percentage": 94,
-        "userVotes": [
-          { "userId": "603e2f1c4c9b1a001f8b4567", "vote": "like" }
-        ]
-      },
-      "changelog": [
-        {
-          "date": "2024-07-01T10:00:00Z",
-          "description": "Added new weapons and survival mechanics."
-        }
-      ]
-    }
-  ]
-  
+  {
+    "title": "Horror Escape",
+    "description": "A thrilling escape game set in a haunted mansion.",
+    "images": ["https://example.com/images/horror_escape_1.png"],
+    "fileUrl": "https://example.com/files/horror_escape.zip",
+    "externalLinks": [{ "name": "Official Trailer", "url": "https://youtube.com/horror_escape_trailer" }],
+    "downloadCount": 100,
+    "viewCount": 500,
+    "tags": ["horror", "escape"],
+    "categories": ["horror", "puzzle"],
+    "newRelease": true,
+    "version": "v1.0.0",
+    "changelog": [
+      {
+        "date": "2024-11-01T10:00:00Z",
+        "description": "Initial release of Horror Escape."
+      }
+    ]
+  },
+  {
+    "title": "Fast Track Racing",
+    "description": "An exhilarating racing game with realistic graphics.",
+    "images": ["https://example.com/images/fast_track_1.png"],
+    "fileUrl": "https://example.com/files/fast_track.zip",
+    "externalLinks": [{ "name": "Gameplay Video", "url": "https://youtube.com/fast_track_gameplay" }],
+    "downloadCount": 200,
+    "viewCount": 800,
+    "tags": ["racing", "sports"],
+    "categories": ["racing", "sports"],
+    "newRelease": true,
+    "version": "v1.0.0",
+    "changelog": [
+      {
+        "date": "2024-10-20T10:00:00Z",
+        "description": "Initial release of Fast Track Racing."
+      }
+    ]
+  },
+  {
+    "title": "Mystery Dungeon",
+    "description": "An RPG adventure set in a mysterious dungeon.",
+    "images": ["https://example.com/images/mystery_dungeon_1.png"],
+    "fileUrl": "https://example.com/files/mystery_dungeon.zip",
+    "externalLinks": [{ "name": "Gameplay Walkthrough", "url": "https://youtube.com/mystery_dungeon_walkthrough" }],
+    "downloadCount": 150,
+    "viewCount": 700,
+    "tags": ["RPG", "dungeon"],
+    "categories": ["rpg", "adventure"],
+    "newRelease": true,
+    "version": "v1.0.0",
+    "changelog": [
+      {
+        "date": "2024-09-30T10:00:00Z",
+        "description": "Initial release of Mystery Dungeon."
+      }
+    ]
+  },
+  {
+    "title": "Puzzle Paradise",
+    "description": "A challenging puzzle game for all ages.",
+    "images": ["https://example.com/images/puzzle_paradise_1.png"],
+    "fileUrl": "https://example.com/files/puzzle_paradise.zip",
+    "externalLinks": [],
+    "downloadCount": 300,
+    "viewCount": 1500,
+    "tags": ["puzzle", "logic"],
+    "categories": ["puzzle"],
+    "newRelease": true,
+    "version": "v1.1.0",
+    "changelog": [
+      {
+        "date": "2024-10-01T10:00:00Z",
+        "description": "Update with more challenging levels."
+      }
+    ]
+  },
+  {
+    "title": "Zombie Survival",
+    "description": "A survival game in a post-apocalyptic zombie world.",
+    "images": ["https://example.com/images/zombie_survival_1.png"],
+    "fileUrl": "https://example.com/files/zombie_survival.zip",
+    "externalLinks": [{ "name": "Trailer", "url": "https://youtube.com/zombie_survival_trailer" }],
+    "downloadCount": 400,
+    "viewCount": 2000,
+    "tags": ["zombie", "survival"],
+    "categories": ["survival", "horror"],
+    "newRelease": false,
+    "version": "v2.0.0",
+    "changelog": [
+      {
+        "date": "2024-07-01T10:00:00Z",
+        "description": "Added new weapons and survival mechanics."
+      }
+    ]
+  }
+]

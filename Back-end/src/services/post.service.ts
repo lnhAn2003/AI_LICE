@@ -30,6 +30,18 @@ class PostService {
             .populate({ path: 'threadId', select: 'title'})
     }
 
+    public async getPostsByUserId(userId: string): Promise<IPost[]> {
+        return await Post.find({ authorId: userId })
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'threadId', select: 'title' });
+    }
+
+    public async getPostsByThreadId(threadId: string): Promise<IPost[]> {
+        return await Post.find({ threadId: threadId })
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'threadId', select: 'title' });
+    }
+
     public async updatePost(id: String, updateData: Partial<IPost>): Promise<IPost | null> {
         return await Post.findByIdAndUpdate(id, updateData, { new: true })
     }
@@ -48,6 +60,7 @@ class PostService {
         })
         return await Post.findByIdAndDelete(id);
     }
+
 }
 
 export default new PostService();

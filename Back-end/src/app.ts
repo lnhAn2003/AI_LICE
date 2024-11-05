@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import config from './config';
 import morgan from 'morgan';
+import cors from 'cors';
 
 //export Routes
 import userRoutes from './routes/user.routes';
@@ -20,6 +21,10 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true, 
+}));
 
 // Routes
 app.use('/users', userRoutes);
@@ -28,7 +33,7 @@ app.use('/roles', roleRoutes);
 app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
 app.use('/categories', categoryRoutes);
-app.use('/gameshared', gamesharedRoutes);
+app.use('/gameshareds', gamesharedRoutes);
 app.use('/course', courseRoutes);
 app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);

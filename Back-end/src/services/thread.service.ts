@@ -52,18 +52,6 @@ class ThreadService {
             .sort({ createdAt: -1 });
     }
 
-    public async softDeleteThread(id: string): Promise<IThread | null> {
-        return await Thread.findByIdAndUpdate(
-            id,
-            { isVisible: false },
-            { new: true }
-        );
-    }    
-
-    public async increaseViews(id: string): Promise<void> {
-        await Thread.findByIdAndUpdate(id, { $inc: { views: 1 } }).exec();
-    }
-
     public async getPopularThreads(): Promise<IThread[]> {
         return await Thread.find()
             .sort({ views: -1 }) 
@@ -77,7 +65,18 @@ class ThreadService {
             .populate({ path: 'authorId', select: 'username' })
             .populate({ path: 'posts', select: 'content' });
     }
-    
+
+    public async softDeleteThread(id: string): Promise<IThread | null> {
+        return await Thread.findByIdAndUpdate(
+            id,
+            { isVisible: false },
+            { new: true }
+        );
+    }    
+
+    public async increaseViews(id: string): Promise<void> {
+        await Thread.findByIdAndUpdate(id, { $inc: { views: 1 } }).exec();
+    }
 }
 
 export default new ThreadService();

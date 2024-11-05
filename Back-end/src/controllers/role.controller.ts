@@ -6,7 +6,7 @@ class RoleController {
     public async createRole(req: Request, res: Response): Promise<void> {
         try {
             const { name, permission } = req.body;
-            const newRole = await RoleService.createRole({ name, permission }).catch
+            const newRole = await RoleService.createRole({ name, permission })
             res.status(201).json(newRole);
         } catch (error) {
             res.status(500).json({ message: 'Error creating role', error });

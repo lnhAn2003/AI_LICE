@@ -1,11 +1,16 @@
 import { Request, Response } from 'express';
 import CategoryService from '../services/category.service';
+import mongoose from 'mongoose';
+import categoryService from '../services/category.service';
 
 class CategoryController {
     public async createCategory(req: Request, res: Response): Promise<void> {
-        await CategoryService.createCategory(req.body).catch(Error)
-        {
-            res.status(201).json({Error});
+        try{
+            const categories = req.body;
+            const newCategories = await categoryService.createCategory(categories);
+            res.status(201).json({newCategories});
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });            
         }
     }
 

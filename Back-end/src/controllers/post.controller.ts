@@ -50,6 +50,24 @@ class PostController {
         }
     }
 
+    public async getPostsByUserId(req: Request, res: Response): Promise<void> {
+        try {
+            const posts = await PostService.getPostsByUserId(req.params.userId);
+            res.status(200).json(posts);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    public async getPostsByThreadId(req: Request, res: Response): Promise<void> {
+        try {
+            const posts = await PostService.getPostsByThreadId(req.params.threadId);
+            res.status(200).json(posts);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
     public async updatePost(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user as { id: string };
