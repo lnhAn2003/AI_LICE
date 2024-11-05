@@ -1,33 +1,27 @@
 [
-    {
-      "title": "Best Horror Games Recommendations",
-      "authorId": "603e2f1c4c9b1a001f8b4567",
-      "posts": null,
-      "views": 10
-    },
-    {
-      "title": "Favorite Action-Packed Games",
-      "authorId": "603e2f1c4c9b1a001f8b4568",
-      "posts": null,
-      "views": 25
-    },
-    {
-      "title": "Tips for Puzzle Game Developers",
-      "authorId": "603e2f1c4c9b1a001f8b4569",
-      "posts": null,
-      "views": 5
-    },
-    {
-      "title": "RPG Game Design: Story vs. Gameplay",
-      "authorId": "603e2f1c4c9b1a001f8b4570",
-      "posts": null,
-      "views": 15
-    },
-    {
-      "title": "Arcade Classics: Must-Play Games",
-      "authorId": "603e2f1c4c9b1a001f8b4571",
-      "posts": null,
-      "views": 30
-    }
-  ]
-  
+  {
+    "title": "Best Horror Games Recommendations",
+    "content": "Looking for the scariest and most thrilling horror games? Share your top picks and discover new ones here!",
+    "tags": ["horror", "recommendations", "games", "scary", "thriller"]
+  },
+  {
+    "title": "Favorite Action-Packed Games",
+    "content": "Let's talk about the most intense action games! Which games keep you on the edge of your seat?",
+    "tags": ["action", "favorites", "adventure", "high-energy", "combat"]
+  },
+  {
+    "title": "Tips for Puzzle Game Developers",
+    "content": "Are you a puzzle game developer? Share your best design tips and tricks to make engaging puzzles!",
+    "tags": ["puzzle", "game-dev", "tips", "design", "logic"]
+  },
+  {
+    "title": "RPG Game Design: Story vs. Gameplay",
+    "content": "In RPG games, do you prioritize story or gameplay? Discuss the balance between these elements!",
+    "tags": ["RPG", "game-design", "story", "gameplay", "debate"]
+  },
+  {
+    "title": "Arcade Classics: Must-Play Games",
+    "content": "What are some must-play arcade classics? Relive the nostalgia and share your favorites!",
+    "tags": ["arcade", "classics", "retro", "must-play", "nostalgia"]
+  }
+]

@@ -43,7 +43,7 @@ export interface IGameShared extends Document {
 }
 
 const GameSharedSchema: Schema<IGameShared> = new Schema({
-    title: { type: String, required: true, unique: true },
+    title: { type: String, required: true, trim: true, unique: true },
     description: { type: String },
     uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     images: [{ type: String }],

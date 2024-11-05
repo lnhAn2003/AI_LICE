@@ -1,5 +1,5 @@
 import Thread, { IThread } from "../models/thread.model";
-import User, { IUser } from "../models/user.model";
+import User from "../models/user.model";
 
 class ThreadService {
     public async createThread(threadData: Partial<IThread>): Promise<IThread> {
@@ -16,17 +16,23 @@ class ThreadService {
     public async getThreads(): Promise<IThread[]> {
         return await Thread.find()
             .populate({ path: 'authorId', select: 'username' })
-            .populate({ path: 'posts', select: 'content'});
+            .populate({ path: 'posts', select: 'content' });
     }
 
     public async getThreadById(id: string): Promise<IThread | null> {
         return await Thread.findById(id)
             .populate({ path: 'authorId', select: 'username' })
-            .populate({ path: 'posts', select: 'content'});
+            .populate({ path: 'posts', select: 'content' });
+    }
+
+    public async getThreadsByUserId(userId: string): Promise<IThread[]> {
+        return await Thread.find({ authorId: userId })
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'posts', select: 'content' });
     }
 
     public async updateThread(id: string, updateData: Partial<IThread>): Promise<IThread | null> {
-        return await Thread.findByIdAndUpdate(id, updateData, { new: true})
+        return await Thread.findByIdAndUpdate(id, updateData, { new: true });
     }
 
     public async deleteThread(id: string): Promise<IThread | null> {
@@ -40,9 +46,38 @@ class ThreadService {
         return await Thread.findByIdAndDelete(id);
     }
 
-    public async increaseViews(id: string): Promise<void> {
-        await Thread.findByIdAndUpdate(id, { $inc: {views: 1}}).exec();
+    public async getVisibleThreads(): Promise<IThread[]> {
+        return await Thread.find({ isVisible: true })
+            .populate({ path: 'authorId', select: 'username' })
+            .sort({ createdAt: -1 });
     }
+
+    public async softDeleteThread(id: string): Promise<IThread | null> {
+        return await Thread.findByIdAndUpdate(
+            id,
+            { isVisible: false },
+            { new: true }
+        );
+    }    
+
+    public async increaseViews(id: string): Promise<void> {
+        await Thread.findByIdAndUpdate(id, { $inc: { views: 1 } }).exec();
+    }
+
+    public async getPopularThreads(): Promise<IThread[]> {
+        return await Thread.find()
+            .sort({ views: -1 }) 
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'posts', select: 'content' })
+            .limit(10);
+    }
+
+    public async getThreadsByTag(tag: string): Promise<IThread[]> {
+        return await Thread.find({ tags: tag })
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'posts', select: 'content' });
+    }
+    
 }
 
 export default new ThreadService();

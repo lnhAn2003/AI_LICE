@@ -12,11 +12,17 @@ router.post('/', authenticateJWT, logActivity('user_created_thread (userId: {$id
 // Get all threads
 router.get('/', ThreadController.getThreads.bind(ThreadController));
 
+// Get threads by userId
+router.get('/user/:userId', ThreadController.getThreadsByUserId.bind(ThreadController));
+
 // Get a specific thread by ID
 router.get('/:id', ThreadController.getThreadById.bind(ThreadController));
 
 // Update a thread (authentication and ownership check required, activity logged)
 router.put('/:id', authenticateJWT, checkThreadOwner, logActivity('user_updated_thread'), ThreadController.updateThread.bind(ThreadController));
+
+// Soft delete a thread (authentication and ownership check required, activity logged)
+router.delete('/:id', authenticateJWT, checkThreadOwner, logActivity('user_soft_deleted_thread'), ThreadController.softDeleteThread.bind(ThreadController));
 
 // Delete a thread (authentication and ownership check required, activity logged)
 router.delete('/:id', authenticateJWT, checkThreadOwner, logActivity('user_deleted_thread'), ThreadController.deleteThread.bind(ThreadController));

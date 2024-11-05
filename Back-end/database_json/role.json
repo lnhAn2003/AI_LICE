@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Admin",
+        "permission": [
+            "manage_users",
+            "manage_categories",
+            "manage_roles",
+            "manage_courses",
+            "manage_posts",
+            "manage_threads",
+            "manage_gameshared",
+            "manage_comments",
+            "manage_accounts",
+            "view_logs",
+            "manage_logs"
+        ]
+    },
+    {
+        "name": "User",
+        "permission": [
+            "create_posts",
+            "create_threads",
+            "create_comments",
+            "create_course",
+            "create_gameshared",
+            "manage_own_posts",
+            "manage_own_threads",
+            "manage_own_comments",
+            "manage_own_course",
+            "managa_own_gameshared",
+            "view_courses",
+            "view_gameshared",
+            "view_logs"
+        ]
+    }
+]

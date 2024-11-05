@@ -1,203 +1,198 @@
 [
-    {
-      "username": "gamer123",
-      "email": "gamer123@example.com",
-      "password": "SecurePass1",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar1.jpg",
-        "bio": "Avid gamer and game developer.",
-        "socialLinks": ["https://twitter.com/gamer123", "https://github.com/gamer123"],
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": true, "lastActive": "2024-11-01T14:23:00Z" },
-      "joinedAt": "2024-10-01T10:00:00Z",
-      "lastLogin": "2024-11-01T13:45:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+  {
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "Admin12345",
+    "roleId": "672834ba0e85c2a3407e164a"
+  },
+  {
+    "username": "gamer123",
+    "email": "gamer123@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "devDude",
-      "email": "devdude@example.com",
-      "password": "CodeMaster9",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar2.jpg",
-        "bio": "Loves coding and gaming alike.",
-        "socialLinks": ["https://linkedin.com/devDude"],
-        "locale": null,
-        "preferences": { "notifications": true, "theme": "dark" }
-      },
-      "roleId": null,
-      "status": { "online": false, "lastActive": "2024-10-31T18:02:00Z" },
-      "joinedAt": "2024-09-20T09:30:00Z",
-      "lastLogin": null,
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "devDude",
+    "email": "devdude@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "pixelArtist",
-      "email": "pixelartist@example.com",
-      "password": "Artistic8D",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar3.jpg",
-        "bio": "Creates pixel art for indie games.",
-        "socialLinks": ["https://instagram.com/pixelArtist"],
-        "locale": "en",
-        "preferences": { "notifications": false, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": true, "lastActive": "2024-11-01T12:30:00Z" },
-      "joinedAt": "2024-08-14T12:45:00Z",
-      "lastLogin": "2024-11-01T11:00:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "pixelArtist",
+    "email": "pixelartist@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "questHunter",
-      "email": "questhunter@example.com",
-      "password": "ExploreWorld2",
-      "profile": {
-        "avatarUrl": null,
-        "bio": "Explorer of virtual worlds.",
-        "socialLinks": null,
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": false, "lastActive": "2024-10-31T15:02:00Z" },
-      "joinedAt": "2024-07-21T11:00:00Z",
-      "lastLogin": "2024-10-31T15:00:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "questHunter",
+    "email": "questhunter@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "speedCoder",
-      "email": "speedcoder@example.com",
-      "password": "FastNCode3",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar5.jpg",
-        "bio": "Fastest coder in the west.",
-        "socialLinks": null,
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "dark" }
-      },
-      "roleId": null,
-      "status": { "online": true, "lastActive": "2024-11-01T10:00:00Z" },
-      "joinedAt": "2024-06-15T09:15:00Z",
-      "lastLogin": "2024-11-01T09:45:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "speedCoder",
+    "email": "speedcoder@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "gameWizard",
-      "email": "gamewizard@example.com",
-      "password": "MagicGame4",
-      "profile": {
-        "avatarUrl": null,
-        "bio": "Turning ideas into magic.",
-        "socialLinks": ["https://twitch.tv/gameWizard"],
-        "locale": "en",
-        "preferences": { "notifications": false, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": false, "lastActive": "2024-10-20T08:10:00Z" },
-      "joinedAt": "2024-05-25T13:25:00Z",
-      "lastLogin": null,
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "gameWizard",
+    "email": "gamewizard@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "adventurerX",
-      "email": "adventurerx@example.com",
-      "password": "XploreLife5",
-      "profile": {
-        "avatarUrl": null,
-        "bio": "Seeker of the unknown.",
-        "socialLinks": null,
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "dark" }
-      },
-      "roleId": null,
-      "status": { "online": true, "lastActive": "2024-10-15T07:20:00Z" },
-      "joinedAt": "2024-03-05T08:30:00Z",
-      "lastLogin": null,
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "adventurerX",
+    "email": "adventurerx@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "ninjaCoder",
-      "email": "ninjacoder@example.com",
-      "password": "CodeNinja8",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar6.jpg",
-        "bio": "Silent but coding.",
-        "socialLinks": ["https://github.com/ninjaCoder"],
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": true, "lastActive": "2024-11-01T15:00:00Z" },
-      "joinedAt": "2024-09-22T12:00:00Z",
-      "lastLogin": "2024-11-01T14:50:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "ninjaCoder",
+    "email": "ninjacoder@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "techGuru",
-      "email": "techguru@example.com",
-      "password": "TechLover7",
-      "profile": {
-        "avatarUrl": "https://example.com/avatar7.jpg",
-        "bio": "Passionate about all things tech.",
-        "socialLinks": null,
-        "locale": "en",
-        "preferences": { "notifications": false, "theme": "dark" }
-      },
-      "roleId": null,
-      "status": { "online": false, "lastActive": "2024-10-12T14:22:00Z" },
-      "joinedAt": "2024-08-02T10:10:00Z",
-      "lastLogin": "2024-10-11T13:15:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "techGuru",
+    "email": "techguru@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
     },
-    {
-      "username": "levelDesigner",
-      "email": "leveldesigner@example.com",
-      "password": "LevelUp1",
-      "profile": {
-        "avatarUrl": null,
-        "bio": "Designing levels, one step at a time.",
-        "socialLinks": null,
-        "locale": "en",
-        "preferences": { "notifications": true, "theme": "light" }
-      },
-      "roleId": null,
-      "status": { "online": false, "lastActive": "2024-09-28T11:30:00Z" },
-      "joinedAt": "2024-04-15T14:00:00Z",
-      "lastLogin": "2024-09-28T10:45:00Z",
-      "threads": null,
-      "posts": null,
-      "gamesShared": null,
-      "aiInteractions": null
-    }
-  ]
-  
+    "roleId": "672836310e85c2a3407e1650"
+  },
+  {
+    "username": "levelDesigner",
+    "email": "leveldesigner@example.com",
+    "password": "SecurePass1",
+    "profile": {
+      "avatarUrl": "https://example.com/avatar1.jpg",
+      "bio": "Avid gamer and game developer.",
+      "socialLinks": [
+        "https://twitter.com/gamer123",
+        "https://github.com/gamer123"
+      ],
+      "locale": "en",
+      "preferences": {
+        "notifications": true,
+        "theme": "light"
+      }
+    },
+    "roleId": "672836310e85c2a3407e1650"
+  }
+]
