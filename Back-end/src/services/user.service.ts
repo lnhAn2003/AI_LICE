@@ -42,9 +42,11 @@ class UserService {
 
   public async getUserById(id: string): Promise<IUser | null> {
     return await User.findById(id).select('-password')
+      .populate('roleId', 'name')
       .populate({ path: 'posts', select: 'content'})
       .populate({ path: 'threads', select: 'title'})
       .populate({ path: 'roleId', select: 'name'})
+      .lean();
   }
 
   public async updateUser(id: string, updateData: Partial<IUser>): Promise<IUser | null> {
