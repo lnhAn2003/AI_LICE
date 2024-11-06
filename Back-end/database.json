@@ -1,0 +1,223 @@
+{
+  "Users": {
+    "username": { "type": "String", "required": true, "unique": true },
+    "email": { "type": "String", "required": true, "unique": true },
+    "password": { "type": "String", "required": true },
+    "profile": {
+      "avatarUrl": { "type": "String" },
+      "bio": { "type": "String" },
+      "socialLinks": [{ "type": "String" }],
+      "locale": { "type": "String", "default": "en" },
+      "preferences": {
+        "notifications": { "type": "Boolean", "default": true },
+        "theme": { "type": "String", "default": "light" }
+      }
+    },
+    "roleId": { "type": "ObjectId", "ref": "Role", "required": false },
+    "status": {
+      "online": { "type": "Boolean", "default": false },
+      "lastActive": { "type": "Date", "default": "Date.now" }
+    },
+    "joinedAt": { "type": "Date", "default": "Date.now" },
+    "lastLogin": { "type": "Date", "default": "Date.now" },
+    "threads": [{ "type": "ObjectId", "ref": "Thread" }],
+    "posts": [{ "type": "ObjectId", "ref": "Post" }],
+    "gamesShared": [{ "type": "ObjectId", "ref": "GamesShared" }],
+    "aiInteractions": [{ "type": "ObjectId", "ref": "AIInteraction" }]
+  },
+
+  "Roles": {
+    "_id": "ObjectId",
+    "name": "String",
+    "permissions": ["String"], 
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+
+  "Threads": {
+    "_id": "ObjectId",
+    "title": "String",
+    "authorId": "ObjectId", 
+    "tags": ["String"],
+    "posts": ["ObjectId"],
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "views": "Number",
+    "isVisible": "Boolean",
+    "isPinned": "Boolean"
+  },
+
+  "Posts": {
+    "_id": "ObjectId",
+    "threadId": "ObjectId",
+    "authorId": "ObjectId",
+    "content": "String",
+    "commentId": "ObjectId", 
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "isEdited": "Boolean",
+    "editHistory": [
+      {
+        "content": "String",
+        "editedAt": "Date"
+      }
+    ]
+  },
+
+  "Comments": {
+    "_id": "ObjectId",
+    "targetType": "String", 
+    "targetId": "ObjectId", 
+    "authorId": "ObjectId", 
+    "content": "String",
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "isEdited": "Boolean",
+    "isVisible": "Boolean",
+    "parentCommentId": "ObjectId",
+    "editHistory": [
+      {
+        "content": "String",
+        "editedAt": "Date",
+        "editedBy": "ObjectId"
+      }
+    ]
+  },
+
+  "GamesShared": {
+    "_id": "ObjectId",
+    "title": "String",
+    "description": "String",
+    "uploadedBy": "ObjectId", 
+    "images": ["String"],
+    "fileUrl": "String",
+    "externalLinks": [
+      {
+        "name": "String",
+        "url": "String"
+      }
+    ],
+    "createdAt": "Date",
+    "updatedAt": "Date",
+    "downloadCount": "Number",
+    "viewCount": "Number",
+    "favorites": [{ "type": "ObjectId", "ref": "User" }],
+    "tags": ["String"],
+    "categories": [{ "type": "String", "ref": "Category" }], 
+    "commentId": ["ObjectId"],
+    "averageRating": "Number", 
+    "ratingCount": "Number",
+    "ratings": [
+      {
+        "userId": "ObjectId",
+        "rating": "Number",
+        "comment": "String",
+        "createdAt": "Date"
+      }
+    ],
+    "newRelease": "Boolean",
+    "successVotes": {
+      "likes": "Number",
+      "dislikes": "Number",
+      "percentage": "Number", 
+      "userVotes": [
+          {
+            "userId": "ObjectId",
+            "vote": "String" 
+          }
+      ]
+    },
+    "changelog": [
+      {
+        "date": "Date",
+        "description": "String"
+      }
+    ]
+  },
+
+  "Category": {
+    "_id": "String",
+    "name": "String", 
+    "key": "String",
+    "description": "String",
+    "icon": "String",
+    "parentCategory": { "type": "String", "ref": "Category" }, 
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+
+  "AIInteractions": {
+    "_id": "ObjectId",
+    "userId": "ObjectId", 
+    "interactionType": "String",
+    "request": "String",
+    "response": "String",
+    "responseTime": "Number",
+    "createdAt": "Date"
+  },
+
+  "Notifications": {
+    "_id": "ObjectId",
+    "userId": "ObjectId", 
+    "type": "String",
+    "referenceId": "ObjectId", 
+    "message": "String",
+    "read": "Boolean",
+    "createdAt": "Date"
+  },
+  
+  "Logs": {
+    "_id": "ObjectId",
+    "userId": "ObjectId",
+    "history": [{
+      "eventType": "String",
+      "details": "String",
+      "ipAddress": "String",
+      "userAgent": "String",
+      "createdAt": "Date"
+    }]
+  },
+
+  "Courses": {
+  "_id": "ObjectId",
+  "title": { "type": "String", "required": true }, 
+  "description": "String", 
+  "createdBy": { "type": "ObjectId", "ref": "Users", "required": true }, 
+  "content": [ 
+    {
+      "sectionTitle": "String", 
+      "lessons": [ 
+        {
+          "title": "String", 
+          "videoUrl": "String", 
+          "textContent": "String", 
+          "resources": [ 
+            {
+              "name": "String", 
+              "url": "String" 
+            }
+          ],
+          "createdAt": { "type": "Date", "default": "Date.now" },
+          "updatedAt": { "type": "Date", "default": "Date.now" }
+        }
+      ]
+    }
+  ],
+  "tags": ["String"], 
+  "categories": [{ "type": "String", "ref": "Category" }], 
+  "averageRating": { "type": "Number", "default": 0 }, 
+  "ratingCount": { "type": "Number", "default": 0 }, 
+  "ratings": [ 
+    {
+      "userId": { "type": "ObjectId", "ref": "Users" }, 
+      "rating": { "type": "Number", "min": 1, "max": 5 }, 
+      "comment": "String", 
+      "createdAt": { "type": "Date", "default": "Date.now" }
+    }
+  ],
+  
+  "favorites": [{ "type": "ObjectId", "ref": "Users" }], 
+  "createdAt": { "type": "Date", "default": "Date.now" },
+  "updatedAt": { "type": "Date", "default": "Date.now" }
+  }
+}

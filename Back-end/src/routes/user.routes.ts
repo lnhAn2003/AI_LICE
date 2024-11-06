@@ -13,6 +13,9 @@ router.post('/register', passwordValidation, UserController.register.bind(UserCo
 // User login
 router.post('/login', UserController.login.bind(UserController));
 
+//User profile
+router.get('/profile', authenticateJWT, UserController.getProfile.bind(UserController));
+
 // Get all users
 router.get('/', UserController.getUsers.bind(UserController));
 

@@ -10,6 +10,7 @@ export interface IThread extends Document {
     updatedAt: Date;
     views: number;
     isVisible: boolean; 
+    isPinned: boolean;
 };
 
 const ThreadSchema: Schema<IThread> = new Schema({
@@ -21,7 +22,8 @@ const ThreadSchema: Schema<IThread> = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
-    isVisible: { type: Boolean, default: true } 
+    isVisible: { type: Boolean, default: true },
+    isPinned: { type: Boolean, default: false } 
 });
 
 ThreadSchema.pre<IThread>('save', function (next) {
