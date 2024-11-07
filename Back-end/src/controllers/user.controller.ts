@@ -116,6 +116,20 @@ class UserController {
     }
   }
 
+  public async getUserActivity(req: Request, res: Response): Promise<void> {
+    try {
+      const userId = req.params.id;
+      const activity = await UserService.getUserActivity(userId);
+      if (!activity) {
+        res.status(404).json({ message: 'User not found' });
+      } else {
+        res.status(200).json(activity);
+      }
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
 }
 
 export default new UserController();

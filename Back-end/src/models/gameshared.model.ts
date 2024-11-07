@@ -51,6 +51,7 @@ const GameSharedSchema: Schema<IGameShared> = new Schema({
     fileUrl: { type: String },
     externalLinks: [
         {
+            _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
             name: { type: String },
             url: { type: String }
         }

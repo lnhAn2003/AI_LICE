@@ -1,5 +1,3 @@
-// components/searchbar.tsx
-
 const SearchBar = () => {
   return (
     <div className="relative">

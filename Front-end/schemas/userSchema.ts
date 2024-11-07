@@ -1,4 +1,3 @@
-// schemas/userSchema.ts
 import { z } from 'zod';
 
 export const registerSchema = z.object({
@@ -13,5 +12,5 @@ export const registerSchema = z.object({
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Mật khẩu xác nhận không khớp',
-  path: ['confirmPassword'], // Đặt lỗi vào trường confirmPassword
+  path: ['confirmPassword'],
 });

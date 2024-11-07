@@ -68,4 +68,9 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
   return await bcrypt.compare(password, this.password);
 };
 
+UserSchema.index({ roleId: 1 });
+UserSchema.index({ 'status.lastActive': -1 });
+UserSchema.index({ lastLogin: 1 }, { expireAfterSeconds: 60 * 60 * 24 * 30 });
+
+
 export default mongoose.model<IUser>('User', UserSchema);
