@@ -22,6 +22,9 @@ router.get('/', UserController.getUsers.bind(UserController));
 // Get a specific user by ID
 router.get('/:id', UserController.getUserById.bind(UserController));
 
+// Endpoint để lấy hoạt động của người dùng
+router.get('/:id/activity', UserController.getUserActivity);
+
 // Update user details (authentication and ownership check required)
 router.put('/:id', authenticateJWT, checkUserOwner, logActivity('User_updated_profile'), UserController.updateUser.bind(UserController));
 

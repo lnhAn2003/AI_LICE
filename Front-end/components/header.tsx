@@ -1,5 +1,3 @@
-// components/header.tsx
-
 import Logo from './logo'
 import SearchBar from './searchbar'
 import NavBar from './navbar'
