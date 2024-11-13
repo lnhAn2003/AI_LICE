@@ -1,8 +1,8 @@
-// contexts/AuthContext.tsx
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import cookie from 'js-cookie';
+import Cookies from 'js-cookie';
+import { useSocketContext } from './SocketContext';
 
 interface User {
   id: string;
@@ -28,37 +28,49 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
+  const { socket } = useSocketContext();
 
   useEffect(() => {
-    const storedToken = cookie.get('token');
-    const storedUserId = localStorage.getItem('userId');
+    const storedToken = Cookies.get('token');
 
-    if (storedToken && storedUserId) {
+    if (storedToken) {
       setToken(storedToken);
+
       axios
-        .get(`http://localhost:5000/users/${storedUserId}`, {
+        .get('http://localhost:5000/users/profile', {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
         })
-        .then((response) => setUser(response.data))
+        .then((response) => {
+          setUser(response.data);
+
+          // Emit 'user-logged-in' event
+          socket?.emit('user-logged-in', response.data);
+        })
         .catch(() => {
-          cookie.remove('token');
-          localStorage.removeItem('userId');
+          Cookies.remove('token');
+          setToken(null);
+          setUser(null);
         });
     }
-  }, []);
+  }, [socket]);
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/users/login', { email, password });
+      const response = await axios.post('http://localhost:5000/users/login', {
+        email,
+        password,
+      });
       const { token, user } = response.data;
-      
-      cookie.set('token', token, { expires: 1 });
-      localStorage.setItem('userId', user._id);
+
+      Cookies.set('token', token, { expires: 1 });
       setToken(token);
       setUser(user);
-      
+
+      // Emit 'user-logged-in' event
+      socket?.emit('user-logged-in', user);
+
       router.push('/profile');
     } catch (error) {
       throw error;
@@ -66,12 +78,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
-    cookie.remove('token');
-    localStorage.removeItem('userId');
+    Cookies.remove('token');
     setToken(null);
     setUser(null);
+
+    // Emit 'user-logged-out' event
+    socket?.emit('user-logged-out');
+
     router.push('/login');
   };
 
-  return <AuthContext.Provider value={{ user, token, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
