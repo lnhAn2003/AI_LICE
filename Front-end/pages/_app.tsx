@@ -1,14 +1,19 @@
+// pages/_app.tsx
+import React from 'react';
 import '../styles/globals.css'
-import type { AppProps } from 'next/app';
-import { AuthProvider } from '../contexts/AuthContext';
 import Header from '../components/header';
+import { AppProps } from 'next/app';
+import { AuthProvider } from '../contexts/AuthContext';
+import { SocketProvider } from '../contexts/SocketContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <Header />
-      <Component {...pageProps} />
-    </AuthProvider>
+    <SocketProvider> {/* Ensure this is the outermost provider */}
+      <AuthProvider>
+        <Header/>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </SocketProvider>
   );
 }
 
