@@ -10,8 +10,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SocketProvider> {/* Ensure this is the outermost provider */}
       <AuthProvider>
+      <div className="main-content">
         <Header/>
         <Component {...pageProps} />
+      </div>
       </AuthProvider>
     </SocketProvider>
   );

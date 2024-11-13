@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useSocketContext } from './SocketContext';
 
 interface User {
+  profile: any;
   id: string;
   username: string;
   email: string;
@@ -44,8 +45,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
         .then((response) => {
           setUser(response.data);
-
-          // Emit 'user-logged-in' event
           socket?.emit('user-logged-in', response.data);
         })
         .catch(() => {
@@ -68,7 +67,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setToken(token);
       setUser(user);
 
-      // Emit 'user-logged-in' event
       socket?.emit('user-logged-in', user);
 
       router.push('/profile');
@@ -82,7 +80,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setToken(null);
     setUser(null);
 
-    // Emit 'user-logged-out' event
     socket?.emit('user-logged-out');
 
     router.push('/login');

@@ -17,7 +17,7 @@ class GameSharedService {
     public async getAllGameShared(): Promise<IGameShared[]> {
       return await GameShared.find()
         .populate({ path: 'uploadedBy', select: 'username' })
-        .populate({ path: 'categories', select: 'name' });
+        .populate({ path: 'categories', select: '_id name' });
     }
   
     public async getGameSharedById(id: string): Promise<IGameShared | null> {
