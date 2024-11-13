@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import Footer from '../components/index/footer';
-import AvatarSection from '../components/profile/avatarsection';
-import UserInfo from '../components/profile/userinfo';
-import Statistics from '../components/profile/statistics';
-import Badges from '../components/profile/badges';
-import AboutPreferences from '../components/profile/aboutpreferences';
-import RecentActivity from '../components/profile/recentactivity';
+import Footer from '../src/components/index/footer';
+import AvatarSection from '../src/components/profile/avatarsection';
+import UserInfo from '../src/components/profile/userinfo';
+import Statistics from '../src/components/profile/statistics';
+import Badges from '../src/components/profile/badges';
+import AboutPreferences from '../src/components/profile/aboutpreferences';
+import RecentActivity from '../src/components/profile/recentactivity';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import axiosInstance from '../utils/axiosInstance';
-import { useAuth } from '../hooks/useAuth';
+import axiosInstance from '../src/utils/axiosInstance';
+import { useAuth } from '../src/hooks/useAuth';
 import cookie, { parse } from 'cookie';
 
 interface UserProfileProps {

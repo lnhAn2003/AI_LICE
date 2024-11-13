@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../src/contexts/AuthContext';
 import axios from 'axios';
 import Link from 'next/link';
-import { registerSchema } from '../schemas/userSchema';
+import { registerSchema } from '../src/schemas/userSchema';
 
 type RegisterInput = {
   username: string;
