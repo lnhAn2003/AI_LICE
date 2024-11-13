@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../src/contexts/AuthContext';
 import axios from 'axios';
 
 const LoginPage: React.FC = () => {

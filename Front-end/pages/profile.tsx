@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import Footer from '../components/footer';
-import AvatarSection from '../components/avatarsection';
-import UserInfo from '../components/userinfo';
-import Statistics from '../components/statistics';
-import Badges from '../components/badges';
-import AboutPreferences from '../components/aboutpreferences';
-import RecentActivity from '../components/recentactivity';
+import Footer from '../src/components/index/footer';
+import AvatarSection from '../src/components/profile/avatarsection';
+import UserInfo from '../src/components/profile/userinfo';
+import Statistics from '../src/components/profile/statistics';
+import Badges from '../src/components/profile/badges';
+import AboutPreferences from '../src/components/profile/aboutpreferences';
+import RecentActivity from '../src/components/profile/recentactivity';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import axiosInstance from '../utils/axiosInstance';
-import { useAuth } from '../hooks/useAuth';
-import cookie from 'cookie';
+import axiosInstance from '../src/utils/axiosInstance';
+import { useAuth } from '../src/hooks/useAuth';
+import cookie, { parse } from 'cookie';
 
 interface UserProfileProps {
   user: any;
@@ -132,7 +132,7 @@ export default UserProfile;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req } = context;
-  const cookies = cookie.parse(req.headers.cookie || '');
+  const cookies = parse(req.headers.cookie || '');
   const token = cookies.token;
 
   if (!token) {
