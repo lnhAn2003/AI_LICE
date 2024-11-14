@@ -1,3 +1,4 @@
+import { promises } from "dns";
 import Log, { ILog } from "../models/log.model";
 import mongoose from "mongoose";
 
@@ -38,6 +39,11 @@ class LogService {
 
     return await Log.find(query).sort({ "history.createdAt": -1 });
   }
+
+  public async getLogsByUserId(userId: string): Promise<ILog[]> {
+    return await Log.find({ userId: new mongoose.Types.ObjectId(userId) }).sort({ "history.createdAt": -1 });
+  }
+ 
 }
 
 export default new LogService();

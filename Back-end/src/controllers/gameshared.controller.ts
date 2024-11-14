@@ -92,13 +92,13 @@ class GameSharedController {
         return;
       }
 
-      if (!rating || rating < 1 && rating > 5) {
-        res.status(400).json({ message: 'Rating must have value from 1 to 5' });
+      if (typeof rating !== 'number' || rating < 1 || rating > 5) {
+        res.status(400).json({ message: 'Rating must be a number between 1 and 5' });
         return;
       }
 
-      const updateGame = await GameSharedService.addRating(gameId, userId, comment, rating);
-      res.status(200).json(updateGame);
+      const updatedGame = await GameSharedService.addRating(gameId, userId, rating, comment);
+      res.status(200).json(updatedGame);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -114,8 +114,14 @@ class GameSharedController {
         return;
       }
 
-      const updateGame = await GameSharedService.addFavorite(gameId, userId);
-      res.status(200).json(updateGame);
+      const updatedGame = await GameSharedService.addFavoriteToGame(gameId, userId);
+      if (!updatedGame) {
+        res.status(404).json({ message: 'Game not found' });
+        return;
+      }
+
+      await GameSharedService.addFavoriteToUser(userId, gameId);
+      res.status(200).json(updatedGame);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -131,13 +137,18 @@ class GameSharedController {
         return;
       }
 
-      const updateGame = await GameSharedService.removeFavorite(gameId, userId);
-      res.status(200).json(updateGame);
+      const updatedGame = await GameSharedService.removeFavoriteFromGame(gameId, userId);
+      if (!updatedGame) {
+        res.status(404).json({ message: 'Game not found' });
+        return;
+      }
+
+      await GameSharedService.removeFavoriteFromUser(userId, gameId);
+      res.status(200).json(updatedGame);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   }
-
   public async SuccessVote(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { id: gameId } = req.params;
@@ -163,18 +174,18 @@ class GameSharedController {
 
   public async addChangelogEntry(req: Request, res: Response): Promise<void> {
     try {
-        const { id: gameId } = req.params;
-        const { description } = req.body;
+      const { id: gameId } = req.params;
+      const { description } = req.body;
 
-        if (!description) {
-            res.status(400).json({ message: 'Description is required' });
-            return;
-        }
+      if (!description) {
+        res.status(400).json({ message: 'Description is required' });
+        return;
+      }
 
-        const updatedGame = await GameSharedService.addChangelogEntry(gameId, description);
-        res.status(200).json(updatedGame);
+      const updatedGame = await GameSharedService.addChangelogEntry(gameId, description);
+      res.status(200).json(updatedGame);
     } catch (error: any) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 
@@ -192,15 +203,15 @@ class GameSharedController {
         tags: tags ? (tags as string).split(',') : undefined,
         minRating: minRating ? parseFloat(minRating as string) : undefined
       },
-      page, limit, sortField as keyof IGameShared, sortOrder as 'asc' | 'desc'
-    );
+        page, limit, sortField as keyof IGameShared, sortOrder as 'asc' | 'desc'
+      );
 
-    res.status(200).json(games);
+      res.status(200).json(games);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   }
-  
+
 }
 
 export default new GameSharedController();

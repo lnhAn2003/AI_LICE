@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import CommentService from '../services/comment.service';
 import mongoose from 'mongoose';
+import postModel from '../models/post.model';
+import gamesharedModel from '../models/gameshared.model';
 
 export interface AuthRequest extends Request {
     user?: any;
@@ -15,27 +17,57 @@ class CommentController {
                 return;
             }
 
+            const { targetType, targetId, content } = req.body;
+
+            // Validation for required fields
+            if (!targetType || !targetId || !content || content.trim() === '') {
+                res.status(400).json({ message: 'Target type, target ID, and content are required' });
+                return;
+            }
+
+            // Verify that targetId matches the targetType
+            let targetExists = false;
+            if (targetType === 'Post') {
+                targetExists = await postModel.exists({ _id: targetId }) !== null;
+            } else if (targetType === 'GameShared') {
+                targetExists = await gamesharedModel.exists({ _id: targetId }) !== null;
+            }
+
+            if (!targetExists) {
+                res.status(400).json({ message: 'Target ID does not match the specified target type or does not exist' });
+                return;
+            }
+
             const commentData = {
-                targetType: req.body.targetType,
-                targetId: new mongoose.Types.ObjectId(req.body.targetId),
+                targetType,
+                targetId: new mongoose.Types.ObjectId(targetId),
                 authorId: new mongoose.Types.ObjectId(user.id),
-                content: req.body.content,
+                content: content.trim(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
 
             const comment = await CommentService.createComment(commentData);
+
+            // Append the comment ID to the corresponding target (Post or GameShared)
+            if (targetType === 'Post') {
+                await postModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+            } else if (targetType === 'GameShared') {
+                await gamesharedModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+            }
+
             res.status(201).json(comment);
         } catch (error: any) {
-            res.status(500).json({ message: error.message});
+            res.status(500).json({ message: error.message });
         }
     }
+
 
     public async getCommentByTarget(req: Request, res: Response): Promise<void> {
         try {
             const { targetType, targetId } = req.params;
             const comments = await CommentService.getCommentByTarget(targetType, targetId);
-            res.status(200).json(comments)
+            res.status(200).json(comments);
         } catch (error: any) {
             res.status(400).json({ message: error.message });
         }
@@ -62,9 +94,14 @@ class CommentController {
                 return;
             }
 
-            const comment = await CommentService.updatedComment(req.params.id, req.body.content);
+            if (!req.body.content || req.body.content.trim() === '') {
+                res.status(400).json({ message: 'Content cannot be empty' });
+                return;
+            }
+
+            const comment = await CommentService.updateComment(req.params.id, req.body.content, user.id);
             if (!comment) {
-                res.status(404).json({ message: 'Comment not found' });
+                res.status(404).json({ message: 'Comment not found or already deleted' });
             } else {
                 res.status(200).json(comment);
             }
@@ -83,7 +120,7 @@ class CommentController {
 
             const comment = await CommentService.softDeleteComment(req.params.id);
             if (!comment) {
-                res.status(404).json({ message: 'Comment not found' });
+                res.status(404).json({ message: 'Comment not found or already deleted' });
             } else {
                 res.status(200).json({ message: 'Comment deleted' });
             }

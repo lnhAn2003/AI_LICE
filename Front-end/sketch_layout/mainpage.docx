@@ -1,10 +1,14 @@
 +-----------------------------------------------------------------------------------+
-| **[AI_LICE Logo]**                                               🔍 [Search Bar]  |
-|-----------------------------------------------------------------------------------|
-|  [Home]   [Threads]   [Shared Games]   [AI Assistance]   [Courses]   [Profile]    |
+| AI_LICE Logo | Home | Threads | Games | Assistance | Courses                     |
+|                                    [Search Bar]                                   |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                             **Featured Game of the Week**                         |
+|                      Welcome to AI_LICE – Your Ultimate Game Development Hub      |
+|               [Join Now] [Share Your Game] [Explore Community]                   |
+|               [Quick Links: Top Threads | Top Games | Latest News]               |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                           **Featured Game of the Week**                           |
 |-----------------------------------------------------------------------------------|
 | +-------------------------------------------------------------------------------+ |
 | | [Large Image of Featured Game]                                                | |
@@ -12,24 +16,21 @@
 | | **Description**: A thrilling RPG with a unique storyline and challenging      | |
 | | quests. Players can explore new worlds, encounter various characters, and     | |
 | | experience immersive gameplay.                                                | |
-| |                                                                              | |
-| | **Uploaded By**: gamer123     **Tags**: #beta, #wip                            | |
-| | **Categories**: RPG, Adventure                                                | |
+| |                                                                               | |
+| | **Tags**: #beta, #wip     **Categories**: RPG, Adventure                      | |
+| | [Play Now]                                                                      | |
 | +-------------------------------------------------------------------------------+ |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                                 **Latest News**                                   |
+|                                 **Community Updates**                             |
 |-----------------------------------------------------------------------------------|
-| - **[Nov 10, 2024 | 12:30 PM]** New AI tools for game devs available              |
-| - **[Nov 9, 2024  | 09:45 AM]** Game dev tips to improve your workflow            |
-| - **[Nov 8, 2024  | 03:15 PM]** Platform updates and new features                 |
-| - **[Nov 7, 2024  | 05:00 PM]** Upcoming game dev events to watch                 |
-| - **[Nov 6, 2024  | 08:25 AM]** Community spotlight: top creators of the month    |
-|                                                                                   |
-| **Pagination Controls**: [Previous]  [1]  [2]  [Next]                             |
+| - [Nov 10 | 12:30 PM] New AI tools for game devs available                        |
+| - [Nov 9  | 09:45 AM] Game dev tips to improve your workflow                      |
+| - [Nov 8  | 03:15 PM] Platform updates and new features                           |
+| [Read More]                                                                       |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                             **Trending Threads**                                  |
+|                              **Trending Threads**                                 |
 |-----------------------------------------------------------------------------------|
 | +-------------------------------+  +-------------------------------+              |
 | | **Thread Title**              |  | **Thread Title**              |              |
@@ -38,16 +39,10 @@
 | | **Replies**: 45               |  | **Replies**: 37               |              |
 | | **Last Activity**: 1h ago     |  | **Last Activity**: 3h ago     |              |
 | +-------------------------------+  +-------------------------------+              |
-| +-------------------------------+  +-------------------------------+              |
-| | **Thread Title**              |  | **Thread Title**              |              |
-| | Favorite game development tools| | Advice for new developers     |              |
-| | **Author**: toolMaster        |  | **Author**: newbieHelper      |              |
-| | **Replies**: 29               |  | **Replies**: 24               |              |
-| | **Last Activity**: 5h ago     |  | **Last Activity**: 7h ago     |              |
-| +-------------------------------+  +-------------------------------+              |
+|               [View All Threads]                                                 |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                         **Top 3 Game Success Rankings**                           |
+|                        **Top Game Success Rankings**                              |
 |-----------------------------------------------------------------------------------|
 | 1. **Game Title**: My RPG Adventure           **Success Rate**: 95%              |
 |    **Author**: gamer123                       **Likes**: 200    **Dislikes**: 10 |
@@ -57,14 +52,10 @@
 |    **Author**: astro_dev                      **Likes**: 180    **Dislikes**: 25 |
 |    **Description**: Journey through galaxies in this sci-fi adventure.           |
 |-----------------------------------------------------------------------------------|
-| 3. **Game Title**: Horror Nights              **Success Rate**: 82%              |
-|    **Author**: horror_master                  **Likes**: 150    **Dislikes**: 33 |
-|    **Description**: A chilling horror game filled with unexpected frights.       |
-|-----------------------------------------------------------------------------------|
-| **[Show More]**                                                                   |
+|               [See Full Ranking]                                                 |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                               **Latest Shared Games**                             |
+|                              **Latest Shared Games**                              |
 |-----------------------------------------------------------------------------------|
 | +--------------------+     +--------------------+     +--------------------+      |
 | |    [Thumbnail]     |     |    [Thumbnail]     |     |    [Thumbnail]     |      |
@@ -72,40 +63,45 @@
 | | Mystery Quest      |     | Space Shooter      |     | Tower Defense      |      |
 | | **Author**: dev1   |     | **Author**: dev2   |     | **Author**: dev3   |      |
 | | **Tags**: #alpha   |     | **Tags**: #wip     |     | **Tags**: #beta    |      |
-| | **Categories**:    |     | **Categories**:    |     | **Categories**:    |      |
-| | Puzzle, Adventure  |     | Sci-Fi, Shooter    |     | Strategy, Defense  |      |
 | | **Likes**: 45      |     | **Likes**: 38      |     | **Likes**: 29      |      |
 | +--------------------+     +--------------------+     +--------------------+      |
-|                                                                                   |
-| **Pagination Controls**: [Previous]  [1]  [2]  [Next]                             |
+|               [View All Shared Games]                                            |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                               **Top Rated Games**                                 |
+|                               **Courses Section**                                 |
+|-----------------------------------------------------------------------------------|
+| +-------------------------------+  +-------------------------------+              |
+| | **Course Title**              |  | **Course Title**              |              |
+| | Game Dev Masterclass          |  | Unity Essentials              |              |
+| | **Creator**: proDev           |  | **Creator**: expertCoder      |              |
+| | **Rating**: 4.8               |  | **Rating**: 4.7               |              |
+| | [Join Course]                 |  | [Join Course]                 |              |
+| +-------------------------------+  +-------------------------------+              |
+|               [View All Courses]                                                 |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                   **User Notifications and AI Interactions**                      |
+|-----------------------------------------------------------------------------------|
+| - Unread: New comment on your thread... (5 min ago)                              |
+| - AI Interaction: "How to create a shader in Unity?"                             |
+| [Read More]                                                                       |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                       **Community Highlights (Top Rated Games)**                  |
 |-----------------------------------------------------------------------------------|
 | +--------------------+     +--------------------+     +--------------------+      |
 | |    [Thumbnail]     |     |    [Thumbnail]     |     |    [Thumbnail]     |      |
 | |   **Game Title**   |     |   **Game Title**   |     |   **Game Title**   |      |
 | | Mystery Dungeon    |     | Endless Racer      |     | Sky Warriors       |      |
 | | **Author**: dev7   |     | **Author**: dev8   |     | **Author**: dev9   |      |
-| | **Tags**: #alpha   |     | **Tags**: #release |     | **Tags**: #beta    |      |
-| | **Categories**:    |     | **Categories**:    |     | **Categories**:    |      |
-| | RPG, Fantasy       |     | Racing, Simulation |     | Action, Flight     |      |
 | | **Rating**: 4.8    |     | **Rating**: 4.7    |     | **Rating**: 4.9    |      |
+| | **Likes**: 150     |     | **Likes**: 130     |     | **Likes**: 170     |      |
 | +--------------------+     +--------------------+     +--------------------+      |
-|                                                                                   |
-| **Pagination Controls**: [Previous]  [1]  [2]  [Next]                             |
+|               [See All Top Rated Games]                                           |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|                                **About Us**                                       |
+|                              **About Us / Community**                             |
 |-----------------------------------------------------------------------------------|
-|  **AI_LICE** is a community-driven platform designed to support game developers   |
-|  through collaboration, sharing resources, and AI-powered assistance. Whether     |
-|  you're looking for coding help, feedback on game design, or want to share your   |
-|  own projects, AI_LICE offers the tools and a supportive community to help you    |
-|  succeed. Join us to learn, share, and grow in the world of game development!     |
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                                **Footer**                                         |
-|-----------------------------------------------------------------------------------|
-|   About Us | Contact | Terms of Service | Privacy Policy                          |
+| **AI_LICE is a community-driven platform...**                                     |
+| Join us to collaborate, learn, and share your game dev projects. [Learn More]     |
 +-----------------------------------------------------------------------------------+

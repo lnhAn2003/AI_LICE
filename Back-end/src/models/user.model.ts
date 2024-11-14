@@ -26,6 +26,10 @@ export interface IUser extends Document {
   posts?: mongoose.Types.ObjectId[];
   gamesShared?: mongoose.Types.ObjectId[];
   aiInteractions?: mongoose.Types.ObjectId[];
+  favorites: {
+    itemId: mongoose.Types.ObjectId;
+    itemType: 'GameShared' | 'Course' | 'Thread' | 'Post';
+  }[];
   comparePassword(password: string): Promise<boolean>;
 }
 
@@ -43,7 +47,7 @@ const UserSchema: Schema<IUser> = new Schema({
       theme: { type: String, default: 'light' },
     },
   },
-  roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: false, default: '6718abe7a0cbd054c6794d30'},
+  roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: false, default: '6718abe7a0cbd054c6794d30' },
   status: {
     online: { type: Boolean, default: false },
     lastActive: { type: Date, default: Date.now },
@@ -54,6 +58,16 @@ const UserSchema: Schema<IUser> = new Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   gamesShared: [{ type: mongoose.Schema.Types.ObjectId, ref: 'GamesShared' }],
   aiInteractions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AIInteraction' }],
+  favorites: [
+    {
+      itemId: { type: mongoose.Schema.Types.ObjectId, required: true },
+      itemType: {
+        type: String,
+        enum: ['GameShared', 'Course', 'Thread', 'Post'],
+        required: true,
+      },
+    },
+  ],
 });
 
 UserSchema.pre<IUser>('save', async function (next) {
@@ -71,6 +85,5 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
 UserSchema.index({ roleId: 1 });
 UserSchema.index({ 'status.lastActive': -1 });
 UserSchema.index({ lastLogin: 1 }, { expireAfterSeconds: 60 * 60 * 24 * 30 });
-
 
 export default mongoose.model<IUser>('User', UserSchema);

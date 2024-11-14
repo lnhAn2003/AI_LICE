@@ -21,7 +21,7 @@ import gamesharedRoutes from './routes/gameshared.routes';
 import courseRoutes from './routes/course.routes';
 import aiRoutes from './routes/ai.routes';
 import logRoutes from './routes/log.routes';
-
+import notificationRoutes from './routes/notification.routes'
 const app = express();
 
 // Middleware
@@ -43,6 +43,7 @@ app.use('/gameshareds', gamesharedRoutes);
 app.use('/course', courseRoutes);
 app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);
+app.use('/notification', notificationRoutes);
 
 // Database Connection
 mongoose
