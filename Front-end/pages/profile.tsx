@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Footer from '../src/components/index/footer';
 import AvatarSection from '../src/components/profile/avatarsection';
 import UserInfo from '../src/components/profile/userinfo';
 import Statistics from '../src/components/profile/statistics';
@@ -120,7 +119,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           </div>
         </main>
       </div>
-      <Footer />
   
       {/* Logout Modal */}
       {showLogoutModal && <LogoutModal onConfirm={confirmLogout} onCancel={cancelLogout} />}

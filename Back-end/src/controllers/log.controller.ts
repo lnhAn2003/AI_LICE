@@ -31,16 +31,38 @@ class LogController {
 
     public async getLogs(req: Request, res: Response): Promise<void> {
         try {
-          const filters = {
-            userId: req.query.userId as string,
-            eventType: req.query.eventType as string,
-          };
-          const logs = await LogService.getLogs(filters);
-          res.status(200).json(logs);
+            const filters = {
+                userId: req.query.userId as string,
+                eventType: req.query.eventType as string,
+            };
+            const logs = await LogService.getLogs(filters);
+            res.status(200).json(logs);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
+    public async getUserLogHistory(req: AuthRequest, res: Response): Promise<void> {
+        try {
+          // Check if the user is authenticated
+          if (!req.user) {
+            res.status(401).json({ message: "Unauthorized" });
+            return;
+          }
+    
+          // Get the user ID from the authenticated user data
+          const userId = req.user.id;
+    
+          const logs = await LogService.getLogsByUserId(userId);
+          if (logs.length === 0) {
+            res.status(404).json({ message: "No logs found for this user" });
+          } else {
+            res.status(200).json(logs);
+          }
         } catch (error: any) {
           res.status(500).json({ message: error.message });
         }
-    }
+      }
 }
 
 export default new LogController();
