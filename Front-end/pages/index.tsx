@@ -12,17 +12,31 @@ import AboutUs from '../src/components/main/aboutus';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="bg-backgroundMain text-header p-4">
-      <HeroSection />
-      <FeaturedGame />
-      <CommunityUpdates />
-      <TrendingThreads />
-      <TopGameSuccess />
-      <LatestSharedGames />
-      <CoursesSection />
-      <UserNotifications />
-      <CommunityHighlights />
-      <AboutUs />
+    <div className="bg-neutral text-dark">
+
+      {/* Main Content */}
+      <div className="container mx-auto p-4 space-y-6">
+        <HeroSection />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            <FeaturedGame />
+            <LatestSharedGames />
+            <TopGameSuccess />
+            <TrendingThreads />
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            <CommunityUpdates />
+            <UserNotifications />
+            <CoursesSection />
+          </div>
+        </div>
+        <CommunityHighlights />
+        <AboutUs />
+      </div>
+      
     </div>
   );
 };

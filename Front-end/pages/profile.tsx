@@ -1,30 +1,55 @@
+// pages/user-profile.tsx
+
 import React, { useState } from 'react';
 import AvatarSection from '../src/components/profile/avatarsection';
 import UserInfo from '../src/components/profile/userinfo';
 import Statistics from '../src/components/profile/statistics';
 import Badges from '../src/components/profile/badges';
-import AboutPreferences from '../src/components/profile/aboutpreferences';
 import RecentActivity from '../src/components/profile/recentactivity';
+import ActivityChart from '../src/components/profile/activitychart';
 import Link from 'next/link';
-import { GetServerSideProps } from 'next';
-import axiosInstance from '../src/utils/axiosInstance';
 import { useAuth } from '../src/hooks/useAuth';
-import cookie, { parse } from 'cookie';
+import { subDays, format } from 'date-fns';
 
 interface UserProfileProps {
-  user: any;
+  user: {
+    id: string;
+    avatarUrl: string;
+    username: string;
+    bio: string;
+    joinedDate: string;
+    lastActive: string;
+    role: string;
+    email: string;
+    socialLinks: Array<{ platform: string; url: string }>;
+    statistics: {
+      threadsCreated: number;
+      postsMade: number;
+      gamesShared: number;
+      aiInteractions: number;
+    };
+    recentActivity: {
+      threads: any[];
+      posts: any[];
+      games: any[];
+    };
+    badges: {
+      earned: Array<{ icon: string; title: string; description: string }>;
+      upcoming: Array<{ icon: string; title: string; description: string }>;
+    };
+  };
 }
 
 const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = ({ onConfirm, onCancel }) => {
   return (
-    <div className="fixed inset-0 flex items-start justify-center bg-black bg-opacity-50 pt-20">
-      <div className="bg-white w-11/12 max-w-md p-6 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold mb-4">Do you want to logout?</h2>
-        <div className="flex justify-end space-x-4">
-          <button className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400" onClick={onCancel}>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-center">Confirm Logout</h2>
+        <div className="flex justify-between">
+          <button className="flex-1 bg-gray-200 py-2 rounded-md hover:bg-gray-300 mr-2" onClick={onCancel}>
             Cancel
           </button>
-          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={onConfirm}>
+          <button className="flex-1 bg-red-500 text-white py-2 rounded-md hover:bg-red-600" onClick={onConfirm}>
             Logout
           </button>
         </div>
@@ -50,77 +75,86 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
     setShowLogoutModal(false);
   };
 
+  // Generate fake activity data for demonstration
+  const generateFakeActivityData = () => {
+    const today = new Date();
+    const data = [];
+
+    for (let i = 0; i <= 364; i++) {
+      const date = subDays(today, i);
+      data.push({
+        date: format(date, 'yyyy-MM-dd'),
+        count: Math.floor(Math.random() * 5), // Random activity count between 0 and 4
+      });
+    }
+
+    return data;
+  };
+
+  const activityData = generateFakeActivityData();
+
   return (
-    <div className="min-h-screen flex flex-col w-full bg-backgroundMain">
-      {/* Added container for margins */}
-      <div className="mx-20">
-        <main className="flex-1 px-6 py-8 max-w-7xl mx-auto">
-          {/* Rollback Section */}
-          <div className="mb-4">
-            <Link href="/" className="text-button hover:underline">
-              ← Rollback
-            </Link>
+    <div className="min-h-screen bg-neutral flex flex-col">
+      <div className="container mx-auto p-6 space-y-6">
+        <Link href="/" passHref>
+          <div className="text-secondary hover:underline cursor-pointer mb-4 inline-block">← Back to Home</div>
+        </Link>
+
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <h1 className="text-3xl font-bold text-center py-6 bg-primary text-white">User Profile</h1>
+
+          {/* Avatar and User Info */}
+          <div className="flex flex-col md:flex-row p-6">
+            <div className="md:w-1/3 p-4 text-center">
+              <AvatarSection avatarUrl={user.avatarUrl} onEdit={() => console.log('Edit Avatar clicked')} />
+            </div>
+            <div className="md:w-2/3 p-4">
+              <UserInfo
+                username={user.username}
+                bio={user.bio}
+                role={user.role}
+                email={user.email}
+                socialLinks={user.socialLinks}
+                joinedDate={user.joinedDate}
+                lastActive={user.lastActive}
+              />
+            </div>
           </div>
-  
-          <div className="w-full border border-black rounded-lg shadow-lg bg-white">
-            {/* Main content */}
-            <h1 className="text-3xl font-bold mb-4 p-6 bg-cardBackground border-b border-black text-header text-center">
-              User Profile Page
-            </h1>
-  
-            {/* Avatar and User Info Section */}
-            <div className="flex flex-col md:flex-row justify-between items-start border-b border-black p-6 bg-white">
-              <div className="md:w-1/2 flex flex-col items-center text-center border-r border-black pr-6">
-                <AvatarSection avatarUrl={user.avatarUrl} onEdit={() => console.log('Edit Avatar clicked')} />
-                <div className="w-full mt-4 bg-backgroundMain p-4 rounded-lg shadow-sm">
-                  <Statistics {...user.statistics} />
-                </div>
+
+          {/* Statistics Section */}
+          <div className="p-6 bg-neutral">
+            <Statistics {...user.statistics} />
+          </div>
+
+          {/* Badges and Activity Chart Section */}
+          <div className="p-4 bg-white">
+            <div className="flex flex-col lg:flex-row gap-4">
+              {/* Badges Component */}
+              <div className="lg:w-2/6">
+                <Badges earnedBadges={user.badges.earned} upcomingBadges={user.badges.upcoming} />
               </div>
-  
-              <div className="md:w-1/2 text-left md:pl-6">
-                <div className="bg-backgroundMain p-4 rounded-lg shadow-sm text-header">
-                  <UserInfo
-                    username={user.username}
-                    bio={user.bio}
-                    joinedDate={user.joinedDate}
-                    lastActive={user.lastActive}
-                    role={user.role}
-                    email={user.email}
-                    socialLinks={user.socialLinks}
-                  />
-                </div>
+              {/* Activity Chart Component */}
+              <div className="lg:w-4/6">
+                <ActivityChart activityData={activityData} />
               </div>
             </div>
-  
-            {/* Badges and About Preferences Section */}
-            <div className="flex flex-col md:flex-row justify-between items-start border-b border-black p-6 bg-white">
-              <div className="md:w-1/2 flex flex-col items-center text-center border-r border-black pr-6">
-                <div className="w-full bg-backgroundMain p-4 rounded-lg shadow-sm text-header">
-                  <Badges earnedBadges={user.badges.earned} upcomingBadges={user.badges.upcoming} />
-                </div>
-              </div>
-  
-              <div className="md:w-1/2 text-left md:pl-6">
-                <div className="bg-backgroundMain p-4 rounded-lg shadow-sm text-header">
-                  <AboutPreferences bio={user.bio} preferences={user.preferences} />
-                </div>
-              </div>
-            </div>
-  
-            {/* Recent Activity Section */}
-            <div className="p-6 bg-white">
-              <div className="bg-backgroundMain p-4 rounded-lg shadow-sm text-header">
-                <RecentActivity userId={user.id} />
-              </div>
-              <button className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded mt-4" onClick={handleLogout}>
+          </div>
+
+          {/* Recent Activity Section */}
+          <div className="p-6 bg-neutral">
+            <RecentActivity userId={user.id} />
+            <div className="mt-6">
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+              >
                 Logout
               </button>
             </div>
           </div>
-        </main>
+        </div>
       </div>
-  
-      {/* Logout Modal */}
+
       {showLogoutModal && <LogoutModal onConfirm={confirmLogout} onCancel={cancelLogout} />}
     </div>
   );
@@ -128,70 +162,5 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
 export default UserProfile;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const cookies = parse(req.headers.cookie || '');
-  const token = cookies.token;
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
-
-  try {
-    const response = await axiosInstance.get('/users/profile', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const user = response.data;
-
-    const userData = {
-      id: user._id,
-      avatarUrl: user.profile?.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCO2sR3EtGqpIpIa-GTVnvdrDHu0WxuzpA8g&s',
-      username: user.username,
-      bio: user.profile?.bio || '',
-      joinedDate: new Date(user.joinedAt).toLocaleDateString(),
-      lastActive: new Date(user.lastActive).toLocaleDateString(),
-      role: user.role?.name || 'User',
-      email: user.email,
-      socialLinks: user.profile?.socialLinks || [],
-      statistics: {
-        threadsCreated: user.threads?.length || 0,
-        postsMade: user.posts?.length || 0,
-        gamesShared: user.gamesShared?.length || 0,
-        aiInteractions: user.aiInteractions?.length || 0,
-      },
-      preferences: user.profile?.preferences || {},
-      recentActivity: {
-        threads: user.threads || [],
-        posts: user.posts || [],
-        games: user.gamesShared || [],
-      },
-      badges: {
-        earned: [
-          { icon: '🎉', title: 'Top Contributor', description: 'Contributed 50+ posts' },
-        ],
-        upcoming: [
-          { icon: '💎', title: 'Community Star', description: 'Contribute 100 posts to unlock' },
-        ],
-      },
-    };
-
-    return {
-      props: {
-        user: userData,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return {
-      notFound: true,
-    };
-  }
-};
+// Import and re-export the getUserServerSideProps function as getServerSideProps
+export { getUserServerSideProps as getServerSideProps } from '../src/serverside/users.serverside';

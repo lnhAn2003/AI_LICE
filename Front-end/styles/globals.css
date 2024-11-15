@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add this to your global CSS file */
+
+.react-calendar-heatmap .color-empty {
+  fill: #ebedf0;
+}
+
+.react-calendar-heatmap .color-scale-1 {
+  fill: #c6e48b;
+}
+
+.react-calendar-heatmap .color-scale-2 {
+  fill: #7bc96f;
+}
+
+.react-calendar-heatmap .color-scale-3 {
+  fill: #239a3b;
+}
+
+.react-calendar-heatmap .color-scale-4 {
+  fill: #196127;
+}
+
+.react-calendar-heatmap text {
+  fill: #6b7280;
+  /* Tailwind's gray-500 */
+  font-size: 10px;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-small-text {
+  fill: #6b7280;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-weekday-labels text {
+  font-size: 10px;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-tooltip {
+  pointer-events: none;
+}
+
+@font-face {
+  font-family: 'Sour Gummy';
+  src: url('/fonts/SourGummy-Regular.woff2') format('woff2'),
+    url('/fonts/SourGummy-Regular.woff') format('woff'),
+    url('/fonts/SourGummy-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply the font globally */
+html {
+  font-family: 'Sour Gummy', sans-serif;
+}
