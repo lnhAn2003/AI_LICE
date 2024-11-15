@@ -1,49 +1,56 @@
+import React from 'react';
+
 interface Badge {
-    icon: string
-    title: string
-    description: string
-  }
-  
-  interface BadgesProps {
-    earnedBadges: Badge[]
-    upcomingBadges: Badge[]
-  }
-  
-  const Badges: React.FC<BadgesProps> = ({ earnedBadges, upcomingBadges }) => {
-    return (
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold">Badges and Achievements</h3>
-        <div className="mt-4">
-          <h4 className="font-semibold">Earned Badges</h4>
-          <div className="grid grid-cols-1 gap-4 mt-2">
-            {earnedBadges.map((badge, index) => (
-              <div key={index} className="flex items-center">
-                <span className="text-2xl">{badge.icon}</span>
-                <div className="ml-4">
-                  <p className="font-semibold">{badge.title}</p>
-                  <p className="text-gray-600">{badge.description}</p>
-                </div>
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface BadgesProps {
+  earnedBadges: Badge[];
+  upcomingBadges: Badge[];
+}
+
+const Badges: React.FC<BadgesProps> = ({ earnedBadges, upcomingBadges }) => {
+  return (
+    <div>
+      <h3 className="text-xl font-semibold mb-4">Badges and Achievements</h3>
+      <div>
+        <h4 className="font-semibold mb-2">Earned Badges</h4>
+        <div className="flex flex-wrap gap-4">
+          {earnedBadges.map((badge, index) => (
+            <div
+              key={index}
+              className="w-24 h-24 bg-neutral rounded-lg flex flex-col items-center justify-center shadow-md relative group"
+            >
+              <span className="text-3xl">{badge.icon}</span>
+              <p className="text-sm font-semibold text-center mt-2">{badge.title}</p>
+              <div className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded p-1">
+                {badge.description}
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-4">
-          <h4 className="font-semibold">Upcoming Badges</h4>
-          <div className="grid grid-cols-1 gap-4 mt-2">
-            {upcomingBadges.map((badge, index) => (
-              <div key={index} className="flex items-center opacity-50">
-                <span className="text-2xl">{badge.icon}</span>
-                <div className="ml-4">
-                  <p className="font-semibold">{badge.title}</p>
-                  <p className="text-gray-600">{badge.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    )
-  }
-  
-  export default Badges
-  
+      <div className="mt-6">
+        <h4 className="font-semibold mb-2">Upcoming Badges</h4>
+        <div className="flex flex-wrap gap-4">
+          {upcomingBadges.map((badge, index) => (
+            <div
+              key={index}
+              className="w-24 h-24 bg-neutral rounded-lg flex flex-col items-center justify-center shadow-md opacity-50 relative group"
+            >
+              <span className="text-3xl">{badge.icon}</span>
+              <p className="text-sm font-semibold text-center mt-2">{badge.title}</p>
+              <div className="absolute top-full mt-2 hidden group-hover:block bg-black text-white text-xs rounded p-1">
+                {badge.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Badges;
