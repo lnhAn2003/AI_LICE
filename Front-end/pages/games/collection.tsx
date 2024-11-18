@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import axiosInstance from '../../src/utils/axiosInstance';
 import FilterSortComponent from '../../src/components/game/filtersort';
 import Pagination from '../../src/components/game/pagination';
 
@@ -22,8 +23,8 @@ interface Game {
   newRelease: boolean;
   tags: string[];
   downloadCount: number;
-  gameModes: string[]; 
-  releaseDate: string; 
+  gameModes: string[];
+  releaseDate: string;
   uploadedBy: {
     username: string;
     _id: string;
@@ -44,19 +45,12 @@ const GameCollection: React.FC = () => {
   useEffect(() => {
     const fetchGamesAndCategories = async () => {
       try {
-        const gameResponse = await fetch('http://localhost:5000/gameshareds');
-        if (!gameResponse.ok) {
-          throw new Error(`Error: ${gameResponse.status} - ${gameResponse.statusText}`);
-        }
-        const gameData = await gameResponse.json();
-        setGames(gameData);
-        setFilteredGames(gameData);
+        const gameResponse = await axiosInstance.get('/gameshareds');
+        setGames(gameResponse.data);
+        setFilteredGames(gameResponse.data);
 
-        const categoryResponse = await fetch('http://localhost:5000/categories');
-        if (!categoryResponse.ok) {
-          throw new Error(`Error: ${categoryResponse.status} - ${categoryResponse.statusText}`);
-        }
-        const categoryData = await categoryResponse.json();
+        const categoryResponse = await axiosInstance.get('/categories');
+        const categoryData = categoryResponse.data;
 
         // Separate categories into genres and engines
         const genres = categoryData.filter((cat: Category) => cat.key === 'game_genre');
@@ -129,7 +123,9 @@ const GameCollection: React.FC = () => {
       if (filters.downloads === '1000+') {
         filtered = filtered.filter((game) => game.downloadCount >= 1000);
       } else if (filters.downloads === '500-999') {
-        filtered = filtered.filter((game) => game.downloadCount >= 500 && game.downloadCount < 1000);
+        filtered = filtered.filter(
+          (game) => game.downloadCount >= 500 && game.downloadCount < 1000
+        );
       } else if (filters.downloads === '<500') {
         filtered = filtered.filter((game) => game.downloadCount < 500);
       }
@@ -195,7 +191,9 @@ const GameCollection: React.FC = () => {
       sortedGames.sort((a, b) => b.successVotes.percentage - a.successVotes.percentage);
     } else {
       // Most Recent
-      sortedGames.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
+      sortedGames.sort(
+        (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+      );
     }
 
     setSortBy(sortBy);
@@ -217,10 +215,10 @@ const GameCollection: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-backgroundMain px-6 py-8 max-w-7xl mx-auto">
-      <div className="flex">
-        {/* Filter and Sort Component on the left */}
-        <div className="w-1/4 pr-4">
+    <div className="min-h-screen bg-gray-100 px-4 py-8">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
+        {/* Filter Component */}
+        <div className="w-full lg:w-1/4 lg:pr-6 mb-6 lg:mb-0">
           <FilterSortComponent
             onFilterChange={handleFilterChange}
             onSortChange={handleSortChange}
@@ -229,47 +227,87 @@ const GameCollection: React.FC = () => {
           />
         </div>
 
-        {/* Game List on the right */}
-        <div className="w-3/4">
+        {/* Game List */}
+        <div className="w-full lg:w-3/4">
           {/* Sort Options */}
-          <div className="flex justify-end mb-4">
-            <label htmlFor="sort-by" className="mr-2">Sort by:</label>
-            <select
-              id="sort-by"
-              value={sortBy}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md"
-            >
-              <option value="Most Recent">Most Recent</option>
-              <option value="Most Downloaded">Most Downloaded</option>
-              <option value="Highest Rated">Highest Rated</option>
-              <option value="Success Rate">Success Rate</option>
-            </select>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-extrabold text-gray-900">Game Collection</h1>
+            <div className="flex items-center">
+              <label htmlFor="sort-by" className="mr-2 text-gray-700 font-medium">
+                Sort by:
+              </label>
+              <select
+                id="sort-by"
+                value={sortBy}
+                onChange={(e) => handleSortChange(e.target.value)}
+                className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                <option value="Most Recent">Most Recent</option>
+                <option value="Most Downloaded">Most Downloaded</option>
+                <option value="Highest Rated">Highest Rated</option>
+                <option value="Success Rate">Success Rate</option>
+              </select>
+            </div>
           </div>
 
-          <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Game Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {currentGames.map((game) => (
-              <div key={game._id} className="border border-gray-300 rounded-lg shadow-lg bg-white p-4">
-                <Link href={`/games/${game._id}`} passHref>
-                  <img
-                    src={game.images[0] || 'https://via.placeholder.com/150'}
-                    alt={game.title}
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                  />
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                    {game.title} {game.newRelease && <span className="text-sm text-red-500">(New!)</span>}
-                  </h2>
+              <div
+                key={game._id}
+                className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+              >
+                <Link href={`/games/${game._id}`}>
+                  <div className="cursor-pointer">
+                    <img
+                      src={game.images[0] || '/placeholder-image.png'}
+                      alt={game.title}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                    <div className="p-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-1">
+                        {game.title}
+                        {game.newRelease && (
+                          <span className="ml-2 text-sm text-red-500">(New!)</span>
+                        )}
+                      </h2>
+                      <p className="text-sm text-gray-600 mb-2">
+                        By{' '}
+                        <span className="font-medium text-gray-700">
+                          {game.uploadedBy.username}
+                        </span>
+                      </p>
+                      <div className="flex items-center text-yellow-400 mb-2">
+                        {Array.from({ length: 5 }, (_, i) => (
+                          <svg
+                            key={i}
+                            className={`w-5 h-5 ${
+                              i < Math.round(game.averageRating)
+                                ? 'text-yellow-500'
+                                : 'text-gray-300'
+                            }`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.985a1 1 0 00.95.69h4.211c.969 0 1.371 1.24.588 1.81l-3.405 2.474a1 1 0 00-.364 1.118l1.286 3.985c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.405 2.474c-.785.57-1.84-.197-1.54-1.118l1.286-3.985a1 1 0 00-.364-1.118L2.573 9.412c-.783-.57-.38-1.81.588-1.81h4.211a1 1 0 00.95-.69l1.286-3.985z" />
+                          </svg>
+                        ))}
+                        <span className="text-gray-600 text-sm ml-2">
+                          ({game.ratingCount} reviews)
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm text-gray-600">
+                        <p>Views: {game.viewCount}</p>
+                        <p>Downloads: {game.downloadCount}</p>
+                      </div>
+                    </div>
+                  </div>
                 </Link>
-                <p className="text-sm text-gray-600">Categories: {game.categories.map(cat => cat.name).join(', ')}</p>
-                <p className="text-sm text-gray-600">Tags: {game.tags.join(', ')}</p>
-                <p className="text-sm text-gray-600">Uploaded By: {game.uploadedBy.username}</p>
-                <p className="text-sm text-gray-600">Rating: ★{game.averageRating.toFixed(1)} / 5</p>
-                <p className="text-sm text-gray-600">Downloads: {game.downloadCount}</p>
               </div>
             ))}
-          </main>
+          </div>
 
-          {/* Pagination Component */}
+          {/* Pagination */}
           {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}

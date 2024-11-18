@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 import LogService from "../services/log.service";
 import mongoose from "mongoose";
+import { request } from 'http';
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -42,6 +43,8 @@ class UserController {
         userAgent: req.headers["user-agent"] || "Unknown",
       });
 
+      await UserService.updateLastActiveStatus(user.id, true);
+
       res.status(200).json({ token, user: { ...user.toObject(), password: undefined } });
     } catch (error: any) {
       res.status(400).json({ message: error.message });
@@ -64,6 +67,17 @@ class UserController {
       else res.status(200).json(user);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
+    }
+  }
+
+  public async getProfile(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const user = await UserService.getUserById(req.user.id);
+      if (!user) 
+        res.status(404).json({ message: 'User not found' });
+      res.status(200).json(user);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   }
 
@@ -102,17 +116,6 @@ class UserController {
       res.status(200).json({ message: 'Password changed successfully' });
     } catch (error: any) {
       res.status(400).json({ message: error.message });
-    }
-  }
-
-  public async getProfile(req: AuthRequest, res: Response): Promise<void> {
-    try {
-      const user = await UserService.getUserById(req.user.id);
-      if (!user) 
-        res.status(404).json({ message: 'User not found' });
-      res.status(200).json(user);
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
     }
   }
 

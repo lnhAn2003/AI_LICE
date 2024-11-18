@@ -78,9 +78,9 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
           {threads.length > 0 ? (
             <div className="space-y-2">
               {threads.map((thread) => (
-                <div key={thread._id} className="p-4 bg-white rounded-lg shadow">
-                  <p className="font-semibold">{thread.title}</p>
-                  <p className="text-gray-600">Date Created: {new Date(thread.createdAt).toLocaleDateString()}</p>
+                <div key={thread._id} className="p-4 dark:bg-gray-700 rounded-lg shadow">
+                  <p className="font-semibold text-red-500">{thread.title}</p>
+                  <p>Date Created: {new Date(thread.createdAt).toLocaleDateString()}</p>
                 </div>
               ))}
             </div>
@@ -95,19 +95,19 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
           {posts.length > 0 ? (
             <>
               <div className="space-y-2">
-                {posts.slice(0, showAllPosts ? posts.length : 3).map((post) => (
-                  <div key={post._id} className="p-4 bg-white rounded-lg shadow">
+                {posts.slice(0, showAllPosts ? posts.length : 2).map((post) => (
+                  <div key={post._id} className="p-4 dark:bg-gray-700 rounded-lg shadow">
                     <p>
-                      <strong>{post.action}</strong> "{post.content}"
+                      <strong  className='text-blue-500'>{post.action} "{post.content}"</strong>
                     </p>
                     <p>
-                      on <strong>"{post.threadTitle}"</strong>
+                      on <strong className='text-red-500'>"{post.threadTitle}"</strong>
                     </p>
-                    <p className="text-gray-600">{new Date(post.createdAt).toLocaleDateString()}</p>
+                    <p>{new Date(post.createdAt).toLocaleDateString()}</p>
                   </div>
                 ))}
               </div>
-              {posts.length > 3 && (
+              {posts.length > 2 && (
                 <button
                   onClick={() => setShowAllPosts(!showAllPosts)}
                   className="text-secondary hover:underline mt-2"
@@ -127,7 +127,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
           {games.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {games.map((game) => (
-                <div key={game._id || game.title} className="p-4 bg-white rounded-lg shadow-lg flex flex-col">
+                <div key={game._id || game.title} className="p-4 dark:bg-gray-700 rounded-lg shadow-lg flex flex-col">
                   <h5 className="text-lg font-bold mb-2">
                     {game.title} {game.newRelease && <span className="text-sm text-green-500">(New!)</span>}
                   </h5>
@@ -138,8 +138,8 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
                       className="w-full h-40 object-cover rounded mb-4"
                     />
                   )}
-                  <p className="text-gray-700 mb-2 flex-grow">{game.description}</p>
-                  <div className="text-sm text-gray-600 mb-4">
+                  <p className="mb-2 flex-grow">{game.description}</p>
+                  <div className="text-sm mb-4">
                     <p>Version: {game.version}</p>
                     <p>
                       Downloads: {game.downloadCount} | Views: {game.viewCount}
@@ -149,7 +149,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
                   <a
                     href={game.fileUrl}
                     download
-                    className="mt-auto inline-block bg-secondary text-white py-2 px-4 rounded hover:bg-secondary-dark text-center"
+                    className="mt-auto inline-block bg-secondary py-2 px-4 rounded hover:bg-blue-600 text-center"
                   >
                     Download Game
                   </a>

@@ -48,8 +48,8 @@ const UserInfo: React.FC<UserInfoProps> = ({
 }) => {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-dark">{username}</h2>
-      <p className="text-gray-600">{bio}</p>
+      <h2 className="text-2xl font-semibold">{username}</h2>
+      <p>{bio}</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <p>

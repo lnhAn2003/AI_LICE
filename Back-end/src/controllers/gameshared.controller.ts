@@ -20,8 +20,7 @@ class GameSharedController {
       const gameData = {
         ...req.body,
         uploadedBy,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        newRelease: true,
         viewCount: 0,
         downloadCount: 0,
       };
@@ -45,8 +44,12 @@ class GameSharedController {
   public async getGameSharedById(req: Request, res: Response): Promise<void> {
     try {
       const game = await GameSharedService.getGameSharedById(req.params.id);
-      if (!game) res.status(404).json({ message: "Game not found" });
-      else res.status(200).json(game);
+      if (!game) {
+        res.status(404).json({ message: "Game not found" });
+      } else {
+        await GameSharedService.incrementViewCount(req.params.id);
+        res.status(200).json(game);
+      }
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -55,8 +58,11 @@ class GameSharedController {
   public async updateGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
       const game = await GameSharedService.updateGameShared(req.params.id, req.body);
-      if (!game) res.status(404).json({ message: "Game not found" });
-      else res.status(200).json(game);
+      if (!game) {
+        res.status(404).json({ message: "Game not found" });
+      } else {
+        res.status(200).json(game);
+      }
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -65,8 +71,11 @@ class GameSharedController {
   public async deleteGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
       const game = await GameSharedService.deleteGameShared(req.params.id);
-      if (!game) res.status(404).json({ message: "Game not found" });
-      else res.status(200).json({ message: "Game deleted" });
+      if (!game) {
+        res.status(404).json({ message: "Game not found" });
+      } else {
+        res.status(200).json({ message: "Game deleted" });
+      }
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -80,7 +89,7 @@ class GameSharedController {
       res.status(400).json({ message: error.message });
     }
   }
-
+  
   public async addRating(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { id: gameId } = req.params;

@@ -40,16 +40,27 @@ interface UserProfileProps {
   };
 }
 
-const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = ({ onConfirm, onCancel }) => {
+const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = ({
+  onConfirm,
+  onCancel,
+}) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-center">Confirm Logout</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">
+          Confirm Logout
+        </h2>
         <div className="flex justify-between">
-          <button className="flex-1 bg-gray-200 py-2 rounded-md hover:bg-gray-300 mr-2" onClick={onCancel}>
+          <button
+            className="flex-1 bg-gray-200 dark:bg-gray-700 py-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 mr-2 text-gray-800 dark:text-gray-200"
+            onClick={onCancel}
+          >
             Cancel
           </button>
-          <button className="flex-1 bg-red-500 text-white py-2 rounded-md hover:bg-red-600" onClick={onConfirm}>
+          <button
+            className="flex-1 bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+            onClick={onConfirm}
+          >
             Logout
           </button>
         </div>
@@ -94,19 +105,26 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
   const activityData = generateFakeActivityData();
 
   return (
-    <div className="min-h-screen bg-neutral flex flex-col">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col">
       <div className="container mx-auto p-6 space-y-6">
         <Link href="/" passHref>
-          <div className="text-secondary hover:underline cursor-pointer mb-4 inline-block">← Back to Home</div>
+          <div className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer mb-4 inline-block">
+            ← Back to Home
+          </div>
         </Link>
 
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <h1 className="text-3xl font-bold text-center py-6 bg-primary text-white">User Profile</h1>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+          <h1 className="text-3xl font-bold text-center py-6 bg-primary dark:bg-gray-700 text-white">
+            User Profile
+          </h1>
 
           {/* Avatar and User Info */}
           <div className="flex flex-col md:flex-row p-6">
             <div className="md:w-1/3 p-4 text-center">
-              <AvatarSection avatarUrl={user.avatarUrl} onEdit={() => console.log('Edit Avatar clicked')} />
+              <AvatarSection
+                avatarUrl={user.avatarUrl}
+                onEdit={() => console.log('Edit Avatar clicked')}
+              />
             </div>
             <div className="md:w-2/3 p-4">
               <UserInfo
@@ -122,16 +140,19 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           </div>
 
           {/* Statistics Section */}
-          <div className="p-6 bg-neutral">
+          <div className="p-6 bg-gray-50 dark:bg-gray-800">
             <Statistics {...user.statistics} />
           </div>
 
           {/* Badges and Activity Chart Section */}
-          <div className="p-4 bg-white">
+          <div className="p-4 bg-white dark:bg-gray-800">
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Badges Component */}
               <div className="lg:w-2/6">
-                <Badges earnedBadges={user.badges.earned} upcomingBadges={user.badges.upcoming} />
+                <Badges
+                  earnedBadges={user.badges.earned}
+                  upcomingBadges={user.badges.upcoming}
+                />
               </div>
               {/* Activity Chart Component */}
               <div className="lg:w-4/6">
@@ -141,7 +162,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           </div>
 
           {/* Recent Activity Section */}
-          <div className="p-6 bg-neutral">
+          <div className="p-6 bg-gray-50 dark:bg-gray-800">
             <RecentActivity userId={user.id} />
             <div className="mt-6">
               <button
