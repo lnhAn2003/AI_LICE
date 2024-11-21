@@ -43,7 +43,7 @@ class UserController {
         userAgent: req.headers["user-agent"] || "Unknown",
       });
 
-      await UserService.updateLastActiveStatus(user.id, true);
+      await UserService.updateLastLoginStatus(user.id);
 
       res.status(200).json({ token, user: { ...user.toObject(), password: undefined } });
     } catch (error: any) {

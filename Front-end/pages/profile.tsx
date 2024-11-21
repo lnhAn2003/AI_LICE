@@ -19,6 +19,7 @@ interface UserProfileProps {
     bio: string;
     joinedDate: string;
     lastActive: string;
+    lastLogin: string;
     role: string;
     email: string;
     socialLinks: Array<{ platform: string; url: string }>;
@@ -134,7 +135,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
                 email={user.email}
                 socialLinks={user.socialLinks}
                 joinedDate={user.joinedDate}
-                lastActive={user.lastActive}
+                lastLogin={user.lastLogin}
               />
             </div>
           </div>
@@ -163,7 +164,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
           {/* Recent Activity Section */}
           <div className="p-6 bg-gray-50 dark:bg-gray-800">
-            <RecentActivity userId={user.id} />
+            <p></p>
+            <RecentActivity userId={user.id} lastActive={user.lastActive} />
             <div className="mt-6">
               <button
                 onClick={handleLogout}

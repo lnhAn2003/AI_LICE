@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import GameSharedService from "../services/gameshared.service";
 import mongoose from "mongoose";
 import { IGameShared } from "../models/gameshared.model";
+import UserService from "../services/user.service";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -15,6 +16,9 @@ class GameSharedController {
         res.status(401).json({ message: "Unauthorized" });
         return;
       }
+
+      await UserService.updateLastActiveStatus(user.id, true);
+
       const uploadedBy = new mongoose.Types.ObjectId(user.id);
 
       const gameData = {

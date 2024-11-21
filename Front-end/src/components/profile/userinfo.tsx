@@ -12,7 +12,7 @@ interface UserInfoProps {
   username: string;
   bio: string;
   joinedDate: string;
-  lastActive: string;
+  lastLogin: string;
   role: string;
   email: string;
   socialLinks: SocialLink[];
@@ -41,7 +41,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   username,
   bio,
   joinedDate,
-  lastActive,
+  lastLogin,
   role,
   email,
   socialLinks,
@@ -56,7 +56,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
             <strong>Joined:</strong> {joinedDate}
           </p>
           <p>
-            <strong>Last Active:</strong> {lastActive}
+            <strong>Last Login:</strong> {lastLogin}
           </p>
         </div>
         <div>

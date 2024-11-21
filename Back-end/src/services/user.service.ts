@@ -69,6 +69,16 @@ class UserService {
     await user.save();
   }
 
+  public async updateLastLoginStatus(userId: string): Promise<IUser | null>{
+    return await User.findByIdAndUpdate(
+      userId,
+      {
+        'lastLogin': new Date(),
+      },
+      { new: true }
+    ).select('-password');
+  }
+
   public async updateLastActiveStatus(userId: string, online: boolean): Promise<IUser | null> {
     return await User.findByIdAndUpdate(
       userId,

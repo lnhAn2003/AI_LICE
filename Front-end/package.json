@@ -36,9 +36,8 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "start": "next dev",
+    "build": "next build"
   },
   "author": "",
   "license": "ISC",

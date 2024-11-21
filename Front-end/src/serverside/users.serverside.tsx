@@ -31,6 +31,7 @@ export const getUserServerSideProps: GetServerSideProps = async (context) => {
         username: user.username,
         bio: user.profile?.bio || '',
         joinedDate: new Date(user.joinedAt).toLocaleDateString(),
+        lastLogin: new Date(user.lastLogin).toLocaleDateString(),
         lastActive: new Date(user.status.lastActive).toLocaleDateString(),
         role: user.role?.name || 'User',
         email: user.email,

@@ -37,9 +37,10 @@ interface Game {
 
 interface RecentActivityProps {
   userId: string;
+  lastActive: string;
 }
 
-const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
+const RecentActivity: React.FC<RecentActivityProps> = ({ userId, lastActive }) => {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [games, setGames] = useState<Game[]>([]);
@@ -71,6 +72,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
   return (
     <div className="mt-6">
       <h3 className="text-xl font-semibold mb-4">Recent Activity and Contributions</h3>
+      <p className="font-semibold mb-4 text-green-600">Last Active: {new Date(lastActive).toLocaleDateString()}</p>
       <div className="space-y-6">
         {/* Threads Section */}
         <div>
@@ -149,7 +151,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ userId }) => {
                   <a
                     href={game.fileUrl}
                     download
-                    className="mt-auto inline-block bg-secondary py-2 px-4 rounded hover:bg-blue-600 text-center"
+                    className="mt-auto inline-block bg-secondary py-2 px-4 text-white rounded hover:bg-blue-600 text-center"
                   >
                     Download Game
                   </a>
