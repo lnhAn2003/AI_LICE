@@ -1,6 +1,7 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import axiosInstance from '../utils/axiosInstance';
 import Cookies from 'js-cookie';
 import { useSocketContext } from './SocketContext';
 
@@ -37,8 +38,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (storedToken) {
       setToken(storedToken);
 
-      axios
-        .get('http://localhost:5000/users/profile', {
+      axiosInstance
+        .get('/users/profile', {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
@@ -57,7 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/users/login', {
+      const response = await axiosInstance.post('/users/login', {
         email,
         password,
       });

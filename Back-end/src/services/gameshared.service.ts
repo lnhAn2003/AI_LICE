@@ -45,6 +45,10 @@ class GameSharedService {
     await GameShared.findByIdAndUpdate(id, { $inc: { viewCount: 1 } });
   }
 
+  public async incrementDownloadCount(id: string): Promise<void> {
+    await GameShared.findByIdAndUpdate(id, { $inc: { downloadCount: 1 } });
+  }
+
   public async addRating(gameId: string, userId: string, ratingValue: number, comment: string): Promise<IGameShared> {
     const game = await GameShared.findById(gameId);
     if (!game) throw new Error('Game not found');

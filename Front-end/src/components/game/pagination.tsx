@@ -6,7 +6,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   const getPageNumbers = () => {
     const pageNumbers = [];
     const maxVisiblePages = 5;
@@ -28,38 +32,47 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="flex justify-center mt-4">
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={`mx-1 px-3 py-1 rounded ${
-          currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'
-        }`}
-      >
-        Previous
-      </button>
-
-      {pageNumbers.map((page) => (
-        <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`mx-1 px-3 py-1 rounded ${
-            page === currentPage ? 'bg-blue-700 text-white' : 'bg-blue-500 text-white'
-          }`}
-        >
-          {page}
-        </button>
-      ))}
-
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={`mx-1 px-3 py-1 rounded ${
-          currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'
-        }`}
-      >
-        Next
-      </button>
+    <div className="flex justify-center mt-8">
+      <nav aria-label="Page navigation">
+        <ul className="inline-flex items-center -space-x-px">
+          <li>
+            <button
+              onClick={() => onPageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 hover:text-gray-700 ${
+                currentPage === 1 && 'cursor-not-allowed opacity-50'
+              }`}
+            >
+              Previous
+            </button>
+          </li>
+          {pageNumbers.map((page) => (
+            <li key={page}>
+              <button
+                onClick={() => onPageChange(page)}
+                className={`px-3 py-2 leading-tight border ${
+                  page === currentPage
+                    ? 'text-white bg-blue-600 border-blue-600'
+                    : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-200 hover:text-gray-700'
+                }`}
+              >
+                {page}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button
+              onClick={() => onPageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-200 hover:text-gray-700 ${
+                currentPage === totalPages && 'cursor-not-allowed opacity-50'
+              }`}
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

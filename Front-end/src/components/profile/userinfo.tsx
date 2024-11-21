@@ -12,7 +12,7 @@ interface UserInfoProps {
   username: string;
   bio: string;
   joinedDate: string;
-  lastActive: string;
+  lastLogin: string;
   role: string;
   email: string;
   socialLinks: SocialLink[];
@@ -41,22 +41,22 @@ const UserInfo: React.FC<UserInfoProps> = ({
   username,
   bio,
   joinedDate,
-  lastActive,
+  lastLogin,
   role,
   email,
   socialLinks,
 }) => {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-dark">{username}</h2>
-      <p className="text-gray-600">{bio}</p>
+      <h2 className="text-2xl font-semibold">{username}</h2>
+      <p>{bio}</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <p>
             <strong>Joined:</strong> {joinedDate}
           </p>
           <p>
-            <strong>Last Active:</strong> {lastActive}
+            <strong>Last Login:</strong> {lastLogin}
           </p>
         </div>
         <div>
