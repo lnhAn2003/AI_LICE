@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ThreadService from "../services/thread.service";
+import UserService from "../services/user.service";
 import mongoose from "mongoose";
 
 export interface AuthRequest extends Request {
@@ -14,6 +15,8 @@ class ThreadController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
+
+            await UserService.updateLastActiveStatus(user.id, true);
 
             const authorId = new mongoose.Types.ObjectId(user.id);
 

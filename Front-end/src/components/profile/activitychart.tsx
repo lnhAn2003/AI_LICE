@@ -14,10 +14,10 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ activityData }) => {
   const startDate = subDays(today, 364); // Past year
 
   return (
-    <div>
+    <div className='dark:bg-gray-800'>
       <h3 className="text-xl font-semibold mb-4">Daily Activity</h3>
       <div
-        className="p-4 bg-white rounded-lg shadow w-full" // Ensure full width
+        className="p-4 dark:bg-gray-700 rounded-lg shadow w-full" // Ensure full width
         style={{ maxWidth: '800px', margin: '0 auto' }} // Match the width of the badge component container
       >
         <CalendarHeatmap

@@ -21,7 +21,7 @@ const Badges: React.FC<BadgesProps> = ({ earnedBadges, upcomingBadges }) => {
           {earnedBadges.map((badge, index) => (
             <div
               key={index}
-              className="w-24 h-24 bg-neutral rounded-lg flex flex-col items-center justify-center shadow-md relative group"
+              className="w-24 h-24 rounded-lg dark:bg-gray-600 flex flex-col items-center justify-center shadow-md relative group"
             >
               <span className="text-3xl">{badge.icon}</span>
               <p className="text-sm font-semibold text-center mt-2">{badge.title}</p>
@@ -38,7 +38,7 @@ const Badges: React.FC<BadgesProps> = ({ earnedBadges, upcomingBadges }) => {
           {upcomingBadges.map((badge, index) => (
             <div
               key={index}
-              className="w-24 h-24 bg-neutral rounded-lg flex flex-col items-center justify-center shadow-md opacity-50 relative group"
+              className="w-24 h-24 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center shadow-md opacity-50 relative group"
             >
               <span className="text-3xl">{badge.icon}</span>
               <p className="text-sm font-semibold text-center mt-2">{badge.title}</p>

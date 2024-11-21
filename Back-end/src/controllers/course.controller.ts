@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CourseService from '../services/course.service';
 import mongoose from 'mongoose';
 import { IComment } from '../models/comment.model';
+import UserService from '../services/user.service';
 import { ICourse } from '../models/course.model';
 
 export interface AuthRequest extends Request {
@@ -16,6 +17,9 @@ class CourseController {
         res.status(401).json({ message: 'Unauthorized' });
         return;
       }
+
+      await UserService.updateLastActiveStatus(user.id, true);
+
       const createdBy = new mongoose.Types.ObjectId(user.id);
 
       const courseData = {

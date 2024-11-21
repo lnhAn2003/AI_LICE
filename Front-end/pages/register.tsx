@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthContext } from '../src/contexts/AuthContext';
-import axios from 'axios';
+import axiosInstance from '../src/utils/axiosInstance';
 import Link from 'next/link';
 import { registerSchema } from '../src/schemas/userSchema';
 
@@ -29,7 +29,7 @@ const RegisterPage: React.FC = () => {
 
   const onSubmit = async (data: RegisterInput) => {
     try {
-      await axios.post('http://localhost:5000/users/register', {
+      await axiosInstance.post('/users/register', {
         username: data.username,
         email: data.email,
         password: data.password,

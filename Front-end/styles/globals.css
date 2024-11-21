@@ -55,4 +55,13 @@
 /* Apply the font globally */
 html {
   font-family: 'Sour Gummy', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-black;
+}
+
+html.dark body {
+  @apply bg-gray-900 text-white;
 }
