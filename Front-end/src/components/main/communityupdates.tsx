@@ -1,3 +1,5 @@
+// src/components/main/CommunityUpdates.tsx
+
 import React from 'react';
 
 const CommunityUpdates: React.FC = () => {
@@ -8,16 +10,21 @@ const CommunityUpdates: React.FC = () => {
   ];
 
   return (
-    <section className="p-6 bg-cardBackground mb-6 rounded-md shadow-md">
-      <h3 className="text-xl font-semibold mb-2">Community Updates</h3>
-      <ul>
+    <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-400">
+      <h3 className="text-2xl font-semibold mb-4">Community Updates</h3>
+      <ul className="space-y-3">
         {news.map((item, index) => (
-          <li key={index} className="text-sm mb-2">
-            <span className="font-bold">{item.date} | {item.time}</span> - {item.title}
+          <li key={index} className="text-sm">
+            <span className="font-bold text-gray-800 dark:text-gray-200">
+              {item.date} | {item.time}
+            </span>{' '}
+            - {item.title}
           </li>
         ))}
       </ul>
-      <a href="#" className="text-link">Read More</a>
+      <a href="#" className="text-blue-500 hover:underline mt-4 inline-block font-semibold">
+        Read More &rarr;
+      </a>
     </section>
   );
 };
