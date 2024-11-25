@@ -64,7 +64,6 @@ interface Game {
     __v: number;
 }
 
-
 const ITEMS_PER_PAGE = 6;
 
 const GameCollection: React.FC = () => {
@@ -308,7 +307,7 @@ const GameCollection: React.FC = () => {
                         {currentGames.map((game) => (
                             <div
                                 key={game._id}
-                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-400 dark:border-transparent"
+                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
                             >
                                 <Link href={`/games/${game._id}`}>
                                     <div className="cursor-pointer">
