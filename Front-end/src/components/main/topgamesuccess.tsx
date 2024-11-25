@@ -11,7 +11,8 @@ const TopGameSuccess: React.FC = () => {
       likes: 200,
       dislikes: 10,
       description: 'Explore new worlds and embark on thrilling quests.',
-      image: 'https://i.kickstarter.com/assets/031/130/376/5ed52c0f2b96af5ebdad6a9cd3dddc99_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&width=1552&sig=CDWmPhsmYzRUZhcPF5C20m8Cc9puKW9p9ky4pzvFeyM%3D',
+      image:
+        'https://i.pinimg.com/736x/93/3a/34/933a34a1c4855a6e8e86d3f69ee1de98.jpg',
     },
     {
       title: 'Space Odyssey',
@@ -25,11 +26,11 @@ const TopGameSuccess: React.FC = () => {
   ];
 
   return (
-    <section className="bg-white rounded shadow p-6">
-      <h3 className="text-2xl font-semibold mb-4">Top Game Success Rankings</h3>
+    <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-400">
+      <h3 className="text-3xl font-semibold mb-6">Top Game Success Rankings</h3>
       <table className="w-full table-auto">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-200 dark:bg-gray-700">
             <th className="px-4 py-2 text-left">Rank</th>
             <th className="px-4 py-2 text-left">Game</th>
             <th className="px-4 py-2 text-left">Author</th>
@@ -40,26 +41,33 @@ const TopGameSuccess: React.FC = () => {
         </thead>
         <tbody>
           {topGames.map((game, index) => (
-            <tr key={index} className="border-b">
-              <td className="px-4 py-2">{index + 1}</td>
-              <td className="px-4 py-2 flex items-center">
-                <img src={game.image} alt={game.title} className="w-12 h-12 object-cover rounded mr-2" />
+            <tr key={index} className="border-b border-gray-200 dark:border-gray-700">
+              <td className="px-4 py-4">{index + 1}</td>
+              <td className="px-4 py-4 flex items-center">
+                <img
+                  src={game.image}
+                  alt={game.title}
+                  className="w-12 h-12 object-cover rounded mr-3"
+                />
                 <div>
                   <p className="font-bold">{game.title}</p>
-                  <p className="text-sm text-gray-600">{game.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{game.description}</p>
                 </div>
               </td>
-              <td className="px-4 py-2">{game.author}</td>
-              <td className="px-4 py-2">{game.successRate}%</td>
-              <td className="px-4 py-2">{game.likes}</td>
-              <td className="px-4 py-2">{game.dislikes}</td>
+              <td className="px-4 py-4">{game.author}</td>
+              <td className="px-4 py-4">{game.successRate}%</td>
+              <td className="px-4 py-4">{game.likes}</td>
+              <td className="px-4 py-4">{game.dislikes}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <a href="#" className="text-secondary hover:underline mt-4 inline-block">See Full Ranking</a>
+      <a href="#" className="text-blue-500 hover:underline mt-6 inline-block font-semibold">
+        See Full Ranking &rarr;
+      </a>
     </section>
   );
 };
 
 export default TopGameSuccess;
+
