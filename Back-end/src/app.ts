@@ -1,16 +1,12 @@
-// app.ts
-
 import express from 'express';
 import mongoose from 'mongoose';
 import config from './config';
 import morgan from 'morgan';
 import cors from 'cors';
-import http from 'http'; // Import Node's HTTP module
+import http from 'http';
 
-// Import your initializeSocketServer function
-import { initializeSocketServer } from './ioserver'; // Adjust the path as necessary
+import { initializeSocketServer } from './ioserver';
 
-// Export Routes
 import userRoutes from './routes/user.routes';
 import roleRoutes from './routes/role.routes';
 import threadRoutes from './routes/thread.routes';

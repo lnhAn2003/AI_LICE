@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import bcrypt from 'bcrypt';
 import User, { IUser } from '../models/user.model';
-import GamesShared, { IGameShared } from '../models/gameshared.model';
 
 class UserService {
   public async register(userData: Partial<IUser>): Promise<IUser> {
@@ -23,7 +22,6 @@ class UserService {
     if (!isMatch) {
       throw new Error('Invalid email or password');
     }
-
 
     const token = jwt.sign(
       { id: user._id, roleId: user.roleId },

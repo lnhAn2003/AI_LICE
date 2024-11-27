@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 import LogService from "../services/log.service";
 import mongoose from "mongoose";
-import { request } from 'http';
 
 export interface AuthRequest extends Request {
   user?: any;
