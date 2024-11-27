@@ -17,7 +17,7 @@ export const checkGameSharedOwner = async (req: gameUserRequest, res: Response, 
             res.status(404).json({ message: 'Game not found' });
             return;
         }
-        req.game = GameShared;
+        req.game = game;
 
         if (!req.user) {
             res.status(401).json({ message: 'Unauthorized' });
@@ -25,7 +25,7 @@ export const checkGameSharedOwner = async (req: gameUserRequest, res: Response, 
         }
 
         const { id: userId, roleId } = req.user;
-        const isOwner = req.game.authorId.toString() === userId;
+        const isOwner = req.game.uploadedBy.toString() === userId;
 
         const role = await RoleService.getRoleById(roleId);
         const isAdmin = role && role.name === 'Admin';
