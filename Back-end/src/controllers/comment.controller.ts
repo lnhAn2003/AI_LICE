@@ -17,15 +17,13 @@ class CommentController {
                 return;
             }
 
-            const { targetType, targetId, content } = req.body;
+            const { targetType, targetId, content, parentCommentId } = req.body;
 
-            // Validation for required fields
             if (!targetType || !targetId || !content || content.trim() === '') {
                 res.status(400).json({ message: 'Target type, target ID, and content are required' });
                 return;
             }
 
-            // Verify that targetId matches the targetType
             let targetExists = false;
             if (targetType === 'Post') {
                 targetExists = await postModel.exists({ _id: targetId }) !== null;
@@ -38,22 +36,33 @@ class CommentController {
                 return;
             }
 
+            let parentComment = null;
+            if (parentCommentId) {
+                parentComment = await CommentService.getCommentById(parentCommentId);
+                if (!parentComment || !parentComment.isVisible) {
+                    res.status(400).json({ message: 'Parent comment does not exists or not visible' });
+                    return
+                }
+            }
+
             const commentData = {
                 targetType,
                 targetId: new mongoose.Types.ObjectId(targetId),
                 authorId: new mongoose.Types.ObjectId(user.id),
                 content: content.trim(),
                 createdAt: new Date(),
-                updatedAt: new Date()
+                updatedAt: new Date(),
+                parentCommentId: parentCommentId ? new mongoose.Types.ObjectId(parentCommentId) : undefined,
             };
 
             const comment = await CommentService.createComment(commentData);
 
-            // Append the comment ID to the corresponding target (Post or GameShared)
-            if (targetType === 'Post') {
-                await postModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
-            } else if (targetType === 'GameShared') {
-                await gamesharedModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+            if (!parentCommentId) {
+                if (targetType === 'Post') {
+                    await postModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+                } else if (targetType === 'GameShared') {
+                    await gamesharedModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+                }
             }
 
             res.status(201).json(comment);

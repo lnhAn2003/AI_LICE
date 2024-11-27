@@ -21,10 +21,30 @@ class GameSharedService {
   }
 
   public async getGameSharedById(id: string): Promise<IGameShared | null> {
-    return await GameShared.findById(id)
-      .populate({ path: 'uploadedBy', select: 'username' })
-      .populate({ path: 'categories', select: 'name' });
+    const game = await GameShared.findById(id)
+      .populate([
+        { path: 'uploadedBy', select: 'username' },
+        { path: 'ratings.userId', select: 'username' },
+        { path: 'successVotes.userVotes.userId', select: 'username' },
+        {
+          path: 'comments',
+          match: { isVisible: true, parentCommentId: null },
+          options: { sort: { createdAt: -1 } },
+          populate: [
+            { path: 'authorId', select: 'username' },
+            {
+              path: 'replies',
+              match: { isVisible: true },
+              options: { sort: { createdAt: -1 } },
+              populate: { path: 'authorId', select: 'username' },
+            },
+          ],
+        },
+      ]);
+
+    return game;
   }
+
 
   public async updateGameShared(id: string, updateData: Partial<IGameShared>): Promise<IGameShared | null> {
     return await GameShared.findByIdAndUpdate(id, updateData, { new: true });

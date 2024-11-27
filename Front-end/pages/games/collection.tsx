@@ -309,7 +309,7 @@ const GameCollection: React.FC = () => {
                                 key={game._id}
                                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
                             >
-                                <Link href={`/games/${game._id}`}>
+                                <Link href={`/games/details/${game._id}`}>
                                     <div className="cursor-pointer">
                                         <div className="relative">
                                             <img

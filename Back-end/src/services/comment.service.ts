@@ -12,11 +12,25 @@ class CommentService {
     }
 
     public async getCommentByTarget(targetType: string, targetId: string): Promise<IComment[]> {
-        return await Comment.find({ targetType, targetId, isVisible: true })
-            .populate({ path: 'authorId', select: 'username' })
+        return await Comment.find({
+            targetType,
+            targetId,
+            isVisible: true,
+            parentCommentId: null, // Fetch only top-level comments
+        })
+            .populate([
+                { path: 'authorId', select: 'username' },
+                {
+                    path: 'replies',
+                    match: { isVisible: true },
+                    populate: { path: 'authorId', select: 'username' },
+                    options: { sort: { createdAt: -1 } },
+                },
+            ])
             .sort({ createdAt: -1 })
             .exec();
     }
+    
 
     public async getCommentById(id: string): Promise<IComment | null> {
         return await Comment.findById(id)
