@@ -5,6 +5,28 @@ import HighlightedThread from '../../src/components/thread/highlightedthread';
 import ThreadList from '../../src/components/thread/threadlist';
 import Pagination from '../../src/components/thread/pagination';
 
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface Author {
+  username: string;
+  _id: string;
+  avatar: string;
+}
+
+interface Thread {
+  _id: string;
+  title: string;
+  category: Category;
+  author: Author;
+  replies: number;
+  views: number;
+  lastActivity?: string;
+  excerpt?: string;
+}
+
 const ThreadPage: React.FC = () => {
   // Fake data
   const categories = [
@@ -16,12 +38,16 @@ const ThreadPage: React.FC = () => {
     { _id: '6', name: 'Gameplay Feedback' },
   ];
 
-  const allThreads = [
+  const allThreads: Thread[] = [
     {
       _id: '1',
       title: 'How to debug in Unity',
       category: { _id: '4', name: 'Coding Help' },
-      author: { username: 'devDude', _id: 'user1' },
+      author: {
+        username: 'devDude',
+        _id: 'user1',
+        avatar: 'https://img.freepik.com/premium-vector/pixel-art-merchant-character-retro-game-avatar-with-beard-turban_1292377-15124.jpg',
+      },
       replies: 45,
       views: 1200,
       lastActivity: '1 hour ago',
@@ -30,7 +56,11 @@ const ThreadPage: React.FC = () => {
       _id: '2',
       title: 'Storyline Ideas for RPG Games',
       category: { _id: '5', name: 'Design' },
-      author: { username: 'storyCrafter', _id: 'user2' },
+      author: {
+        username: 'storyCrafter',
+        _id: 'user2',
+        avatar: 'https://img.freepik.com/premium-vector/pixel-art-merchant-character-retro-game-avatar-with-beard-turban_1292377-15124.jpg',
+      },
       replies: 37,
       views: 980,
       lastActivity: '3 hours ago',
@@ -39,7 +69,11 @@ const ThreadPage: React.FC = () => {
       _id: '3',
       title: 'Best Development Tools for Beginners',
       category: { _id: '2', name: 'Game Development' },
-      author: { username: 'toolMaster', _id: 'user3' },
+      author: {
+        username: 'toolMaster',
+        _id: 'user3',
+        avatar: 'https://img.freepik.com/premium-vector/pixel-art-merchant-character-retro-game-avatar-with-beard-turban_1292377-15124.jpg',
+      },
       replies: 29,
       views: 850,
       lastActivity: '5 hours ago',
@@ -48,18 +82,26 @@ const ThreadPage: React.FC = () => {
       _id: '4',
       title: 'Advice for New Game Developers',
       category: { _id: '2', name: 'Game Development' },
-      author: { username: 'newbieHelper', _id: 'user4' },
+      author: {
+        username: 'newbieHelper',
+        _id: 'user4',
+        avatar: 'https://img.freepik.com/premium-vector/pixel-art-merchant-character-retro-game-avatar-with-beard-turban_1292377-15124.jpg',
+      },
       replies: 24,
       views: 920,
       lastActivity: '7 hours ago',
     },
   ];
 
-  const highlightedThread = {
+  const highlightedThread: Thread = {
     _id: '5',
     title: 'Tips on Managing Large Projects',
     category: { _id: '7', name: 'Project Management' },
-    author: { username: 'projectGuru', _id: 'user5' },
+    author: {
+      username: 'projectGuru',
+      _id: 'user5',
+      avatar: 'https://img.freepik.com/premium-vector/pixel-art-merchant-character-retro-game-avatar-with-beard-turban_1292377-15124.jpg',
+    },
     replies: 105,
     views: 5500,
     excerpt:
@@ -98,22 +140,34 @@ const ThreadPage: React.FC = () => {
     setCurrentPage(page);
   };
 
+  // Category Filtering Logic
+  const handleCategoryChange = (categoryId: string) => {
+    if (categoryId === '1') {
+      setThreads(allThreads);
+    } else {
+      const filtered = allThreads.filter(
+        (thread) => thread.category._id === categoryId
+      );
+      setThreads(filtered);
+    }
+    setCurrentPage(1); // Reset to first page on filter change
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <main className="container mx-auto px-4 py-8">
         <HighlightedThread thread={highlightedThread} />
         <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 md:mb-0">
               All Threads
             </h2>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-md">
+            <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
               Create New Thread
             </button>
           </div>
-          <div className="flex flex-wrap justify-between items-center mb-6">
-            {/* Sort Options */}
-            <div className="flex items-center mb-4 md:mb-0">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+            <div className="flex items-center">
               <label
                 htmlFor="sort-by"
                 className="mr-2 text-gray-700 dark:text-gray-300"
@@ -132,7 +186,6 @@ const ThreadPage: React.FC = () => {
                 <option value="Trending">Trending</option>
               </select>
             </div>
-            {/* Categories */}
             <div className="flex items-center">
               <label
                 htmlFor="category"
@@ -142,8 +195,7 @@ const ThreadPage: React.FC = () => {
               </label>
               <select
                 id="category"
-                onChange={(e) => {
-                }}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 {categories.map((category) => (
