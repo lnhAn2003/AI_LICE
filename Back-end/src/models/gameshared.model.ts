@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IComment } from "./comment.model";
 
 export interface IGameShared extends Document {
     title: string;
@@ -41,6 +42,7 @@ export interface IGameShared extends Document {
         date: Date;
         description: string;
     }[];
+    comments?: IComment[];
 }
 
 const GameSharedSchema: Schema<IGameShared> = new Schema({
@@ -94,5 +96,16 @@ const GameSharedSchema: Schema<IGameShared> = new Schema({
         }
     ],
 });
+
+GameSharedSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'targetId',
+    match: { targetType: 'GamesShared' },
+  });
+  
+  GameSharedSchema.set('toObject', { virtuals: true });
+  GameSharedSchema.set('toJSON', { virtuals: true });
+  
 
 export default mongoose.model<IGameShared>('GamesShared', GameSharedSchema);

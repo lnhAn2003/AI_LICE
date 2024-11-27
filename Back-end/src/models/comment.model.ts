@@ -15,6 +15,7 @@ export interface IComment extends Document {
         editedAt: Date;
         editedBy?: mongoose.Types.ObjectId;
     }[];
+    replies?: IComment[];
 };
 
 const CommentSchema: Schema<IComment> = new Schema({
@@ -26,12 +27,22 @@ const CommentSchema: Schema<IComment> = new Schema({
     updatedAt: { type: Date, default: Date.now },
     isEdited: { type: Boolean, default: false },
     isVisible: { type: Boolean, default: true }, 
-    parentCommentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', default: null },
+    parentCommentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },
     editHistory: [{
         content: { type: String },
         editedAt: { type: Date, default: Date.now },
         editedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-    }]
+    }],
 });
+
+CommentSchema.virtual('replies', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'parentCommentId',
+  });
+  
+  CommentSchema.set('toObject', { virtuals: true });
+  CommentSchema.set('toJSON', { virtuals: true });
+  
 
 export default mongoose.model<IComment>('Comment', CommentSchema);
