@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
 import Post, { IPost } from "../models/post.model";
@@ -20,14 +21,30 @@ class PostService {
 
     public async getPosts(): Promise<IPost[]> {
         return await Post.find()
-            .populate({ path: 'authorId', select: 'username'})
-            .populate({ path: 'threadId', select: 'title'})
+            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'threadId', select: 'title' })
     }
 
     public async getPostById(id: string): Promise<IPost | null> {
-        return await Post.findById(id)
-            .populate({ path: 'authorId', select: 'username'})
-            .populate({ path: 'threadId', select: 'title'})
+        const post = await Post.findById(id)
+            .populate([
+                { path: 'authorId', select: 'username' },
+                {
+                    path: 'comments',
+                    match: { isVisible: true, parentCommentId: null },
+                    options: { sort: { createdAt: -1 } },
+                    populate: [
+                        { path: 'authorId', select: 'username' },
+                        {
+                            path: 'replies',
+                            match: { isVisible: true },
+                            options: { sort: { createdAt: -1 } },
+                            populate: { path: 'authorId', select: 'username' },
+                        }
+                    ]
+                }
+            ])
+        return post;
     }
 
     public async getPostsByUserId(userId: string): Promise<IPost[]> {
@@ -46,17 +63,17 @@ class PostService {
         return await Post.findByIdAndUpdate(id, updateData, { new: true })
     }
 
-    public async deletePost(id: string): Promise<IPost | null>{
+    public async deletePost(id: string): Promise<IPost | null> {
         const post = await Post.findById(id);
         if (!post) {
             return null;
         }
         await User.findByIdAndUpdate(post.authorId, {
-            $pull: { posts: post._id}
+            $pull: { posts: post._id }
         })
 
         await Thread.findByIdAndUpdate(post.threadId, {
-            $pull: { posts: post._id}
+            $pull: { posts: post._id }
         })
         return await Post.findByIdAndDelete(id);
     }

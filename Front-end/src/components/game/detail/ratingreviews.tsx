@@ -1,5 +1,4 @@
-// components/game/detail/ratingreviews.tsx
-
+// src/components/game/detail/ratingreviews.tsx
 import React from 'react';
 
 interface Review {

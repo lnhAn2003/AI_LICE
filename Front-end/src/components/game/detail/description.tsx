@@ -1,5 +1,4 @@
-// components/game/detail/description.tsx
-
+// src/components/game/detail/description.tsx
 import React from 'react';
 
 interface DescriptionProps {

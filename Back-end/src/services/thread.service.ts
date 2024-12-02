@@ -15,19 +15,19 @@ class ThreadService {
 
     public async getThreads(): Promise<IThread[]> {
         return await Thread.find()
-            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'authorId', select: 'username profile.avatarUrl' })
             .populate({ path: 'posts', select: 'content' });
-    }
+            
+        }
 
     public async getThreadById(id: string): Promise<IThread | null> {
         return await Thread.findById(id)
-            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'authorId',select: 'username profile.avatarUrl' })
             .populate({ path: 'posts', select: 'content' });
     }
-
     public async getThreadsByUserId(userId: string): Promise<IThread[]> {
         return await Thread.find({ authorId: userId })
-            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'authorId', select: 'username profile.avatarURL' })
             .populate({ path: 'posts', select: 'content' });
     }
 
@@ -48,13 +48,13 @@ class ThreadService {
 
     public async getVisibleThreads(): Promise<IThread[]> {
         return await Thread.find({ isVisible: true })
-            .populate({ path: 'authorId', select: 'username' })
+            .populate({ path: 'authorId', select: 'username profile.avatarURL' })
             .sort({ createdAt: -1 });
     }
 
     public async getPopularThreads(): Promise<IThread[]> {
         return await Thread.find()
-            .sort({ views: -1 }) 
+            .sort({ views: -1 })
             .populate({ path: 'authorId', select: 'username' })
             .populate({ path: 'posts', select: 'content' })
             .limit(10);
@@ -72,7 +72,7 @@ class ThreadService {
             { isVisible: false },
             { new: true }
         );
-    }    
+    }
 
     public async increaseViews(id: string): Promise<void> {
         await Thread.findByIdAndUpdate(id, { $inc: { views: 1 } }).exec();

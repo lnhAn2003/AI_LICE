@@ -16,7 +16,7 @@ class CommentService {
             targetType,
             targetId,
             isVisible: true,
-            parentCommentId: null, // Fetch only top-level comments
+            parentCommentId: null,
         })
             .populate([
                 { path: 'authorId', select: 'username' },

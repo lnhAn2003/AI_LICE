@@ -1,5 +1,4 @@
-// components/game/detail/commentsection.tsx
-
+// src/components/game/detail/commentsection.tsx
 import React, { useState } from 'react';
 
 interface Reply {
