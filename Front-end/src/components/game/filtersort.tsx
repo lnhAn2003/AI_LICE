@@ -1,4 +1,6 @@
+// src/components/game/filtersort.tsx
 import React, { useState } from 'react';
+
 interface FilterSortProps {
     onFilterChange: (filters: Record<string, any>) => void;
     onSortChange: (sortBy: string) => void;

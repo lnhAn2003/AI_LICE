@@ -1,24 +1,20 @@
-// components/ThreadList.tsx
-
+// src/components/thread/threadlist.tsx
 import React from 'react';
 import Link from 'next/link';
 
-interface Category {
-  _id: string;
-  name: string;
-}
-
 interface Author {
-  username: string;
   _id: string;
-  avatar: string;
+  username: string;
+  profile: {
+    avatarUrl: string;
+  };
 }
 
 interface Thread {
   _id: string;
   title: string;
-  category: Category;
-  author: Author;
+  tags: string[];
+  authorId: Author; // Updated to match backend structure
   replies: number;
   views: number;
   lastActivity?: string;
@@ -38,8 +34,8 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads }) => {
         >
           <div className="flex items-center mb-2">
             <img
-              src={thread.author.avatar}
-              alt={`${thread.author.username}'s avatar`}
+              src={thread.authorId.profile.avatarUrl} // Updated to access nested profile.avatarUrl
+              alt={`${thread.authorId.username}'s avatar`}
               className="w-10 h-10 rounded-full mr-3"
             />
             <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
@@ -53,10 +49,11 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads }) => {
           </div>
           <div className="flex flex-wrap text-gray-600 dark:text-gray-400 text-sm space-x-4">
             <span>
-              <span className="font-medium">Category:</span> {thread.category.name}
+              <span className="font-medium">Tags:</span>{' '}
+              {thread.tags.length > 0 ? thread.tags.join(', ') : 'No tags'}
             </span>
             <span>
-              <span className="font-medium">Author:</span> {thread.author.username}
+              <span className="font-medium">Author:</span> {thread.authorId.username}
             </span>
             <span>
               <span className="font-medium">Replies:</span> {thread.replies}
@@ -64,9 +61,12 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads }) => {
             <span>
               <span className="font-medium">Views:</span> {thread.views}
             </span>
-            <span>
-              <span className="font-medium">Last Activity:</span> {thread.lastActivity}
-            </span>
+            {thread.lastActivity && (
+              <span>
+                <span className="font-medium">Last Activity:</span>{' '}
+                {new Date(thread.lastActivity).toLocaleString()}
+              </span>
+            )}
           </div>
         </div>
       ))}
@@ -75,3 +75,4 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads }) => {
 };
 
 export default ThreadList;
+

@@ -1,4 +1,4 @@
-// components/Pagination.tsx
+// src/components/thread/pagination.tsx
 import React from 'react';
 
 interface PaginationProps {

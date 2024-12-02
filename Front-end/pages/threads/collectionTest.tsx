@@ -1,3 +1,5 @@
+// pages/threads/collection.tsx
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axiosInstance from '../../src/utils/axiosInstance';
@@ -6,7 +8,6 @@ import axiosInstance from '../../src/utils/axiosInstance';
 import HighlightedThread from '../../src/components/thread/highlightedthread';
 import ThreadList from '../../src/components/thread/threadlist';
 import Pagination from '../../src/components/thread/pagination';
-import Sort from '../../src/components/thread/sort';
 
 interface Author {
   _id: string;
@@ -15,7 +16,6 @@ interface Author {
     avatarUrl: string;
   };
 }
-
 interface Thread {
   _id: string;
   title: string;
@@ -26,13 +26,17 @@ interface Thread {
   excerpt?: string;
 }
 
+interface ThreadPageProps {
+  threads: Thread[];
+  highlightedThread: Thread;
+}
+
 const ITEMS_PER_PAGE = 4;
 
 const ThreadCollection: React.FC = () => {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [highlightedThread, setHighlightedThread] = useState<Thread | null>(null);
   const [filteredThreads, setFilteredThreads] = useState<Thread[]>([]);
-  const [sortBy, setSortBy] = useState<string>('Latest');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -86,24 +90,13 @@ const ThreadCollection: React.FC = () => {
   }, []);
 
   const getTokenFromCookies = (): string => {
+    // Implement token retrieval from cookies
+    // Example using document.cookie (if accessible)
     if (typeof window !== 'undefined') {
       const matches = document.cookie.match(new RegExp('(?:^|; )token=([^;]*)'));
       return matches ? decodeURIComponent(matches[1]) : '';
     }
     return '';
-  };
-
-  const handleSortChange = (sortOption: string) => {
-    let sortedThreads = [...threads];
-    if (sortOption === 'Most Replies') {
-      sortedThreads.sort((a, b) => b.replies - a.replies);
-    } else if (sortOption === 'Most Views') {
-      sortedThreads.sort((a, b) => b.views - a.views);
-    } else if (sortOption === 'Trending') {
-      // Implement trending logic if needed
-    }
-    setSortBy(sortOption);
-    setFilteredThreads(sortedThreads);
   };
 
   const handlePageChange = (page: number) => {
@@ -155,7 +148,7 @@ const ThreadCollection: React.FC = () => {
                 Create New Thread
             </Link>
           </div>
-          <Sort sortBy={sortBy} onSortChange={handleSortChange} />
+          {/* Sorting and Filtering can be implemented here if needed */}
           <ThreadList threads={currentThreads} />
           {totalPages > 1 && (
             <Pagination

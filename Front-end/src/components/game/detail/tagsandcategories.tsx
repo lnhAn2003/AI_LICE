@@ -1,5 +1,4 @@
-// components/game/detail/tagsandcategories.tsx
-
+// src/components/game/detail/tagsandcategories.tsx
 import React from 'react';
 
 interface TagsAndCategoriesProps {

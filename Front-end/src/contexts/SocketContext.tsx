@@ -1,5 +1,3 @@
-// contexts/SocketContext.tsx
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Cookies from 'js-cookie';
@@ -22,7 +20,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    // Optionally pass the token for authentication
     const token = Cookies.get('token');
     const socketIo = io('http://localhost:5000', {
       withCredentials: true,

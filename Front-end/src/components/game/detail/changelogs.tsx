@@ -1,5 +1,4 @@
-// components/game/detail/changelogs.tsx
-
+// src/components/game/detail/changelogs.tsx
 import React from 'react';
 
 interface ChangelogEntry {

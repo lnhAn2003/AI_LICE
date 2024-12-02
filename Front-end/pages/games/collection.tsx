@@ -1,8 +1,12 @@
+// pages/games/collection.tsx
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axiosInstance from '../../src/utils/axiosInstance';
+
+//import component
 import FilterSortComponent from '../../src/components/game/filtersort';
 import Pagination from '../../src/components/game/pagination';
+
 interface Category {
     _id: string;
     name: string;
@@ -75,7 +79,6 @@ const GameCollection: React.FC = () => {
     const [sortBy, setSortBy] = useState<string>('Most Recent');
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    // Fetch game data from the backend
     useEffect(() => {
         const fetchGamesAndCategories = async () => {
             try {
@@ -261,8 +264,7 @@ const GameCollection: React.FC = () => {
 
     // Handle page change
     const handlePageChange = (page: number) => {
-        setCurrentPage(page)
-            ;
+        setCurrentPage(page);
     };
 
     return (

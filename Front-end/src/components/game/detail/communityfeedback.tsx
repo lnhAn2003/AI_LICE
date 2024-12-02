@@ -1,5 +1,4 @@
-// components/game/detail/communityfeedback.tsx
-
+// src/components/game/detail/communityfeedback.tsx
 import React from 'react';
 
 interface FeedbackEntry {

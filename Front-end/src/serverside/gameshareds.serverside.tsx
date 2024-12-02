@@ -91,9 +91,16 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       },
     };
   } catch (error: any) {
-    console.error("Error fetching game data:", error.response?.data || error.message);
-    return {
-      notFound: true,
-    };
+    console.error("Error fetching games data:", error.response?.data || error.message);
+        
+        if (error.response?.status === 404) {
+            return { notFound: true };
+        }
+        return {
+            redirect: {
+                destination: "/error",
+                permanent: false,
+            },
+        };
   }
 };

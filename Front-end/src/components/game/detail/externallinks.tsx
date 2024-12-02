@@ -1,5 +1,4 @@
-// components/game/detail/externallinks.tsx
-
+// src/components/game/detail/externallinks.tsx
 import React from 'react';
 
 interface ExternalLinksProps {
