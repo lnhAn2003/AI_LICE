@@ -8,38 +8,18 @@ import HighlightedThread from '../../src/components/thread/highlightedthread';
 import ThreadList from '../../src/components/thread/threadlist';
 import Pagination from '../../src/components/thread/pagination';
 import Sort from '../../src/components/thread/sort';
+import { ThreadData } from "../../src/types/thread";
 
-interface Author {
-  _id: string;
-  username: string;
-  profile: {
-    avatarUrl: string;
-  };
-}
-
-interface Post {
-  _id: string;
-  content: string;
-}
-
-interface Thread {
-  _id: string;
-  title: string;
-  tags: string[];
-  authorId: Author;
-  content: string;
-  posts: Post[];
-  views: number;
-  createdAt: string; 
-  favorited?: boolean;
+interface ThreadDetailPageProps {
+  thread: ThreadData;
 }
 
 const ITEMS_PER_PAGE = 4;
 
-const ThreadCollection: React.FC = () => {
-  const [threads, setThreads] = useState<Thread[]>([]); 
-  const [highlightedThread, setHighlightedThread] = useState<Thread | null>(null);
-  const [filteredThreads, setFilteredThreads] = useState<Thread[]>([]);
+const ThreadCollection: React.FC<ThreadDetailPageProps> = () => {
+  const [threads, setThreads] = useState<ThreadData[]>([]); 
+  const [highlightedThread, setHighlightedThread] = useState<ThreadData | null>(null);
+  const [filteredThreads, setFilteredThreads] = useState<ThreadData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>('Latest');
   const [loading, setLoading] = useState<boolean>(true);
@@ -57,7 +37,7 @@ const ThreadCollection: React.FC = () => {
           },
         });
 
-        const data: Thread[] = response.data;
+        const data: ThreadData[] = response.data;
 
         if (!Array.isArray(data)) {
           throw new Error('Invalid data format received from the backend.');

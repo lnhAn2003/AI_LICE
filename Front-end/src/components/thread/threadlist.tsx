@@ -93,7 +93,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, onToggleFavorite }) =>
               {/* Topic */}
               <td className="p-4">
                 <Link
-                  href={`/threads/${thread._id}`}
+                  href={`/threads/details/${thread._id}`}
                   className="text-gray-900 dark:text-gray-100 hover:underline font-semibold"
                 >
                   {thread.title}

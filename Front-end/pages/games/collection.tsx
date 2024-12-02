@@ -6,73 +6,14 @@ import axiosInstance from '../../src/utils/axiosInstance';
 // Import components
 import FilterSortComponent from '../../src/components/game/filtersort';
 import Pagination from '../../src/components/game/pagination';
-
-interface Category {
-    _id: string;
-    name: string;
-    key: string;
-}
-
-interface UploadedBy {
-    username: string;
-    _id: string;
-}
-
-interface SuccessVotes {
-    likes: number;
-    dislikes: number;
-    percentage: number;
-    userVotes: any[];
-}
-
-interface Changelog {
-    date: string;
-    description: string;
-    _id: string;
-}
-
-interface Rating {
-    userId: string;
-    rating: number;
-    comment: string;
-    createdAt: string;
-    _id: string;
-}
-
-interface Game {
-    description: any;
-    ratingCount: number;
-    successVotes: SuccessVotes;
-    categories: Category[];
-    platforms: string[];
-    _id: string;
-    title: string;
-    images: string[];
-    averageRating: number;
-    viewCount: number;
-    newRelease: boolean;
-    tags: string[];
-    downloadCount: number;
-    gameModes: string[];
-    releaseDate: string;
-    uploadedBy: UploadedBy;
-    fileUrl: string;
-    externalLinks: any[];
-    createdAt: string;
-    updatedAt: string;
-    favorites: any[];
-    commentId: any[];
-    version: string;
-    changelog: Changelog[];
-    ratings: Rating[];
-    __v: number;
-}
+import { GameData } from '../../src/types/game';
+import { Category } from '../../src/types/game';
 
 const ITEMS_PER_PAGE = 6;
 
 const GameCollection: React.FC = () => {
-    const [games, setGames] = useState<Game[]>([]);
-    const [filteredGames, setFilteredGames] = useState<Game[]>([]);
+    const [games, setGames] = useState<GameData[]>([]);
+    const [filteredGames, setFilteredGames] = useState<GameData[]>([]);
     const [gameGenres, setGameGenres] = useState<Category[]>([]);
     const [gameEngines, setGameEngines] = useState<Category[]>([]);
     const [gamePlatforms, setGamePlatforms] = useState<string[]>([]);
@@ -87,7 +28,7 @@ const GameCollection: React.FC = () => {
                 setFilteredGames(gameResponse.data);
 
                 const platformSet = new Set<string>();
-                gameResponse.data.forEach((game: Game) => {
+                gameResponse.data.forEach((game: GameData) => {
                     game.platforms.forEach((platform) => platformSet.add(platform));
                 });
                 setGamePlatforms(Array.from(platformSet));
