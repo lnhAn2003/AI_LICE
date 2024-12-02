@@ -17,7 +17,8 @@ class ThreadService {
         return await Thread.find()
             .populate({ path: 'authorId', select: 'username profile.avatarUrl' })
             .populate({ path: 'posts', select: 'content' });
-    }
+            
+        }
 
     public async getThreadById(id: string): Promise<IThread | null> {
         return await Thread.findById(id)

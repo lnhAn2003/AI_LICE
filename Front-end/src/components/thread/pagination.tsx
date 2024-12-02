@@ -1,4 +1,3 @@
-// src/components/thread/pagination.tsx
 import React from 'react';
 
 interface PaginationProps {
@@ -12,13 +11,13 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const pageNumbers = [];
+  const pageNumbers: (number | 'left-ellipsis' | 'right-ellipsis')[] = [];
 
-  // Determine the range of pages to display
-  const siblingCount = 1;
-  const totalPageNumbers = siblingCount * 2 + 5; // first, last, current, and siblings
+  const siblingCount = 1; // Number of pages to show around the current page
+  const totalPageNumbers = siblingCount * 2 + 5; // Includes boundary pages and ellipsis
 
   if (totalPages <= totalPageNumbers) {
+    // If total pages fit within the range, show all pages
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
@@ -29,20 +28,25 @@ const Pagination: React.FC<PaginationProps> = ({
     const showLeftEllipsis = leftSiblingIndex > 2;
     const showRightEllipsis = rightSiblingIndex < totalPages - 1;
 
+    // Add the first page
     pageNumbers.push(1);
 
+    // Add left ellipsis if needed
     if (showLeftEllipsis) {
       pageNumbers.push('left-ellipsis');
     }
 
+    // Add pages between left and right siblings
     for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
       pageNumbers.push(i);
     }
 
+    // Add right ellipsis if needed
     if (showRightEllipsis) {
       pageNumbers.push('right-ellipsis');
     }
 
+    // Add the last page
     pageNumbers.push(totalPages);
   }
 
@@ -52,29 +56,36 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-center mt-6 space-x-2">
+    <div className="flex justify-center mt-8 space-x-2">
+      {/* Previous Button */}
       <button
         onClick={() => handleClick(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md disabled:opacity-50 
-          ${currentPage !== 1 && 'hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors'}`}
+        className={`px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md disabled:opacity-50 
+          ${currentPage !== 1 ? 'hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors' : ''}`}
         aria-label="Previous Page"
       >
         Previous
       </button>
+
+      {/* Page Numbers */}
       {pageNumbers.map((number, index) =>
         typeof number === 'string' ? (
-          <span key={index} className="px-3 py-1 text-gray-500 dark:text-gray-400">
+          <span
+            key={index}
+            className="px-3 py-2 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+          >
             &hellip;
           </span>
         ) : (
           <button
             key={number}
             onClick={() => handleClick(number)}
-            className={`px-3 py-1 rounded-md 
+            className={`px-4 py-2 rounded-md 
               ${
                 currentPage === number
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-red-500 text-white font-bold'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors'
               }`}
             aria-current={currentPage === number ? 'page' : undefined}
@@ -84,11 +95,13 @@ const Pagination: React.FC<PaginationProps> = ({
           </button>
         )
       )}
+
+      {/* Next Button */}
       <button
         onClick={() => handleClick(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md disabled:opacity-50 
-          ${currentPage !== totalPages && 'hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors'}`}
+        className={`px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md disabled:opacity-50 
+          ${currentPage !== totalPages ? 'hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors' : ''}`}
         aria-label="Next Page"
       >
         Next

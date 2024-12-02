@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axiosInstance from '../../src/utils/axiosInstance';
 
-//import component
+// Import components
 import FilterSortComponent from '../../src/components/game/filtersort';
 import Pagination from '../../src/components/game/pagination';
 
@@ -86,7 +86,6 @@ const GameCollection: React.FC = () => {
                 setGames(gameResponse.data);
                 setFilteredGames(gameResponse.data);
 
-                // Extract unique flatforms from games
                 const platformSet = new Set<string>();
                 gameResponse.data.forEach((game: Game) => {
                     game.platforms.forEach((platform) => platformSet.add(platform));
@@ -96,7 +95,6 @@ const GameCollection: React.FC = () => {
                 const categoryResponse = await axiosInstance.get('/categories');
                 const categoryData = categoryResponse.data;
 
-                // Separate categories into genres and engines
                 const genres = categoryData.filter((cat: Category) => cat.key === 'game_genre');
                 const engines = categoryData.filter((cat: Category) => cat.key === 'game_engine');
 
@@ -113,7 +111,6 @@ const GameCollection: React.FC = () => {
     const handleFilterChange = (filters: Record<string, any>) => {
         let filtered = games;
 
-        // Keyword Search
         if (filters.keyword) {
             const keyword = filters.keyword.toLowerCase();
             filtered = filtered.filter(
@@ -122,7 +119,6 @@ const GameCollection: React.FC = () => {
             );
         }
 
-        // Filter by selected genre IDs
         if (filters.genres && filters.genres.length > 0) {
             filtered = filtered.filter((game) =>
                 filters.genres.every((selectedGenreId: string) =>
@@ -132,7 +128,6 @@ const GameCollection: React.FC = () => {
             );
         }
 
-        // Filter by selected engine IDs
         if (filters.engines && filters.engines.length > 0) {
             filtered = filtered.filter((game) =>
                 filters.engines.every((selectedEngineId: string) =>
@@ -142,7 +137,6 @@ const GameCollection: React.FC = () => {
             );
         }
 
-        // Filter by selected platform
         if (filters.platforms && filters.platforms.length > 0) {
             filtered = filtered.filter((game) =>
                 filters.platforms.every((selectedPlatform: string) =>
@@ -152,7 +146,6 @@ const GameCollection: React.FC = () => {
             );
         }
 
-        // Filter by selected tags
         if (filters.tags && filters.tags.length > 0) {
             filtered = filtered.filter((game) =>
                 filters.tags.every((selectedTag: string) =>
@@ -161,17 +154,14 @@ const GameCollection: React.FC = () => {
             );
         }
 
-        // Filter by minimum rating
         if (filters.rating) {
             filtered = filtered.filter((game) => game.averageRating >= parseInt(filters.rating, 10));
         }
 
-        // Filter by minimum ratings count
         if (filters.minRatings) {
             filtered = filtered.filter((game) => game.ratingCount >= parseInt(filters.minRatings, 10));
         }
 
-        // Filter by download range
         if (filters.downloads) {
             if (filters.downloads === '1000+') {
                 filtered = filtered.filter((game) => game.downloadCount >= 1000);
@@ -184,14 +174,12 @@ const GameCollection: React.FC = () => {
             }
         }
 
-        // Filter by Game Mode
         if (filters.gameModes && filters.gameModes.length > 0) {
             filtered = filtered.filter((game) =>
                 filters.gameModes.some((mode: string) => game.gameModes.includes(mode))
             );
         }
 
-        // Filter by Release Date
         if (filters.releaseDate) {
             const now = new Date();
             let startDate: Date | null = null;
@@ -219,7 +207,6 @@ const GameCollection: React.FC = () => {
             }
         }
 
-        // Filter by Uploader/Developer
         if (filters.uploader) {
             const uploader = filters.uploader.toLowerCase();
             filtered = filtered.filter((game) =>
@@ -243,7 +230,6 @@ const GameCollection: React.FC = () => {
         } else if (sortBy === 'Success Rate') {
             sortedGames.sort((a, b) => b.successVotes.percentage - a.successVotes.percentage);
         } else {
-            // Most Recent
             sortedGames.sort(
                 (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
             );
@@ -254,15 +240,12 @@ const GameCollection: React.FC = () => {
         setCurrentPage(1);
     };
 
-    // Calculate total pages
     const totalPages = Math.ceil(filteredGames.length / ITEMS_PER_PAGE);
 
-    // Get games for current page
     const indexOfLastGame = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstGame = indexOfLastGame - ITEMS_PER_PAGE;
     const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame);
 
-    // Handle page change
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
