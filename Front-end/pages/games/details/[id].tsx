@@ -1,3 +1,4 @@
+// pages/games/details/[id].tsx
 import { NextPage } from "next";
 import GameInfo from "../../../src/components/game/detail/gameinfo";
 import Description from "../../../src/components/game/detail/description";

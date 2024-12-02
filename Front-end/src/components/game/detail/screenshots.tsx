@@ -1,5 +1,4 @@
-// components/game/detail/screenshots.tsx
-
+// src/components/game/detail/screenshots.tsx
 import React from 'react';
 
 interface ScreenshotsProps {

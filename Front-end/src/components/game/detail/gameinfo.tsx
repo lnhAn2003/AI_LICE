@@ -1,5 +1,4 @@
-// components/game/detail/gameinfo.tsx
-
+// src/components/game/detail/gameinfo.tsx
 import React from 'react';
 
 interface GameInfoProps {

@@ -1,4 +1,5 @@
 import mongoose, { Document, mongo, Schema } from "mongoose";
+import { IComment } from "./comment.model";
 
 export interface IPost extends Document {
     threadId: mongoose.Types.ObjectId;
@@ -12,6 +13,7 @@ export interface IPost extends Document {
         content: string;
         editedAt: Date;
     }[];
+    comments?: IComment[];
 }
 
 const PostSchema: Schema<IPost> = new Schema({
@@ -35,6 +37,18 @@ PostSchema.pre<IPost>('save', function (next) {
     this.updatedAt = new Date();
     next();
 });
+
+PostSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'targetId',
+    match: { targetType: 'Post' },
+  });
+  
+  PostSchema.set('toObject', { virtuals: true });
+  PostSchema.set('toJSON', { virtuals: true });
+  
+
 
 export default mongoose.model<IPost>('Post', PostSchema);
  

@@ -1,0 +1,1 @@
+// pages/threads/details/[id].tsx

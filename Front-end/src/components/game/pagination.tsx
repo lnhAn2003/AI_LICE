@@ -1,3 +1,4 @@
+// src/components/game/pagination.tsx
 import React from 'react';
 
 interface PaginationProps {

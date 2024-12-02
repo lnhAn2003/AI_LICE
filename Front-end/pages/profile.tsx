@@ -87,7 +87,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
     setShowLogoutModal(false);
   };
 
-  // Generate fake activity data for demonstration
   const generateFakeActivityData = () => {
     const today = new Date();
     const data = [];
@@ -96,7 +95,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
       const date = subDays(today, i);
       data.push({
         date: format(date, 'yyyy-MM-dd'),
-        count: Math.floor(Math.random() * 5), // Random activity count between 0 and 4
+        count: Math.floor(Math.random() * 5), 
       });
     }
 
@@ -185,5 +184,4 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
 export default UserProfile;
 
-// Import and re-export the getUserServerSideProps function as getServerSideProps
 export { getUserServerSideProps as getServerSideProps } from '../src/serverside/users.serverside';
