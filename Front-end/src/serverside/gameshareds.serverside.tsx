@@ -1,3 +1,4 @@
+// src/serverside/gameshareds.serverside.tsx
 import { GetServerSideProps } from "next";
 import axiosInstance from "../../src/utils/axiosInstance";
 import { parse } from "cookie";
@@ -10,7 +11,7 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
   if (!token) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/auth/login",
         permanent: false,
       },
     };
@@ -28,7 +29,10 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
 
     const game = {
       title: gameData.title || "Untitled Game",
-      uploadedBy: gameData.uploadedBy?.username || "Anonymous",
+      uploadedBy: {
+        _id: gameData.uploadedBy?._id || "unknown",
+        username: gameData.uploadedBy?.username || "Anonymous",
+      },
       dateUploaded: new Date(gameData.createdAt).toLocaleDateString() || "N/A",
       coverImage: gameData.images?.[0] || "https://via.placeholder.com/150",
       description: gameData.description || "No description available.",
@@ -91,16 +95,16 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       },
     };
   } catch (error: any) {
-    console.error("Error fetching games data:", error.response?.data || error.message);
-        
-        if (error.response?.status === 404) {
-            return { notFound: true };
-        }
-        return {
-            redirect: {
-                destination: "/error",
-                permanent: false,
-            },
-        };
+    console.error("Error fetching game data:", error.response?.data || error.message);
+
+    if (error.response?.status === 404) {
+      return { notFound: true };
+    }
+    return {
+      redirect: {
+        destination: "/error",
+        permanent: false,
+      },
+    };
   }
 };

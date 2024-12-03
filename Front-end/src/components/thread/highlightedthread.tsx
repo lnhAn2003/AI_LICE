@@ -1,31 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-
-interface Author {
-  _id: string;
-  username: string;
-  profile: {
-    avatarUrl: string;
-  };
-}
-
-interface Post {
-  _id: string;
-  content: string;
-}
-
-interface Thread {
-  _id: string;
-  title: string;
-  tags: string[];
-  authorId: Author;
-  posts: Post[];
-  views: number;
-  excerpt?: string;
-}
+import { ThreadData } from '../../types/thread';
 
 interface HighlightedThreadProps {
-  thread: Thread;
+  thread: ThreadData;
 }
 
 const TAG_COLORS = [

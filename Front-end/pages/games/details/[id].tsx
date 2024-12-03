@@ -9,51 +9,7 @@ import Changelog from "../../../src/components/game/detail/changelogs";
 import RatingsReviews from "../../../src/components/game/detail/ratingreviews";
 import CommunityFeedback from "../../../src/components/game/detail/communityfeedback";
 import CommentsSection from "../../../src/components/game/detail/commentsection";
-
-interface GameData {
-  title: string;
-  uploadedBy: string;
-  dateUploaded: string;
-  coverImage: string;
-  description: string;
-  tags: string[];
-  categories: string[];
-  platforms: string[];
-  externalLinks: {
-    officialWebsite: string;
-    gameplayVideo: string;
-    communityForum: string;
-  };
-  downloadLink: string;
-  screenshots: string[];
-  changelog: { date: string; changes: string }[];
-  averageRating: number;
-  totalRatings: number;
-  reviews: {
-    username: string;
-    comment: string;
-    rating: number;
-  }[];
-  communityFeedback: {
-    likes: number;
-    dislikes: number;
-    successRate: number;
-    feedbacks: {
-      username: string;
-      comment: string;
-    }[];
-  };
-  comments: {
-    username: string;
-    date: string;
-    comment: string;
-    replies?: {
-      username: string;
-      date: string;
-      comment: string;
-    }[];
-  }[];
-}
+import { GameData } from "../../../src/types/game";
 
 interface GameDetailPageProps {
   game: GameData;

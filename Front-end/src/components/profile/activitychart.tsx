@@ -11,7 +11,7 @@ interface ActivityChartProps {
 
 const ActivityChart: React.FC<ActivityChartProps> = ({ activityData }) => {
   const today = new Date();
-  const startDate = subDays(today, 364); // Past year
+  const startDate = subDays(today, 364); 
 
   return (
     <div className='dark:bg-gray-800'>

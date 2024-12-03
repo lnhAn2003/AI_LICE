@@ -4,9 +4,9 @@
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',  
-    './pages/**/*.{js,ts,jsx,tsx}', 
-    './src/**/*.{js,ts,jsx,tsx}',  
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',
   theme: {
@@ -29,5 +29,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    // other plugins
+  ],
 };

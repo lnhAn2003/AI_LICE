@@ -5,74 +5,15 @@ import axiosInstance from '../../src/utils/axiosInstance';
 
 // Import components
 import FilterSortComponent from '../../src/components/game/filtersort';
-import Pagination from '../../src/components/game/pagination';
+import Pagination from '../../src/components/index/pagination';
+import { GameData } from '../../src/types/game';
+import { Category } from '../../src/types/game';
 
-interface Category {
-    _id: string;
-    name: string;
-    key: string;
-}
-
-interface UploadedBy {
-    username: string;
-    _id: string;
-}
-
-interface SuccessVotes {
-    likes: number;
-    dislikes: number;
-    percentage: number;
-    userVotes: any[];
-}
-
-interface Changelog {
-    date: string;
-    description: string;
-    _id: string;
-}
-
-interface Rating {
-    userId: string;
-    rating: number;
-    comment: string;
-    createdAt: string;
-    _id: string;
-}
-
-interface Game {
-    description: any;
-    ratingCount: number;
-    successVotes: SuccessVotes;
-    categories: Category[];
-    platforms: string[];
-    _id: string;
-    title: string;
-    images: string[];
-    averageRating: number;
-    viewCount: number;
-    newRelease: boolean;
-    tags: string[];
-    downloadCount: number;
-    gameModes: string[];
-    releaseDate: string;
-    uploadedBy: UploadedBy;
-    fileUrl: string;
-    externalLinks: any[];
-    createdAt: string;
-    updatedAt: string;
-    favorites: any[];
-    commentId: any[];
-    version: string;
-    changelog: Changelog[];
-    ratings: Rating[];
-    __v: number;
-}
-
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 const GameCollection: React.FC = () => {
-    const [games, setGames] = useState<Game[]>([]);
-    const [filteredGames, setFilteredGames] = useState<Game[]>([]);
+    const [games, setGames] = useState<GameData[]>([]);
+    const [filteredGames, setFilteredGames] = useState<GameData[]>([]);
     const [gameGenres, setGameGenres] = useState<Category[]>([]);
     const [gameEngines, setGameEngines] = useState<Category[]>([]);
     const [gamePlatforms, setGamePlatforms] = useState<string[]>([]);
@@ -87,7 +28,7 @@ const GameCollection: React.FC = () => {
                 setFilteredGames(gameResponse.data);
 
                 const platformSet = new Set<string>();
-                gameResponse.data.forEach((game: Game) => {
+                gameResponse.data.forEach((game: GameData) => {
                     game.platforms.forEach((platform) => platformSet.add(platform));
                 });
                 setGamePlatforms(Array.from(platformSet));
@@ -288,11 +229,19 @@ const GameCollection: React.FC = () => {
                     </div>
 
                     {/* Game Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                        style={{
+                            minHeight: '500px', 
+                        }}
+                    >
                         {currentGames.map((game) => (
                             <div
                                 key={game._id}
-                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
+                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
+                                style={{
+                                    height: '250px', // Fixed card height
+                                }}
                             >
                                 <Link href={`/games/details/${game._id}`}>
                                     <div className="cursor-pointer">
@@ -300,33 +249,29 @@ const GameCollection: React.FC = () => {
                                             <img
                                                 src={game.images[0] || '/placeholder-image.png'}
                                                 alt={game.title}
-                                                className="w-full h-48 object-cover"
+                                                className="w-full h-32 object-cover"
                                             />
                                             {game.newRelease && (
                                                 <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
                                                     New
                                                 </span>
                                             )}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-60"></div>
-                                            <h2 className="absolute bottom-2 left-2 text-white text-xl font-bold">
+                                        </div>
+                                        <div className="p-3">
+                                            <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100 truncate">
                                                 {game.title}
                                             </h2>
-                                        </div>
-                                        <div className="p-4">
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                                                By{' '}
-                                                <span className="font-medium text-gray-700 dark:text-gray-300">
-                                                    {game.uploadedBy.username}
-                                                </span>
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                                                By {game.uploadedBy.username}
                                             </p>
-                                            <div className="flex items-center mb-4">
+                                            <div className="flex items-center mt-2">
                                                 <div className="flex items-center">
                                                     {Array.from({ length: 5 }, (_, i) => (
                                                         <svg
                                                             key={i}
-                                                            className={`w-5 h-5 ${i < Math.floor(game.averageRating)
-                                                                ? 'text-yellow-400'
-                                                                : 'text-gray-400 dark:text-gray-600'
+                                                            className={`w-4 h-4 ${i < Math.floor(game.averageRating)
+                                                                    ? 'text-yellow-400'
+                                                                    : 'text-gray-300 dark:text-gray-600'
                                                                 }`}
                                                             fill="currentColor"
                                                             viewBox="0 0 576 512"
@@ -335,11 +280,11 @@ const GameCollection: React.FC = () => {
                                                         </svg>
                                                     ))}
                                                 </div>
-                                                <span className="text-gray-600 dark:text-gray-400 text-sm ml-2">
-                                                    ({game.ratingCount} reviews)
+                                                <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">
+                                                    ({game.ratingCount})
                                                 </span>
                                             </div>
-                                            <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                                            <div className="flex justify-between mt-3 text-xs text-gray-600 dark:text-gray-400">
                                                 <p className="flex items-center">
                                                     <svg
                                                         className="w-4 h-4 mr-1"
@@ -366,6 +311,17 @@ const GameCollection: React.FC = () => {
                                     </div>
                                 </Link>
                             </div>
+                        ))}
+
+                        {/* Placeholder cards for empty spaces */}
+                        {Array.from({ length: ITEMS_PER_PAGE - currentGames.length }).map((_, index) => (
+                            <div
+                                key={`placeholder-${index}`}
+                                className="bg-transparent"
+                                style={{
+                                    height: '250px',
+                                }}
+                            />
                         ))}
                     </div>
 
