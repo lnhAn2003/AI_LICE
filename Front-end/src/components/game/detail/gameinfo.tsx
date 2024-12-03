@@ -1,13 +1,10 @@
 // src/components/game/detail/gameinfo.tsx
 import React from 'react';
+import { UploadedBy } from '../../../types/game';
+import { GameData } from '../../../types/game';
 
 interface GameInfoProps {
-    game: {
-        title: string;
-        uploadedBy: string;
-        dateUploaded: string;
-        coverImage: string;
-    };
+    game: GameData;
 }
 
 const GameInfo: React.FC<GameInfoProps> = ({ game }) => {
@@ -19,7 +16,7 @@ const GameInfo: React.FC<GameInfoProps> = ({ game }) => {
             <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
                 <div className="flex items-center">
                     <span className="text-gray-500">Uploaded By:</span>
-                    <p className="ml-2 hover:underline cursor-pointer hover:text-red-600">{game.uploadedBy}</p>
+                    <p className="ml-2 hover:underline cursor-pointer hover:text-red-600">{game.uploadedBy.username}</p>
                 </div>
                 <div>
                     <strong>Date Uploaded:</strong> {game.dateUploaded}

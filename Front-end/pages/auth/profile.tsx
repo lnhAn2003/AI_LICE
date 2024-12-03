@@ -1,45 +1,20 @@
 // pages/user-profile.tsx
 
 import React, { useState } from 'react';
-import AvatarSection from '../src/components/profile/avatarsection';
-import UserInfo from '../src/components/profile/userinfo';
-import Statistics from '../src/components/profile/statistics';
-import Badges from '../src/components/profile/badges';
-import RecentActivity from '../src/components/profile/recentactivity';
-import ActivityChart from '../src/components/profile/activitychart';
 import Link from 'next/link';
-import { useAuth } from '../src/hooks/useAuth';
+import { useAuth } from '../../src/hooks/useAuth';
 import { subDays, format } from 'date-fns';
+import { UserData } from '../../src/types/user';
 
-interface UserProfileProps {
-  user: {
-    id: string;
-    avatarUrl: string;
-    username: string;
-    bio: string;
-    joinedDate: string;
-    lastActive: string;
-    lastLogin: string;
-    role: string;
-    email: string;
-    socialLinks: Array<{ platform: string; url: string }>;
-    statistics: {
-      threadsCreated: number;
-      postsMade: number;
-      gamesShared: number;
-      aiInteractions: number;
-    };
-    recentActivity: {
-      threads: any[];
-      posts: any[];
-      games: any[];
-    };
-    badges: {
-      earned: Array<{ icon: string; title: string; description: string }>;
-      upcoming: Array<{ icon: string; title: string; description: string }>;
-    };
-  };
-}
+// Import components
+import AvatarSection from '../../src/components/profile/avatarsection';
+import UserInfo from '../../src/components/profile/userinfo';
+import Statistics from '../../src/components/profile/statistics';
+import Badges from '../../src/components/profile/badges';
+import RecentActivity from '../../src/components/profile/recentactivity';
+import ActivityChart from '../../src/components/profile/activitychart';
+
+
 
 const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = ({
   onConfirm,
@@ -70,7 +45,7 @@ const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = (
   );
 };
 
-const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
+const UserProfile: React.FC<UserData> = ({ user }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { logout } = useAuth();
 
@@ -127,15 +102,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
               />
             </div>
             <div className="md:w-2/3 p-4">
-              <UserInfo
-                username={user.username}
-                bio={user.bio}
-                role={user.role}
-                email={user.email}
-                socialLinks={user.socialLinks}
-                joinedDate={user.joinedDate}
-                lastLogin={user.lastLogin}
-              />
+              <UserInfo user={user} />
             </div>
           </div>
 
@@ -184,4 +151,4 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
 export default UserProfile;
 
-export { getUserServerSideProps as getServerSideProps } from '../src/serverside/users.serverside';
+export { getUserServerSideProps as getServerSideProps } from '../../src/serverside/users.serverside';

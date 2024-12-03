@@ -17,18 +17,78 @@ class ThreadService {
         return await Thread.find()
             .populate({ path: 'authorId', select: 'username profile.avatarUrl' })
             .populate({ path: 'posts', select: 'content' });
-            
-        }
+
+    }
 
     public async getThreadById(id: string): Promise<IThread | null> {
         return await Thread.findById(id)
-            .populate({ path: 'authorId',select: 'username profile.avatarUrl' })
-            .populate({ path: 'posts', select: 'content' });
+            .populate({
+                path: 'authorId', // Populating thread's author details
+                select: 'username profile.avatarUrl',
+            })
+            .populate({
+                path: 'posts', // Populating posts within the thread
+                select: 'content createdAt', // Selecting necessary fields
+                populate: [
+                    {
+                        path: 'authorId', // Populating post authors
+                        select: 'username profile.avatarUrl', // Selecting fields for post authors
+                    },
+                    {
+                        path: 'comments', // Populating comments within each post
+                        match: { isVisible: true, parentCommentId: null }, // Filtering comments
+                        options: { sort: { createdAt: -1 } }, // Sorting comments by creation date
+                        populate: [
+                            {
+                                path: 'authorId', // Populating comment authors
+                                select: 'username profile.avatarUrl', // Selecting fields for comment authors
+                            },
+                            {
+                                path: 'replies', // Populating replies within each comment
+                                match: { isVisible: true }, // Filtering replies
+                                options: { sort: { createdAt: -1 } }, // Sorting replies by creation date
+                                populate: {
+                                    path: 'authorId', // Populating reply authors
+                                    select: 'username profile.avatarUrl', // Selecting fields for reply authors
+                                },
+                            },
+                        ],
+                    },
+                ],
+            });
     }
+
     public async getThreadsByUserId(userId: string): Promise<IThread[]> {
         return await Thread.find({ authorId: userId })
             .populate({ path: 'authorId', select: 'username profile.avatarURL' })
-            .populate({ path: 'posts', select: 'content' });
+            .populate([
+                {
+                    path: 'posts',
+                    select: 'content createdAt',
+                    populate: [
+                        {
+                            path: 'authorId',
+                            select: 'username profile.avatarUrl',
+                        },
+                        {
+                            path: 'comments',
+                            match: { isVisible: true, parentCommentId: null },
+                            options: { sort: { createdAt: -1 } },
+                            populate: [
+                                { path: 'authorId', select: 'username' },
+                                {
+                                    path: 'replies',
+                                    match: { isVisible: true },
+                                    options: { sort: { createdAt: -1 } },
+                                    populate: { path: 'authorId', select: 'username' },
+                                },
+                            ],
+                        },
+                    ]
+                },
+
+            ]);
+
     }
 
     public async updateThread(id: string, updateData: Partial<IThread>): Promise<IThread | null> {

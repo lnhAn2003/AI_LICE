@@ -17,7 +17,7 @@ const NavBar: React.FC<NavBarProps> = ({ isMobile }) => {
     { href: '/', label: 'Home', icon: <FaHome />},
     { href: '/threads/collection', label: 'Threads', icon: <FaComments />},
     { href: '/games/collection', label: 'Games', icon: <FaGamepad />},
-    { href: '/courses', label: 'Courses', icon: <FaBook />},
+    { href: '/courses/collection', label: 'Courses', icon: <FaBook />},
     { href: '/ai-assistance', label: 'AIssistance', icon: <FaRobot />},
   ];
 

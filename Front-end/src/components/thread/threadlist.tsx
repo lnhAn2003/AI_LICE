@@ -1,28 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-
-interface Author {
-  _id: string;
-  username: string;
-  profile: {
-    avatarUrl: string;
-  };
-}
-
-interface Thread {
-  _id: string;
-  title: string;
-  tags: string[];
-  authorId: Author;
-  content: string;
-  posts: { _id: string; content: string }[];
-  views: number;
-  createdAt: string;
-  favorited?: boolean;
-}
+import { ThreadData } from '../../types/thread';
 
 interface ThreadListProps {
-  threads: Thread[];
+  threads: ThreadData[];
   onToggleFavorite: (threadId: string) => void;
 }
 
@@ -93,7 +74,7 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, onToggleFavorite }) =>
               {/* Topic */}
               <td className="p-4">
                 <Link
-                  href={`/threads/${thread._id}`}
+                  href={`/threads/details/${thread._id}`}
                   className="text-gray-900 dark:text-gray-100 hover:underline font-semibold"
                 >
                   {thread.title}

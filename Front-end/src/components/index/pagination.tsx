@@ -13,11 +13,10 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const pageNumbers: (number | 'left-ellipsis' | 'right-ellipsis')[] = [];
 
-  const siblingCount = 1; // Number of pages to show around the current page
-  const totalPageNumbers = siblingCount * 2 + 5; // Includes boundary pages and ellipsis
+  const siblingCount = 1;
+  const totalPageNumbers = siblingCount * 2 + 5;
 
   if (totalPages <= totalPageNumbers) {
-    // If total pages fit within the range, show all pages
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
@@ -28,25 +27,20 @@ const Pagination: React.FC<PaginationProps> = ({
     const showLeftEllipsis = leftSiblingIndex > 2;
     const showRightEllipsis = rightSiblingIndex < totalPages - 1;
 
-    // Add the first page
     pageNumbers.push(1);
 
-    // Add left ellipsis if needed
     if (showLeftEllipsis) {
       pageNumbers.push('left-ellipsis');
     }
 
-    // Add pages between left and right siblings
     for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
       pageNumbers.push(i);
     }
 
-    // Add right ellipsis if needed
     if (showRightEllipsis) {
       pageNumbers.push('right-ellipsis');
     }
 
-    // Add the last page
     pageNumbers.push(totalPages);
   }
 

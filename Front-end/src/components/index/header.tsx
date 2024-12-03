@@ -43,7 +43,7 @@ const Header = () => {
 
           {/* User Avatar */}
           {token && user ? (
-            <Link href="/profile">
+            <Link href="/auth/profile">
               <img
                 src={
                   user.profile?.avatarUrl ||
@@ -54,7 +54,7 @@ const Header = () => {
               />
             </Link>
           ) : (
-            <Link href="/login">
+            <Link href="/auth/login">
               <FaUserCircle className="text-2xl cursor-pointer hover:text-blue-500" />
             </Link>
           )}

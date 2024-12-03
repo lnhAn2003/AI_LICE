@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthContext } from '../src/contexts/AuthContext';
-import axiosInstance from '../src/utils/axiosInstance';
+import { AuthContext } from '../../src/contexts/AuthContext';
+import axiosInstance from '../../src/utils/axiosInstance';
 import Link from 'next/link';
-import { registerSchema } from '../src/schemas/userSchema';
+import { registerSchema } from '../../src/schemas/userSchema';
 
 type RegisterInput = {
   username: string;
@@ -94,7 +94,7 @@ const RegisterPage: React.FC = () => {
         </form>
         <p className="text-center mt-4">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-500 hover:underline">
+          <Link href="/auth/login" className="text-blue-500 hover:underline">
             Login here
           </Link>
         </p>
