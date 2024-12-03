@@ -22,6 +22,7 @@ export interface Post {
   comments: Comment[];
   authorId: Author;
   createdAt: string;
+  likes?: string;
 }
 
 

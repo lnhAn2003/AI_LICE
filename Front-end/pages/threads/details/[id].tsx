@@ -1,8 +1,6 @@
 // pages/threads/details/[id].tsx
 import { NextPage } from "next";
-import ThreadInfo from "../../../src/components/thread/detail/threadinfo";
-import AuthorInfo from "../../../src/components/thread/detail/authorinfo";
-import PostsSection from "../../../src/components/thread/detail/postsection";
+import ThreadDetail from "../../../src/components/thread/detail/threaddetail";
 import { ThreadData } from "../../../src/types/thread";
 
 interface ThreadDetailPageProps {
@@ -21,11 +19,9 @@ const ThreadDetailPage: NextPage<ThreadDetailPageProps> = ({ thread }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 min-h-screen">
-      <main className="max-w-7xl mx-auto p-4">
-        <ThreadInfo thread={thread} />
-        <AuthorInfo author={thread.authorId} />
-        <PostsSection posts={thread.posts} />
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen ">
+      <main className="max-w-7xl mx-auto p-6">
+        <ThreadDetail thread={thread} />
       </main>
     </div>
   );

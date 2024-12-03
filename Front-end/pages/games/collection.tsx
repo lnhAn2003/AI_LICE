@@ -9,7 +9,7 @@ import Pagination from '../../src/components/game/pagination';
 import { GameData } from '../../src/types/game';
 import { Category } from '../../src/types/game';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 const GameCollection: React.FC = () => {
     const [games, setGames] = useState<GameData[]>([]);
@@ -229,11 +229,11 @@ const GameCollection: React.FC = () => {
                     </div>
 
                     {/* Game Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {currentGames.map((game) => (
                             <div
                                 key={game._id}
-                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
+                                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
                             >
                                 <Link href={`/games/details/${game._id}`}>
                                     <div className="cursor-pointer">
@@ -241,33 +241,29 @@ const GameCollection: React.FC = () => {
                                             <img
                                                 src={game.images[0] || '/placeholder-image.png'}
                                                 alt={game.title}
-                                                className="w-full h-48 object-cover"
+                                                className="w-full h-32 object-cover"
                                             />
                                             {game.newRelease && (
                                                 <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
                                                     New
                                                 </span>
                                             )}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-60"></div>
-                                            <h2 className="absolute bottom-2 left-2 text-white text-xl font-bold">
+                                        </div>
+                                        <div className="p-3">
+                                            <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100 truncate">
                                                 {game.title}
                                             </h2>
-                                        </div>
-                                        <div className="p-4">
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                                                By{' '}
-                                                <span className="font-medium text-gray-700 dark:text-gray-300">
-                                                    {game.uploadedBy.username}
-                                                </span>
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                                                By {game.uploadedBy.username}
                                             </p>
-                                            <div className="flex items-center mb-4">
+                                            <div className="flex items-center mt-2">
                                                 <div className="flex items-center">
                                                     {Array.from({ length: 5 }, (_, i) => (
                                                         <svg
                                                             key={i}
-                                                            className={`w-5 h-5 ${i < Math.floor(game.averageRating)
+                                                            className={`w-4 h-4 ${i < Math.floor(game.averageRating)
                                                                 ? 'text-yellow-400'
-                                                                : 'text-gray-400 dark:text-gray-600'
+                                                                : 'text-gray-300 dark:text-gray-600'
                                                                 }`}
                                                             fill="currentColor"
                                                             viewBox="0 0 576 512"
@@ -276,11 +272,11 @@ const GameCollection: React.FC = () => {
                                                         </svg>
                                                     ))}
                                                 </div>
-                                                <span className="text-gray-600 dark:text-gray-400 text-sm ml-2">
-                                                    ({game.ratingCount} reviews)
+                                                <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">
+                                                    ({game.ratingCount})
                                                 </span>
                                             </div>
-                                            <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                                            <div className="flex justify-between mt-3 text-xs text-gray-600 dark:text-gray-400">
                                                 <p className="flex items-center">
                                                     <svg
                                                         className="w-4 h-4 mr-1"
@@ -309,6 +305,7 @@ const GameCollection: React.FC = () => {
                             </div>
                         ))}
                     </div>
+
 
                     {/* Pagination */}
                     {totalPages > 1 && (

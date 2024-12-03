@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add this to your global CSS file */
+@layer utilities {
+  .neon-text {
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.6), 
+      0 0 10px rgba(0, 255, 255, 0.8),
+      0 0 20px rgba(0, 255, 255, 1);
+  }
+  .glow-text {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.5), 
+      0 0 20px rgba(0, 128, 255, 0.4),
+      0 0 40px rgba(0, 128, 255, 0.3);
+  }
+}
 
 .react-calendar-heatmap .color-empty {
   fill: #ebedf0;
@@ -65,3 +78,17 @@ body {
 html.dark body {
   @apply bg-gray-900 text-white ;
 }
+
+/* ReactQuill Toolbar Icon Colors */
+.ql-toolbar button {
+  color: inherit;
+}
+
+.ql-toolbar .ql-active {
+  color: #3b82f6; /* Tailwind's blue-500 */
+}
+
+.ql-toolbar button:hover {
+  color: #2563eb; /* Tailwind's blue-600 */
+}
+
