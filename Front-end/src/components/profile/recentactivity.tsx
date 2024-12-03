@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
+import { GameData } from '../../types/game';
 
 interface Thread {
   _id: string;
@@ -17,24 +18,6 @@ interface Post {
   createdAt: string;
 }
 
-interface Game {
-  _id: string;
-  title: string;
-  description: string;
-  images?: string[];
-  fileUrl: string;
-  externalLinks: { name: string; url: string; _id: string }[];
-  createdAt: string;
-  downloadCount: number;
-  viewCount: number;
-  tags?: string[];
-  categories?: string[];
-  averageRating: number;
-  version: string;
-  newRelease: boolean;
-  changelog?: { date: string; description: string; _id: string }[];
-}
-
 interface RecentActivityProps {
   userId: string;
   lastActive: string;
@@ -43,7 +26,7 @@ interface RecentActivityProps {
 const RecentActivity: React.FC<RecentActivityProps> = ({ userId, lastActive }) => {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<GameData[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAllPosts, setShowAllPosts] = useState(false);
 

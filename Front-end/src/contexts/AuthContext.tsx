@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       socket?.emit('user-logged-in', user);
 
-      router.push('/profile');
+      router.push('/auth/profile');
     } catch (error) {
       throw error;
     }
@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     socket?.emit('user-logged-out');
 
-    router.push('/login');
+    router.push('/auth/login');
   };
 
   return (

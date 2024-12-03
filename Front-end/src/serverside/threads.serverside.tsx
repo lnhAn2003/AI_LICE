@@ -11,7 +11,7 @@ export const getThreadDetailsServerSideProps: GetServerSideProps = async (contex
     if (!token) {
         return {
             redirect: {
-                destination: "/login",
+                destination: "/auth/login",
                 permanent: false,
             },
         };

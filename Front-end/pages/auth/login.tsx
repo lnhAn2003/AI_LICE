@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import { AuthContext } from '../src/contexts/AuthContext';
+import { AuthContext } from '../../src/contexts/AuthContext';
 import axios from 'axios';
 
 const LoginPage: React.FC = () => {
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
         </form>
         <p className="text-center mt-4">
           Don't have an account?{' '}
-          <Link href="/register" className="text-blue-500 hover:underline">
+          <Link href="/auth/register" className="text-blue-500 hover:underline">
             Register here
           </Link>
         </p>

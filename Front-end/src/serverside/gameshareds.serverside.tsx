@@ -10,7 +10,7 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
   if (!token) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/auth/login",
         permanent: false,
       },
     };

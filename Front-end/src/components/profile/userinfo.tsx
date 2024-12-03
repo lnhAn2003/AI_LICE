@@ -2,21 +2,7 @@
 
 import React from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa';
-
-interface SocialLink {
-  platform: string;
-  url: string;
-}
-
-interface UserInfoProps {
-  username: string;
-  bio: string;
-  joinedDate: string;
-  lastLogin: string;
-  role: string;
-  email: string;
-  socialLinks: SocialLink[];
-}
+import { User, UserData } from '../../types/user';
 
 const getSocialIcon = (platform?: string) => {
   if (!platform) {
@@ -36,43 +22,34 @@ const getSocialIcon = (platform?: string) => {
       return <FaGlobe size={24} />;
   }
 };
-
-const UserInfo: React.FC<UserInfoProps> = ({
-  username,
-  bio,
-  joinedDate,
-  lastLogin,
-  role,
-  email,
-  socialLinks,
-}) => {
+const UserInfo: React.FC<{ user: User }> = ({ user }) => {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold">{username}</h2>
-      <p>{bio}</p>
+      <h2 className="text-2xl font-semibold">{user.username}</h2>
+      <p>{user.bio}</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <p>
-            <strong>Joined:</strong> {joinedDate}
+            <strong>Joined:</strong> {user.joinedDate}
           </p>
           <p>
-            <strong>Last Login:</strong> {lastLogin}
+            <strong>Last Login:</strong> {user.lastLogin}
           </p>
         </div>
         <div>
           <p>
-            <strong>Role:</strong> {role}
+            <strong>Role:</strong> {user.role}
           </p>
           <p>
-            <strong>Email:</strong> {email}
+            <strong>Email:</strong> {user.email}
           </p>
         </div>
       </div>
       <div>
         <h3 className="font-semibold">Social Links</h3>
-        {socialLinks && socialLinks.length > 0 ? (
+        {user.socialLinks && user.socialLinks.length > 0 ? (
           <div className="flex space-x-4 mt-2">
-            {socialLinks
+            {user.socialLinks
               .filter((link) => link.platform && link.url)
               .map((link, index) => (
                 <a
@@ -90,7 +67,6 @@ const UserInfo: React.FC<UserInfoProps> = ({
         ) : (
           <p className="text-gray-600">No social links available.</p>
         )}
-
       </div>
     </div>
   );

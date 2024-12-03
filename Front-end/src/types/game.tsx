@@ -1,35 +1,4 @@
 // src/types/game.ts
-export interface Category {
-    _id: string;
-    name: string;
-    key: string;
-}
-
-export interface UploadedBy {
-    username: string;
-    _id: string;
-}
-
-export interface SuccessVotes {
-    likes: number;
-    dislikes: number;
-    percentage: number;
-    userVotes: any[];
-}
-
-export interface Changelog {
-    date: string;
-    description: string;
-    _id: string;
-}
-
-export interface Rating {
-    userId: string;
-    rating: number;
-    comment: string;
-    createdAt: string;
-    _id: string;
-}
 
 export interface GameData {
     title: string;
@@ -91,4 +60,36 @@ export interface GameData {
     version: string;
     ratings: Rating[];
     __v: number;
+}
+
+export interface Category {
+    _id: string;
+    name: string;
+    key: string;
+}
+
+export interface UploadedBy {
+    username: string;
+    _id: string;
+}
+
+export interface SuccessVotes {
+    likes: number;
+    dislikes: number;
+    percentage: number;
+    userVotes: any[];
+}
+
+export interface Changelog {
+    date: string;
+    description: string;
+    _id: string;
+}
+
+export interface Rating {
+    userId: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    _id: string;
 }
