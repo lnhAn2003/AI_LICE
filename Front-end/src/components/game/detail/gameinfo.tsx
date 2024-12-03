@@ -1,14 +1,10 @@
 // src/components/game/detail/gameinfo.tsx
 import React from 'react';
 import { UploadedBy } from '../../../types/game';
+import { GameData } from '../../../types/game';
 
 interface GameInfoProps {
-    game: {
-        title: string;
-        uploadedBy: UploadedBy;
-        dateUploaded: string;
-        coverImage: string;
-    };
+    game: GameData;
 }
 
 const GameInfo: React.FC<GameInfoProps> = ({ game }) => {

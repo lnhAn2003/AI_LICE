@@ -5,7 +5,7 @@ import axiosInstance from '../../src/utils/axiosInstance';
 
 // Import components
 import FilterSortComponent from '../../src/components/game/filtersort';
-import Pagination from '../../src/components/game/pagination';
+import Pagination from '../../src/components/index/pagination';
 import { GameData } from '../../src/types/game';
 import { Category } from '../../src/types/game';
 
@@ -229,11 +229,19 @@ const GameCollection: React.FC = () => {
                     </div>
 
                     {/* Game Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                        style={{
+                            minHeight: '500px', 
+                        }}
+                    >
                         {currentGames.map((game) => (
                             <div
                                 key={game._id}
                                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
+                                style={{
+                                    height: '250px', // Fixed card height
+                                }}
                             >
                                 <Link href={`/games/details/${game._id}`}>
                                     <div className="cursor-pointer">
@@ -262,8 +270,8 @@ const GameCollection: React.FC = () => {
                                                         <svg
                                                             key={i}
                                                             className={`w-4 h-4 ${i < Math.floor(game.averageRating)
-                                                                ? 'text-yellow-400'
-                                                                : 'text-gray-300 dark:text-gray-600'
+                                                                    ? 'text-yellow-400'
+                                                                    : 'text-gray-300 dark:text-gray-600'
                                                                 }`}
                                                             fill="currentColor"
                                                             viewBox="0 0 576 512"
@@ -304,8 +312,18 @@ const GameCollection: React.FC = () => {
                                 </Link>
                             </div>
                         ))}
-                    </div>
 
+                        {/* Placeholder cards for empty spaces */}
+                        {Array.from({ length: ITEMS_PER_PAGE - currentGames.length }).map((_, index) => (
+                            <div
+                                key={`placeholder-${index}`}
+                                className="bg-transparent"
+                                style={{
+                                    height: '250px',
+                                }}
+                            />
+                        ))}
+                    </div>
 
                     {/* Pagination */}
                     {totalPages > 1 && (

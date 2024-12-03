@@ -1,28 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-
-interface Author {
-  _id: string;
-  username: string;
-  profile: {
-    avatarUrl: string;
-  };
-}
-
-interface Thread {
-  _id: string;
-  title: string;
-  tags: string[];
-  authorId: Author;
-  content: string;
-  posts: { _id: string; content: string }[];
-  views: number;
-  createdAt: string;
-  favorited?: boolean;
-}
+import { ThreadData } from '../../types/thread';
 
 interface ThreadListProps {
-  threads: Thread[];
+  threads: ThreadData[];
   onToggleFavorite: (threadId: string) => void;
 }
 

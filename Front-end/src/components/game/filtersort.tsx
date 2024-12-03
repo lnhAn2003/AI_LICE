@@ -21,7 +21,6 @@ const FilterSortComponent: React.FC<FilterSortProps> = ({
     gameEngines,
     gamePlatform,
 }) => {
-    // Initial filter state
     const initialFilters: Record<string, any> = {
         keyword: '',
         genres: [],

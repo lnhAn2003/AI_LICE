@@ -6,7 +6,7 @@ import axiosInstance from '../../src/utils/axiosInstance';
 // Import components
 import HighlightedThread from '../../src/components/thread/highlightedthread';
 import ThreadList from '../../src/components/thread/threadlist';
-import Pagination from '../../src/components/thread/pagination';
+import Pagination from '../../src/components/index/pagination';
 import Sort from '../../src/components/thread/sort';
 import { ThreadData } from "../../src/types/thread";
 
