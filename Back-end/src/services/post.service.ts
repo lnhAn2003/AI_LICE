@@ -28,21 +28,29 @@ class PostService {
     public async getPostById(id: string): Promise<IPost | null> {
         const post = await Post.findById(id)
             .populate([
-                { path: 'authorId', select: 'username' },
+                { path: 'authorId', select: 'username profile.avatarUrl' },
+                { 
+                    path: 'threadId',
+                    match: { isVisible: true },
+                    options: { sort: { createdAt: -1 } },
+                    populate: [
+                        { path: 'authorId', select: 'username profile.avatarUrl'}
+                    ]
+                },
                 {
                     path: 'comments',
                     match: { isVisible: true, parentCommentId: null },
                     options: { sort: { createdAt: -1 } },
                     populate: [
-                        { path: 'authorId', select: 'username' },
-                        {
-                            path: 'replies',
-                            match: { isVisible: true },
-                            options: { sort: { createdAt: -1 } },
-                            populate: { path: 'authorId', select: 'username' },
-                        }
-                    ]
-                }
+                      { path: 'authorId', select: 'username profile.avatarUrl' },
+                      {
+                        path: 'replies',
+                        match: { isVisible: true },
+                        options: { sort: { createdAt: -1 } },
+                        populate: { path: 'authorId', select: 'username profile.avatarUrl' },
+                      },
+                    ],
+                  },
             ])
         return post;
     }

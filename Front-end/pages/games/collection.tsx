@@ -262,7 +262,7 @@ const GameCollection: React.FC = () => {
                                                 {game.title}
                                             </h2>
                                             <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
-                                                By {game.uploadedBy.username}
+                                            By {game.uploadedBy?.username || 'Anonymous'}
                                             </p>
                                             <div className="flex items-center mt-2">
                                                 <div className="flex items-center">

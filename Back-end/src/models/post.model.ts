@@ -30,7 +30,6 @@ const PostSchema: Schema<IPost> = new Schema({
             editedAt: { type: Date, default: Date.now}
         }
     ]
-
 })
 
 PostSchema.pre<IPost>('save', function (next) {
@@ -47,8 +46,6 @@ PostSchema.virtual('comments', {
   
   PostSchema.set('toObject', { virtuals: true });
   PostSchema.set('toJSON', { virtuals: true });
-  
-
 
 export default mongoose.model<IPost>('Post', PostSchema);
  
