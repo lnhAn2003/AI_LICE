@@ -19,6 +19,7 @@ import aiRoutes from './routes/ai.routes';
 import logRoutes from './routes/log.routes';
 import notificationRoutes from './routes/notification.routes';
 import newsRoutes from './routes/news.routes';
+import lessonRoutes from './routes/lesson.routes'
 const app = express();
 
 // Middleware
@@ -42,6 +43,7 @@ app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);
 app.use('/notification', notificationRoutes);
 app.use('/news', newsRoutes);
+app.use('/lessons', lessonRoutes);
 // Database Connection
 mongoose
   .connect(config.mongoUri)
