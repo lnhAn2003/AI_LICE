@@ -10,13 +10,9 @@ import Pagination from '../../src/components/index/pagination';
 import Sort from '../../src/components/thread/sort';
 import { ThreadData } from "../../src/types/thread";
 
-interface ThreadDetailPageProps {
-  thread: ThreadData;
-}
-
 const ITEMS_PER_PAGE = 4;
 
-const ThreadCollection: React.FC<ThreadDetailPageProps> = () => {
+const ThreadCollection: React.FC<ThreadData> = () => {
   const [threads, setThreads] = useState<ThreadData[]>([]); 
   const [highlightedThread, setHighlightedThread] = useState<ThreadData | null>(null);
   const [filteredThreads, setFilteredThreads] = useState<ThreadData[]>([]);

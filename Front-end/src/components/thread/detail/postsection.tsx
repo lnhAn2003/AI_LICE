@@ -3,8 +3,8 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import { Post } from '../../../types/thread';
+// import { PostData } from '../../../types/post';
 import { useAuth } from '../../../hooks/useAuth';
-import { FaUserCircle } from 'react-icons/fa';
 import { FiThumbsUp, FiMessageCircle, FiShare2, FiMoreHorizontal } from 'react-icons/fi';
 
 interface PostsSectionProps {
@@ -53,13 +53,13 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
               <img
-                src={post.authorId.profile.avatarUrl || '/default-avatar.png'}
-                alt={post.authorId.username}
+                src={post.authorId?.profile?.avatarUrl || '/default-avatar.png'}
+                alt={post.authorId?.username}
                 className="w-12 h-12 rounded-full mr-4 border-2 border-gray-300 dark:border-gray-700"
               />
               <div>
                 <p className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                  {post.authorId.username}
+                  {post.authorId?.username}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {new Date(post.createdAt).toLocaleString()}
@@ -93,13 +93,16 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
               <FiThumbsUp className="w-6 h-6" />
               <span>Like</span>
             </button>
-            <button
-              className="flex items-center gap-2 text-lg hover:text-blue-500 transition-colors duration-200"
-              aria-label="Comment"
-            >
-              <FiMessageCircle className="w-6 h-6" />
-              <span>Comment</span>
-            </button>
+            <Link href={`/posts/details/${post._id}`}>
+              <button
+                className="flex items-center gap-2 text-lg hover:text-blue-500 transition-colors duration-200"
+                aria-label="Comment"
+
+              >
+                <FiMessageCircle className="w-6 h-6" />
+                <span>Comment</span>
+              </button>
+            </Link>
             <button
               className="flex items-center gap-2 text-lg hover:text-blue-500 transition-colors duration-200"
               aria-label="Share"
@@ -115,7 +118,7 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts }) => {
               {post.comments.map((comment) => (
                 <div key={comment._id} className="flex mb-4">
                   <img
-                    src={comment.authorId.profile.avatarUrl || '/default-avatar.png'}
+                    src={comment.authorId.profile?.avatarUrl || '/default-avatar.png'}
                     alt={comment.authorId.username}
                     className="w-10 h-10 rounded-full mr-4 border-2 border-gray-300 dark:border-gray-700"
                   />

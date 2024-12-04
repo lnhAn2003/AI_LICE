@@ -84,7 +84,7 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
             comment.replies?.map((reply: any) => ({
               username: reply.authorId?.username || "Anonymous",
               date: new Date(reply.createdAt).toLocaleDateString() || "N/A",
-              comment: reply.content || "No reply.",
+              content: reply.content || "No reply.",
             })) || [],
         })) || [],
     };

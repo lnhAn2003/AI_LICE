@@ -93,3 +93,17 @@ export interface Rating {
     createdAt: string;
     _id: string;
 }
+
+export interface Reply {
+    username: string;
+    date: string;
+    content: string;
+  }
+  
+  export interface Comment {
+    username: string;
+    date: string;
+    content: string;
+    replies?: Reply[];
+  }
+  

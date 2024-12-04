@@ -1,19 +1,6 @@
 // src/components/game/detail/communityfeedback.tsx
 import React from 'react';
-
-interface FeedbackEntry {
-  username: string;
-  comment: string;
-}
-
-interface CommunityFeedbackProps {
-  feedback: {
-    likes: number;
-    dislikes: number;
-    successRate: number;
-    feedbacks: FeedbackEntry[];
-  };
-}
+import { CommunityFeedbackProps } from '../../../types/thread';
 
 const CommunityFeedback: React.FC<CommunityFeedbackProps> = ({ feedback }) => {
   return (
