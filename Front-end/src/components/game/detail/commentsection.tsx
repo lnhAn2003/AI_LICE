@@ -1,18 +1,6 @@
 // src/components/game/detail/commentsection.tsx
 import React, { useState } from 'react';
-
-interface Reply {
-  username: string;
-  date: string;
-  comment: string;
-}
-
-interface Comment {
-  username: string;
-  date: string;
-  comment: string;
-  replies?: Reply[];
-}
+import { Comment } from '../../../types/game';
 
 interface CommentsSectionProps {
   comments: Comment[];
@@ -30,7 +18,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments }) => {
           </strong>
           <span className="text-sm text-gray-500 dark:text-gray-400">{comment.date}</span>
         </div>
-        <p className="text-gray-700 dark:text-gray-300 mt-2">{comment.comment}</p>
+        <p className="text-gray-700 dark:text-gray-300 mt-2">{comment.content}</p>
         <div className="flex space-x-4 mt-2">
           <button className="text-blue-600 hover:underline dark:text-blue-400">
             Like

@@ -25,6 +25,7 @@ class GameSharedService {
       .populate([
         { path: 'uploadedBy', select: 'username' },
         { path: 'ratings.userId', select: 'username' },
+        { path: 'categories', select: '_id name key'},
         { path: 'successVotes.userVotes.userId', select: 'username' },
         {
           path: 'comments',

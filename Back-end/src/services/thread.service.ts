@@ -23,33 +23,33 @@ class ThreadService {
     public async getThreadById(id: string): Promise<IThread | null> {
         return await Thread.findById(id)
             .populate({
-                path: 'authorId', // Populating thread's author details
+                path: 'authorId',
                 select: 'username profile.avatarUrl',
             })
             .populate({
-                path: 'posts', // Populating posts within the thread
-                select: 'content createdAt', // Selecting necessary fields
+                path: 'posts', 
+                select: 'content createdAt',
                 populate: [
                     {
-                        path: 'authorId', // Populating post authors
-                        select: 'username profile.avatarUrl', // Selecting fields for post authors
+                        path: 'authorId',
+                        select: 'username profile.avatarUrl', 
                     },
                     {
-                        path: 'comments', // Populating comments within each post
-                        match: { isVisible: true, parentCommentId: null }, // Filtering comments
-                        options: { sort: { createdAt: -1 } }, // Sorting comments by creation date
+                        path: 'comments',
+                        match: { isVisible: true, parentCommentId: null },
+                        options: { sort: { createdAt: -1 } }, 
                         populate: [
                             {
-                                path: 'authorId', // Populating comment authors
-                                select: 'username profile.avatarUrl', // Selecting fields for comment authors
+                                path: 'authorId', 
+                                select: 'username profile.avatarUrl', 
                             },
                             {
-                                path: 'replies', // Populating replies within each comment
-                                match: { isVisible: true }, // Filtering replies
-                                options: { sort: { createdAt: -1 } }, // Sorting replies by creation date
+                                path: 'replies',
+                                match: { isVisible: true },
+                                options: { sort: { createdAt: -1 } }, 
                                 populate: {
-                                    path: 'authorId', // Populating reply authors
-                                    select: 'username profile.avatarUrl', // Selecting fields for reply authors
+                                    path: 'authorId', 
+                                    select: 'username profile.avatarUrl', 
                                 },
                             },
                         ],

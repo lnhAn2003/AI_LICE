@@ -1,10 +1,9 @@
 // src/types/thread.ts
-export interface AuthorProfile {
-  avatarUrl: string;
-}
 
 export interface Author {
-  profile: AuthorProfile;
+  profile: {
+    avatarUrl: string;
+  };
   _id: string;
   username: string;
 }
@@ -16,6 +15,20 @@ export interface Comment {
   createdAt: string;
 }
 
+export interface FeedbackEntry {
+  username: string;
+  comment: string;
+}
+
+export interface CommunityFeedbackProps {
+  feedback: {
+    likes: number;
+    dislikes: number;
+    successRate: number;
+    feedbacks: FeedbackEntry[];
+  };
+}
+
 export interface Post {
   _id: string;
   content: string;
@@ -24,7 +37,6 @@ export interface Post {
   createdAt: string;
   likes?: string;
 }
-
 
 export interface ThreadData {
   isPinned: boolean;
