@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Course, { ICourse } from "../models/course.model";
-import Section from "../models/sections.model";
-import Lesson, { ILesson } from "../models/lessons.model";
+import Section from "../models/section.model";
+import Lesson, { ILesson } from "../models/lesson.model";
 
 class CourseService {
   public async createCourse(courseData: Partial<ICourse>): Promise<ICourse> {
@@ -26,6 +26,20 @@ class CourseService {
       .populate({
         path: "sections",
         populate: { path: "lessons", select: "title videoUrl" },
+      })
+      .populate({
+        path: "comments",
+        match: { isVisible: true, parentCommentId: null },
+        options: { sort: { createdAt: -1 } },
+        populate: [
+          { path: 'authorId', select: 'username profile.avatarUrl' },
+          {
+            path: 'replies',
+            match: { isVisible: true },
+            options: { sort: { createdAt: -1 } },
+            populate: { path: 'authorId', select: 'username profile.avatarUrl' },
+          },
+        ],
       });
   }
 

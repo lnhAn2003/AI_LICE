@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import LessonService from '../services/lesson.service';
 import UserService from '../services/user.service';
 import mongoose from 'mongoose';
-import { ILesson } from '../models/lessons.model';
+import { ILesson } from '../models/lesson.model';
 
 export interface AuthRequest extends Request {
   user?: { id: string };
