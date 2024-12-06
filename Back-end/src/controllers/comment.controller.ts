@@ -3,6 +3,8 @@ import CommentService from '../services/comment.service';
 import mongoose from 'mongoose';
 import postModel from '../models/post.model';
 import gamesharedModel from '../models/gameshared.model';
+import courseModel from '../models/course.model';
+import lessonModel from '../models/lesson.model';
 
 export interface AuthRequest extends Request {
     user?: any;
@@ -25,10 +27,15 @@ class CommentController {
             }
 
             let targetExists = false;
+            // Add Course and Lesson checks
             if (targetType === 'Post') {
                 targetExists = await postModel.exists({ _id: targetId }) !== null;
             } else if (targetType === 'GameShared') {
                 targetExists = await gamesharedModel.exists({ _id: targetId }) !== null;
+            } else if (targetType === 'Course') {
+                targetExists = await courseModel.exists({ _id: targetId }) !== null; 
+            } else if (targetType === 'Lesson') {
+                targetExists = await lessonModel.exists({ _id: targetId }) !== null; 
             }
 
             if (!targetExists) {
@@ -40,7 +47,7 @@ class CommentController {
             if (parentCommentId) {
                 parentComment = await CommentService.getCommentById(parentCommentId);
                 if (!parentComment || !parentComment.isVisible) {
-                    res.status(400).json({ message: 'Parent comment does not exists or not visible' });
+                    res.status(400).json({ message: 'Parent comment does not exist or is not visible' });
                     return
                 }
             }
@@ -57,11 +64,16 @@ class CommentController {
 
             const comment = await CommentService.createComment(commentData);
 
+            // If this is a root-level comment (no parent), push it into the target document
             if (!parentCommentId) {
                 if (targetType === 'Post') {
                     await postModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
                 } else if (targetType === 'GameShared') {
                     await gamesharedModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
+                } else if (targetType === 'Course') {
+                    await courseModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } }); // NEW
+                } else if (targetType === 'Lesson') {
+                    await lessonModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } }); // NEW
                 }
             }
 

@@ -1,6 +1,6 @@
 // src/services/lesson.service.ts
-import Lesson, { ILesson } from '../models/lessons.model';
-import Section from '../models/sections.model';
+import Lesson, { ILesson } from '../models/lesson.model';
+import Section from '../models/section.model';
 import User from '../models/user.model';
 
 class LessonService {

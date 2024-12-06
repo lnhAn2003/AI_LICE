@@ -14,11 +14,12 @@ import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import categoryRoutes from './routes/category.routes';
 import gamesharedRoutes from './routes/gameshared.routes';
-import courseRoutes from './routes/course.routes';
 import aiRoutes from './routes/ai.routes';
 import logRoutes from './routes/log.routes';
 import notificationRoutes from './routes/notification.routes';
 import newsRoutes from './routes/news.routes';
+import courseRoutes from './routes/course.routes';
+import sectionRoutes from './routes/section.routes';
 import lessonRoutes from './routes/lesson.routes'
 const app = express();
 
@@ -38,12 +39,14 @@ app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/gameshareds', gamesharedRoutes);
-app.use('/course', courseRoutes);
 app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);
 app.use('/notification', notificationRoutes);
 app.use('/news', newsRoutes);
+app.use('/course', courseRoutes);
+app.use('/sections', sectionRoutes);
 app.use('/lessons', lessonRoutes);
+
 // Database Connection
 mongoose
   .connect(config.mongoUri)

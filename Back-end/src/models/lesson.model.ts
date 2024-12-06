@@ -1,4 +1,5 @@
-// src/models/lesson.model.ts
+// src/models/lessons.model.ts
+
 import mongoose, { Document, Schema } from 'mongoose';
 import { IComment } from './comment.model';
 
@@ -20,7 +21,7 @@ export interface ILesson extends Document {
     resources?: { name: string; url: string }[];
     editedAt: Date;
   }[];
-  comments?: IComment[];
+  comments?: IComment[]; 
 }
 
 const LessonSchema: Schema<ILesson> = new Schema({
@@ -45,13 +46,11 @@ const LessonSchema: Schema<ILesson> = new Schema({
   ],
 });
 
-// Middleware to update `updatedAt` before saving
 LessonSchema.pre<ILesson>('save', function (next) {
   this.updatedAt = new Date();
   next();
 });
 
-// Virtual field for comments
 LessonSchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
