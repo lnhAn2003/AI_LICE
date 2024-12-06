@@ -21,7 +21,7 @@ class CourseService {
 
   public async getCourseById(id: string): Promise<ICourse | null> {
     return await Course.findById(id)
-      .populate({ path: "createdBy", select: "username" })
+      .populate({ path: "createdBy", select: "username profile.avatarUrl" })
       .populate({ path: "categories", select: "_id name" })
       .populate({
         path: "sections",
