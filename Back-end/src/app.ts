@@ -45,7 +45,7 @@ app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);
 app.use('/notification', notificationRoutes);
 app.use('/news', newsRoutes);
-app.use('/course', courseRoutes);
+app.use('/courses', courseRoutes);
 app.use('/sections', sectionRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/progress', progressRoutes);

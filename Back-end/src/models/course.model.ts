@@ -1,5 +1,4 @@
 // src/models/course.model.ts
-
 import mongoose, { Document, Schema } from 'mongoose';
 import { IComment } from './comment.model';
 
@@ -19,6 +18,8 @@ export interface ICourse extends Document {
   categories: string[];
   averageRating: number;
   ratingCount: number;
+  resource: string[];
+  screenshot: string[];
   ratings: IRating[];
   favorites: mongoose.Types.ObjectId[];
   commentId: mongoose.Types.ObjectId[];      
@@ -49,7 +50,9 @@ const CourseSchema: Schema<ICourse> = new Schema(
     ratingCount: { type: Number, default: 0 },
     ratings: [RatingSchema],
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    commentId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] 
+    commentId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    resource: [{ type: String }],
+    screenshot: [{ type: String }], 
   },
   { timestamps: true }
 );

@@ -39,7 +39,7 @@ const FilterSortComponent: React.FC<FilterSortProps> = ({
 
     const [showSections, setShowSections] = useState<Record<string, boolean>>({
         sortBy: false,
-        keyword: true, // Initially open
+        keyword: true, 
         genres: false,
         engines: false,
         platforms: false,
