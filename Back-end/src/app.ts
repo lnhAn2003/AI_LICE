@@ -21,6 +21,8 @@ import newsRoutes from './routes/news.routes';
 import courseRoutes from './routes/course.routes';
 import sectionRoutes from './routes/section.routes';
 import lessonRoutes from './routes/lesson.routes'
+import progressRoutes from './routes/progress.routes'
+
 const app = express();
 
 // Middleware
@@ -46,6 +48,7 @@ app.use('/news', newsRoutes);
 app.use('/course', courseRoutes);
 app.use('/sections', sectionRoutes);
 app.use('/lessons', lessonRoutes);
+app.use('/progress', progressRoutes);
 
 // Database Connection
 mongoose
