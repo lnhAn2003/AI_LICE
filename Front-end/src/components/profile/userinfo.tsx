@@ -1,5 +1,4 @@
-// src/components/profile/UserInfo.tsx
-
+// src/components/profile/userinfo.tsx
 import React from 'react';
 import { FaFacebook, FaTwitter, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa';
 import { User, UserData } from '../../types/user';

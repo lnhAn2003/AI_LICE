@@ -132,6 +132,32 @@ class UserController {
     }
   }
 
+  public async changeAvatar(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const user = req.user as { id: string };
+            if (!user) {
+                res.status(401).json({ message: 'Unauthorized' });
+                return;
+      }
+      const userId = req.user.id;
+
+      if (!req.file) {
+        res.status(400).json({ message: 'No file uploaded' });
+      }
+
+      const fileUrl = (req.file as any).location;
+
+      await UserService.updateAvatar(userId, fileUrl);
+
+      res.status(200).json({
+        message: 'Avatar updated successfully',
+        avatarUrl: fileUrl,
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
 }
 
 export default new UserController();

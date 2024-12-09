@@ -1,14 +1,34 @@
 import mongoose from "mongoose";
 import GameShared, { IGameShared } from "../models/gameshared.model";
 import User from "../models/user.model";
+import { gamesharedUpload } from "../utils/awsS3";
 
 class GameSharedService {
-  public async createGameShared(gameData: Partial<IGameShared>): Promise<IGameShared> {
-    const gameShared = new GameShared(gameData);
+  public async createGameShared(
+    gameData: Partial<IGameShared>,
+    file: { buffer: Buffer; mimeType: string },
+    images: { buffer: Buffer; mimeType: string }[]
+  ): Promise<IGameShared> {
+    const folder = `games/${gameData.title || Date.now()}`; // Use game title or timestamp as folder name
+
+    const fileUrl = await gamesharedUpload(file.buffer, `${folder}/files`, `${gameData.title}_${Date.now()}`, file.mimeType);
+
+    const imageUrls = await Promise.all(
+      images.map((image, index) =>
+        gamesharedUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+      )
+    );
+
+    const gameShared = new GameShared({
+      ...gameData,
+      fileUrl,
+      images: imageUrls,
+    });
+
     const savedGame = await gameShared.save();
 
     await User.findByIdAndUpdate(gameData.uploadedBy, {
-      $push: { gamesShared: savedGame._id }
+      $push: { gamesShared: savedGame._id },
     });
 
     return savedGame;
@@ -46,10 +66,41 @@ class GameSharedService {
     return game;
   }
 
+  public async updateGameShared(
+    id: string,
+    updateData: Partial<IGameShared>,
+    file?: { buffer: Buffer; mimeType: string },
+    images?: { buffer: Buffer; mimeType: string }[]
+  ): Promise<IGameShared | null> {
+    const game = await GameShared.findById(id);
+    if (!game) {
+      throw new Error('Game not found');
+    }
+  
+    const folder = `games/${game.title || id}`;
 
-  public async updateGameShared(id: string, updateData: Partial<IGameShared>): Promise<IGameShared | null> {
+    if (file) {
+      const fileUrl = await gamesharedUpload(
+        file.buffer,
+        `${folder}/files`,
+        `${game.title || 'game'}_${Date.now()}`,
+        file.mimeType
+      );
+      updateData.fileUrl = fileUrl;
+    }
+
+    if (images && images.length > 0) {
+      const imageUrls = await Promise.all(
+        images.map((image, index) =>
+          gamesharedUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+        )
+      );
+      updateData.images = imageUrls;
+    }
+
     return await GameShared.findByIdAndUpdate(id, updateData, { new: true });
   }
+  
 
   public async deleteGameShared(id: string): Promise<IGameShared | null> {
     const game = await GameShared.findById(id);
