@@ -1,5 +1,4 @@
-// src/components/profile/AvatarSection.tsx
-
+// src/components/profile/avatarsection.tsx
 import React from 'react';
 
 interface AvatarSectionProps {

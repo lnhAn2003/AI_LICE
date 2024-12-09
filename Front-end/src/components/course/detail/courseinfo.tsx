@@ -14,7 +14,7 @@ const CourseInfo: React.FC<{ course: CourseData }> = ({ course }) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        color: '#fff', // Ensure text is readable
+        color: '#fff',
       }}
     >
       {/* Overlay to Darken Background */}

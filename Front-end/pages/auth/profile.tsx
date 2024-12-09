@@ -13,15 +13,14 @@ import Statistics from '../../src/components/profile/statistics';
 import Badges from '../../src/components/profile/badges';
 import RecentActivity from '../../src/components/profile/recentactivity';
 import ActivityChart from '../../src/components/profile/activitychart';
-
-
+import AvatarUpload from '../../src/components/profile/avatarupload';
 
 const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = ({
   onConfirm,
   onCancel,
 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
         <h2 className="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">
           Confirm Logout
@@ -45,8 +44,30 @@ const LogoutModal: React.FC<{ onConfirm: () => void; onCancel: () => void }> = (
   );
 };
 
+const AvatarEditModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 z-50">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 className="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">
+          Change Avatar
+        </h2>
+        <AvatarUpload onUploadSuccess={onClose} />
+      </div>
+    </div>
+  );
+};
+
 const UserProfile: React.FC<UserData> = ({ user }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
   const { logout } = useAuth();
 
   const handleLogout = () => {
@@ -70,7 +91,7 @@ const UserProfile: React.FC<UserData> = ({ user }) => {
       const date = subDays(today, i);
       data.push({
         date: format(date, 'yyyy-MM-dd'),
-        count: Math.floor(Math.random() * 5), 
+        count: Math.floor(Math.random() * 5),
       });
     }
 
@@ -98,7 +119,7 @@ const UserProfile: React.FC<UserData> = ({ user }) => {
             <div className="md:w-1/3 p-4 text-center">
               <AvatarSection
                 avatarUrl={user.avatarUrl}
-                onEdit={() => console.log('Edit Avatar clicked')}
+                onEdit={() => setShowAvatarModal(true)}
               />
             </div>
             <div className="md:w-2/3 p-4">
@@ -130,7 +151,6 @@ const UserProfile: React.FC<UserData> = ({ user }) => {
 
           {/* Recent Activity Section */}
           <div className="p-6 bg-gray-50 dark:bg-gray-800">
-            <p></p>
             <RecentActivity userId={user.id} lastActive={user.lastActive} />
             <div className="mt-6">
               <button
@@ -145,6 +165,7 @@ const UserProfile: React.FC<UserData> = ({ user }) => {
       </div>
 
       {showLogoutModal && <LogoutModal onConfirm={confirmLogout} onCancel={cancelLogout} />}
+      {showAvatarModal && <AvatarEditModal onClose={() => setShowAvatarModal(false)} />}
     </div>
   );
 };
