@@ -121,6 +121,18 @@ class UserService {
       games: user.gamesShared,
     };
   }
+
+  public async updateAvatar(userId: string, avatarUrl: string): Promise<void> {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { 'profile.avatarUrl': avatarUrl },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+  }
 }
 
 export default new UserService();

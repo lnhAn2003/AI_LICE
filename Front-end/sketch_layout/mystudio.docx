@@ -1,0 +1,95 @@
++-----------------------------------------------------------------------------------+
+| AI_LICE Logo | Home | Threads | Games | Assistance | Courses  | [User Profile]   |
+|                                      [Search Bar]                                 |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                                  **My Studio**                                    |
+|                                                                                   |
+|  Manage all your content and track performance. Access your games, threads,       |
+|  posts, and courses all in one place. Use the sidebar to navigate and edit,        |
+|  analyze stats, and stay updated with notifications.                              |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+| [Quick Stats: Games: 5 | Threads: 10 | Posts: 25 | Courses: 3 ]                   |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                                   **Navigation**                                  |
++-----------------------------------------------------------------------------------+
+| +-------------------------------+  +---------------------------------------------+ |
+| | Dashboard Home                |  | [Content Display Area]                     | |
+| | Manage Games                  |  |---------------------------------------------| |
+| | Manage Threads                |  |                                             |
+| | Manage Posts                  |  | Here the main content changes dynamically   |
+| | Manage Courses                |  | based on the selected navigation item.       |
+| | Analytics                     |  |                                             |
+| | Notifications                 |  | For example, if "Manage Games" is selected:  |
+| |                               |  |                                             |
+| | [Collapse Sidebar]            |  |  +-----------------------------------------+ |
+| +-------------------------------+  |  |          **Manage Games**                | |
+|                                  |  |-------------------------------------------| |
+|                                  |  | [Add Game] [Filter: All / Active / Draft] | |
+|                                  |  | [Sort: Date | Rating | Views ]            | |
+|                                  |  |-------------------------------------------| |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  | Title: "My RPG Adventure"             |  |
+|                                  |  |  | Views: 250  Downloads: 100            |  |
+|                                  |  |  | Rating: 4.5   Favorites: 20           |  |
+|                                  |  |  | Tags: #rpg, #adventure                |  |
+|                                  |  |  | Categories: RPG, Action                |  |
+|                                  |  |  | [Edit] [Analytics] [Comments] [Delete]|  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  | Title: "Space Odyssey"                |  |
+|                                  |  |  | Views: 180  Downloads: 80             |  |
+|                                  |  |  | Rating: 4.2   Favorites: 15           |  |
+|                                  |  |  | Tags: #space, #scifi                  |  |
+|                                  |  |  | Categories: Sci-Fi, Exploration       |  |
+|                                  |  |  | [Edit] [Analytics] [Comments] [Delete]|  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |        [View All / Pagination]             |
+|                                  |  |---------------------------------------------|
+|                                  |  |                                             |
+|                                  |  | If "Manage Threads" is selected:            |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  |          **Manage Threads**           |  |
+|                                  |  |  |---------------------------------------|  |
+|                                  |  |  | [Add Thread] [Filter by Category]      |  |
+|                                  |  |  | [Sort: Newest | Popular | Replies]     |  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  | Title: "Unity Debugging Tips"          |  |
+|                                  |  |  | Replies: 45  Views: 400                |  |
+|                                  |  |  | Tags: #unity, #debugging               |  |
+|                                  |  |  | [Edit] [Close/Open] [Delete]           |  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |  | Title: "Best RPG Storylines"           |  |
+|                                  |  |  | Replies: 37  Views: 380                |  |
+|                                  |  |  | Tags: #rpg, #writing                   |  |
+|                                  |  |  | [Edit] [Close/Open] [Delete]           |  |
+|                                  |  |  +---------------------------------------+  |
+|                                  |  |        [View All / Pagination]             |
+|                                  |  |---------------------------------------------|
+|                                  |  | Similarly for "Manage Posts" and           |
+|                                  |  | "Manage Courses" sections.                 |
+|                                  |  |---------------------------------------------|
+|                                  |  | **Analytics Section**                      |
+|                                  |  |---------------------------------------------|
+|                                  |  | [Game Views Over Time Chart]              |
+|                                  |  | [Thread Engagement Chart]                  |
+|                                  |  | [Course Completion Rates]                  |
+|                                  |  | [Most Active Times / Days]                 |
+|                                  |  |---------------------------------------------|
+|                                  |  | **Notifications Section**                  |
+|                                  |  |---------------------------------------------|
+|                                  |  | - New comment on your game "Space Odyssey" |
+|                                  |  | - Your thread "Unity Debugging Tips" got   |
+|                                  |  |   new replies                              |
+|                                  |  | [Mark All as Read] [View All Notifications]|
+|                                  |  +---------------------------------------------+
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                                **Footer Section**                                 |
+|-----------------------------------------------------------------------------------|
+| [About Us] [Contact] [Terms of Service] [Privacy Policy]                          |
+| "AI_LICE - Empowering Game Developers with Community and AI-driven Tools"          |
++-----------------------------------------------------------------------------------+

@@ -22,6 +22,7 @@ import courseRoutes from './routes/course.routes';
 import sectionRoutes from './routes/section.routes';
 import lessonRoutes from './routes/lesson.routes'
 import progressRoutes from './routes/progress.routes'
+import uploadRoutes from './routes/upload.routes';
 
 const app = express();
 
@@ -45,10 +46,11 @@ app.use('/ai', aiRoutes);
 app.use('/logs', logRoutes);
 app.use('/notification', notificationRoutes);
 app.use('/news', newsRoutes);
-app.use('/course', courseRoutes);
+app.use('/courses', courseRoutes);
 app.use('/sections', sectionRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/progress', progressRoutes);
+app.use('/uploads', uploadRoutes);
 
 // Database Connection
 mongoose

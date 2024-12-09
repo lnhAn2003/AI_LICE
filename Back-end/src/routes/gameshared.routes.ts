@@ -1,13 +1,15 @@
 import { Router } from "express";
+import multer from 'multer';
 import gameSharedController from "../controllers/gameshared.controller";
 import { authenticateJWT } from "../middlewares/auth.middleware";
 import { checkGameSharedOwner } from "../middlewares/gameshared.middleware";
 import { logActivity } from "../middlewares/log.middleware";
 
 const router = Router();
+const upload = multer();
 
 // Create a new game
-router.post("/", authenticateJWT, logActivity('user_created_game'), gameSharedController.createGameShared.bind(gameSharedController));
+router.post("/", authenticateJWT, logActivity('user_created_game'),upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 },]), gameSharedController.createGameShared.bind(gameSharedController));
 
 // Get all games with activity logging
 router.get("/", gameSharedController.getAllGameShared.bind(gameSharedController));

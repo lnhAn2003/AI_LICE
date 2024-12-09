@@ -2,39 +2,78 @@ import { Request, Response } from "express";
 import GameSharedService from "../services/gameshared.service";
 import mongoose from "mongoose";
 import { IGameShared } from "../models/gameshared.model";
-import UserService from "../services/user.service";
+import multer from 'multer';
 
 export interface AuthRequest extends Request {
   user?: any;
 }
+
+export interface MulterFiles {
+  [fieldname: string]: Express.Multer.File[];
+}
+
+const upload = multer();
 
 class GameSharedController {
   public async createGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
       const user = req.user as { id: string };
       if (!user) {
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(401).json({ message: 'Unauthorized' });
         return;
       }
 
-      await UserService.updateLastActiveStatus(user.id, true);
-
       const uploadedBy = new mongoose.Types.ObjectId(user.id);
+
+      // Explicitly assert the type of req.files
+      const files = req.files as MulterFiles;
+
+      // Validate file and images
+      if (!files || !files['file'] || !files['images']) {
+        res.status(400).json({ message: 'File and images are required' });
+        return;
+      }
+
+      if (!req.body.title || !req.body.description) {
+        res.status(400).json({ message: "Title and description are required." });
+        return;
+      }
+
+      const categories = req.body.categories ? JSON.parse(req.body.categories) : [];
+      const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
+      const platforms = req.body.platforms ? JSON.parse(req.body.platforms) : [];
+
+      const gameFile = files['file'][0];
+      const imageFiles = files['images'];
+
+      const fileData = {
+        buffer: gameFile.buffer,
+        mimeType: gameFile.mimetype,
+      };
+
+      const imageData = imageFiles.map((img: Express.Multer.File) => ({
+        buffer: img.buffer,
+        mimeType: img.mimetype,
+      }));
 
       const gameData = {
         ...req.body,
+        categories,
+        tags,
+        platforms,
         uploadedBy,
         newRelease: true,
         viewCount: 0,
         downloadCount: 0,
       };
 
-      const game = await GameSharedService.createGameShared(gameData);
+      const game = await GameSharedService.createGameShared(gameData, fileData, imageData);
       res.status(201).json(game);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   }
+
 
   public async getAllGameShared(req: Request, res: Response): Promise<void> {
     try {
@@ -61,16 +100,71 @@ class GameSharedController {
 
   public async updateGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const game = await GameSharedService.updateGameShared(req.params.id, req.body);
-      if (!game) {
+      const { id } = req.params;
+  
+      const existingGame = await GameSharedService.getGameSharedById(id);
+      if (!existingGame) {
         res.status(404).json({ message: "Game not found" });
-      } else {
-        res.status(200).json(game);
+        return;
       }
+
+      const files = req.files as MulterFiles | undefined;
+
+      const fileData = files?.['file']?.[0]
+        ? {
+            buffer: files['file'][0].buffer,
+            mimeType: files['file'][0].mimetype,
+          }
+        : undefined;
+
+      const imageData = files?.['images']
+        ? files['images'].map((img: Express.Multer.File) => ({
+            buffer: img.buffer,
+            mimeType: img.mimetype,
+          }))
+        : undefined;
+
+      const categories =
+        typeof req.body.categories === "string"
+          ? JSON.parse(req.body.categories)
+          : req.body.categories || existingGame.categories;
+  
+      const tags =
+        typeof req.body.tags === "string"
+          ? JSON.parse(req.body.tags)
+          : req.body.tags || existingGame.tags;
+  
+      const platforms =
+        typeof req.body.platforms === "string"
+          ? JSON.parse(req.body.platforms)
+          : req.body.platforms || existingGame.platforms;
+
+      const updateData = {
+        ...req.body,
+        categories,
+        tags,
+        platforms,
+      };
+  
+      // Perform the update operation
+      const updatedGame = await GameSharedService.updateGameShared(
+        id,
+        updateData,
+        fileData,
+        imageData
+      );
+  
+      if (!updatedGame) {
+        res.status(404).json({ message: "Game not found" });
+        return;
+      }
+  
+      res.status(200).json(updatedGame);
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error("Error updating game:", error.message);
+      res.status(500).json({ message: error.message });
     }
-  }
+  }  
 
   public async deleteGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
@@ -93,7 +187,7 @@ class GameSharedController {
       res.status(400).json({ message: error.message });
     }
   }
-  
+
   public async addRating(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { id: gameId } = req.params;
