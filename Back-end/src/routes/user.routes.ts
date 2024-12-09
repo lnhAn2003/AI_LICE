@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { upload } from '../utils/awsS3';
 import UserController from '../controllers/user.controller';
 import { authenticateJWT } from '../middlewares/auth.middleware';
 import { passwordValidation } from '../middlewares/validation.middleware';
@@ -33,5 +34,8 @@ router.delete('/:id', authenticateJWT, checkUserOwner, logActivity('User_deleted
 
 // Password change
 router.patch('/changepassword', authenticateJWT, passwordValidation, UserController.changePassword.bind(UserController));
+
+// Change avatar
+router.post('/avatar', authenticateJWT, upload.single('avatar'), UserController.changeAvatar.bind(UserController));
 
 export default router;

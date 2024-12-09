@@ -42,6 +42,7 @@ export interface IGameShared extends Document {
         date: Date;
         description: string;
     }[];
+    platforms: string[];
     comments?: IComment[];
 }
 
@@ -95,6 +96,7 @@ const GameSharedSchema: Schema<IGameShared> = new Schema({
             description: { type: String }
         }
     ],
+    platforms: [{ type: String }],
 });
 
 GameSharedSchema.virtual('comments', {
