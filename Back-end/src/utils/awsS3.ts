@@ -67,3 +67,24 @@ export const gamesharedUpload = async (
   await s3.send(new PutObjectCommand(params));
   return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
 };
+
+// upload file to cloud with aws (post)
+export const postUpload = async (
+  buffer: Buffer,
+  folder: string,
+  filename: string,
+  contentType: string
+): Promise<string> => {
+  const key = `${folder}/${filename}`;
+
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME!,
+    Key: key,
+    Body: buffer,
+    ContentType: contentType,
+    ContentDisposition: "attachment",
+  };
+
+  await s3.send(new PutObjectCommand(params));
+  return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+};

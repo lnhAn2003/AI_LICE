@@ -9,7 +9,7 @@ class GameSharedService {
     file: { buffer: Buffer; mimeType: string },
     images: { buffer: Buffer; mimeType: string }[]
   ): Promise<IGameShared> {
-    const folder = `games/${gameData.title || Date.now()}`; // Use game title or timestamp as folder name
+    const folder = `games/${gameData.title || Date.now()}`;
 
     const fileUrl = await gamesharedUpload(file.buffer, `${folder}/files`, `${gameData.title}_${Date.now()}`, file.mimeType);
 

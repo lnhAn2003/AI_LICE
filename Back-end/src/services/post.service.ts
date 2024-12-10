@@ -3,21 +3,28 @@ import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
 import Post, { IPost } from "../models/post.model";
 
+
 class PostService {
     public async createPost(postData: Partial<IPost>): Promise<IPost> {
+        // We assume postData.images already contains the final S3 image URLs
         const post = new Post(postData);
         const savedPost = await post.save();
-
-        await User.findByIdAndUpdate(postData.authorId, {
-            $push: { posts: savedPost._id }
-        })
-
-        await Thread.findByIdAndUpdate(postData.threadId, {
-            $push: { posts: savedPost._id }
-        })
-
+    
+        // Update related thread and user
+        if (postData.authorId) {
+          await User.findByIdAndUpdate(postData.authorId, {
+            $push: { posts: savedPost._id },
+          });
+        }
+    
+        if (postData.threadId) {
+          await Thread.findByIdAndUpdate(postData.threadId, {
+            $push: { posts: savedPost._id },
+          });
+        }
+    
         return savedPost;
-    }
+      }
 
     public async getPosts(): Promise<IPost[]> {
         return await Post.find()

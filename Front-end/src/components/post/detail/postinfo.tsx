@@ -54,6 +54,24 @@ const PostInfo: React.FC<PostInfoProps> = ({ post }) => {
         />
       </div>
 
+      {/* Images */}
+      {post.images && post.images.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Post Images</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {post.images.map((image, index) => (
+              <div key={index} className="w-full h-auto">
+                <img
+                  src={image}
+                  alt={`Post image ${index + 1}`}
+                  className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Actions */}
       <div className="flex justify-start space-x-8">
         <button

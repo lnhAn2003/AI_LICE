@@ -9,7 +9,7 @@ const router = Router();
 const upload = multer();
 
 // Create a new game
-router.post("/", authenticateJWT, logActivity('user_created_game'),upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 },]), gameSharedController.createGameShared.bind(gameSharedController));
+router.post("/", authenticateJWT, logActivity('user_created_game'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 },]), gameSharedController.createGameShared.bind(gameSharedController));
 
 // Get all games with activity logging
 router.get("/", gameSharedController.getAllGameShared.bind(gameSharedController));

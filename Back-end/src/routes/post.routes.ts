@@ -3,12 +3,18 @@ import PostController from '../controllers/post.controller';
 import { authenticateJWT } from '../middlewares/auth.middleware';
 import { checkPostOwner } from '../middlewares/post.middleware';
 import { logActivity } from '../middlewares/log.middleware';
+import { upload } from '../utils/awsS3';
 
 const router = Router();
 
 // Create a new post (authentication required, activity logged)
-router.post('/', authenticateJWT, logActivity('user_created_post'), PostController.createPost.bind(PostController));
-
+router.post(
+    '/',
+    authenticateJWT,
+    upload.fields([{ name: "images", maxCount: 5 }]),
+    logActivity('user_created_post'),
+    PostController.createPost.bind(PostController)
+  );
 // Get all posts
 router.get('/', PostController.getPosts.bind(PostController));
 
