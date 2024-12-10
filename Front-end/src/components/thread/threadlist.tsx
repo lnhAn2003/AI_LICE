@@ -85,9 +85,8 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, onToggleFavorite }) =>
                     thread.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className={`text-xs font-medium px-2 py-1 rounded-full mr-2 mb-2 ${
-                          TAG_COLORS[index % TAG_COLORS.length]
-                        }`}
+                        className={`text-xs font-medium px-2 py-1 rounded-full mr-2 mb-2 ${TAG_COLORS[index % TAG_COLORS.length]
+                          }`}
                       >
                         {tag}
                       </span>
@@ -119,13 +118,15 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, onToggleFavorite }) =>
               <td className="p-4">
                 <div className="flex items-center space-x-2">
                   <img
-                    src={thread.authorId.profile.avatarUrl}
+                    src={thread.authorId.profile?.avatarUrl}
                     alt={`${thread.authorId.username}'s avatar`}
                     className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-800"
                   />
-                  <span className="text-sm text-gray-800 dark:text-gray-100">
-                    {thread.authorId.username}
-                  </span>
+                  <Link href={`/auth/user/${thread.authorId._id}`}>
+                    <span className="text-sm text-gray-800 dark:text-gray-100 hover:underline">
+                      {thread.authorId.username}
+                    </span>
+                  </Link>
                 </div>
               </td>
 
