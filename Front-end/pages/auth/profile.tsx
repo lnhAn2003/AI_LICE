@@ -1,5 +1,4 @@
-// pages/user-profile.tsx
-
+// pages/auth/profile.tsx
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../src/hooks/useAuth';
