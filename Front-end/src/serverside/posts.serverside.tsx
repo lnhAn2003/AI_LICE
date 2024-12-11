@@ -1,4 +1,3 @@
-// src/serverside/posts.serverside.tsx
 import { GetServerSideProps } from 'next';
 import axiosInstance from '../utils/axiosInstance';
 import { parse } from 'cookie';
@@ -65,11 +64,28 @@ export const getPostDetailsServerSideProps: GetServerSideProps = async (context)
         },
       },
       content: postData.content || 'No content available',
-      comments: postData.comments || [],
+      images: postData.images || [],
+      comments: postData.comments.map((comment: any) => ({
+        _id: comment._id || '',
+        authorId: {
+          _id: comment.authorId?._id || '',
+          username: comment.authorId?.username || 'Anonymous',
+          profile: {
+            avatarUrl: comment.authorId?.profile?.avatarUrl || '/default-avatar.png',
+          },
+        },
+        date: comment.date || '',
+        content: comment.content || 'No content available',
+        createdAt: comment.createdAt || null,
+        replies: comment.replies || [],
+      })),
       createdAt: postData.createdAt || null,
       updatedAt: postData.updatedAt || null,
       isEdited: postData.isEdited || false,
-      editHistory: postData.editHistory || [],
+      editHistory: postData.editHistory.map((edit: any) => ({
+        content: edit.content || '',
+        editedAt: edit.editedAt || null,
+      })),
     };
 
     return {

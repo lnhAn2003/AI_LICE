@@ -1,70 +1,104 @@
-// src/components/profile/userinfo.tsx
 import React from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa';
-import { User, UserData } from '../../types/user';
+import {
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaGithub,
+  FaGlobe,
+  FaEnvelope,
+  FaUserTag,
+  FaCalendarAlt,
+  FaSignOutAlt,
+} from 'react-icons/fa';
+import { User } from '../../types/user';
 
 const getSocialIcon = (platform?: string) => {
   if (!platform) {
-    return <FaGlobe size={24} />;
+    return <FaGlobe size={20} />;
   }
 
   switch (platform.toLowerCase()) {
     case 'facebook':
-      return <FaFacebook size={24} />;
+      return <FaFacebook size={20} />;
     case 'twitter':
-      return <FaTwitter size={24} />;
+      return <FaTwitter size={20} />;
     case 'linkedin':
-      return <FaLinkedin size={24} />;
+      return <FaLinkedin size={20} />;
     case 'github':
-      return <FaGithub size={24} />;
+      return <FaGithub size={20} />;
     default:
-      return <FaGlobe size={24} />;
+      return <FaGlobe size={20} />;
   }
 };
+
 const UserInfo: React.FC<{ user: User }> = ({ user }) => {
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-semibold">{user.username}</h2>
-      <p>{user.bio}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <p>
-            <strong>Joined:</strong> {user.joinedDate}
-          </p>
-          <p>
-            <strong>Last Login:</strong> {user.lastLogin}
-          </p>
+    <div className="space-y-8">
+      {/* Username and Bio */}
+      <div className="space-y-2">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{user.username}</h2>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{user.bio}</p>
+      </div>
+
+      {/* User Details */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* Joined Date */}
+        <div className="flex items-start space-x-3 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
+          <FaCalendarAlt className="text-blue-600 dark:text-blue-400" />
+          <div className="leading-snug">
+            <p className="text-gray-700 dark:text-gray-200 font-semibold">Joined:</p>
+            <p className="text-gray-600 dark:text-gray-300">{user.joinedDate}</p>
+          </div>
         </div>
-        <div>
-          <p>
-            <strong>Role:</strong> {user.role}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
+
+        {/* Last Login */}
+        <div className="flex items-start space-x-3 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
+          <FaSignOutAlt className="text-blue-600 dark:text-blue-400" />
+          <div className="leading-snug">
+            <p className="text-gray-700 dark:text-gray-200 font-semibold">Last Login:</p>
+            <p className="text-gray-600 dark:text-gray-300">{user.lastLogin}</p>
+          </div>
+        </div>
+
+        {/* Role */}
+        <div className="flex items-start space-x-3 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
+          <FaUserTag className="text-blue-600 dark:text-blue-400" />
+          <div className="leading-snug">
+            <p className="text-gray-700 dark:text-gray-200 font-semibold">Role:</p>
+            <p className="text-gray-600 dark:text-gray-300">{user.role}</p>
+          </div>
+        </div>
+
+        {/* Email */}
+        <div className="flex items-start space-x-3 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
+          <FaEnvelope className="text-blue-600 dark:text-blue-400" />
+          <div className="leading-snug">
+            <p className="text-gray-700 dark:text-gray-200 font-semibold">Email:</p>
+            <p className="text-gray-600 dark:text-gray-300">{user.email}</p>
+          </div>
         </div>
       </div>
+
+      {/* Social Links */}
       <div>
-        <h3 className="font-semibold">Social Links</h3>
+        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Social Links</h3>
         {user.socialLinks && user.socialLinks.length > 0 ? (
-          <div className="flex space-x-4 mt-2">
-            {user.socialLinks
-              .filter((link) => link.platform && link.url)
-              .map((link, index) => (
-                <a
-                  key={link.platform + index}
-                  href={link.url}
-                  className="text-secondary hover:text-secondary-dark transition-colors flex items-center space-x-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {getSocialIcon(link.platform)}
-                  <span>{link.platform}</span>
-                </a>
-              ))}
+          <div className="flex flex-wrap gap-4">
+            {user.socialLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.url}
+                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors bg-gray-50 dark:bg-gray-900 px-3 py-2 rounded-full shadow-sm space-x-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {getSocialIcon(link.platform)}
+                <span className="capitalize">{link.platform}</span>
+              </a>
+            ))}
           </div>
         ) : (
-          <p className="text-gray-600">No social links available.</p>
+          <p className="text-gray-600 dark:text-gray-300 italic">No social links available.</p>
         )}
       </div>
     </div>

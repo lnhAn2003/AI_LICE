@@ -1,14 +1,15 @@
 // src/routes/lesson.routes.ts
-
+import multer from 'multer';
 import { Router } from 'express';
 import lessonController from '../controllers/lesson.controller';
 import { authenticateJWT } from '../middlewares/auth.middleware';
 import { logActivity } from '../middlewares/log.middleware';
 
 const router = Router();
+const upload = multer();
 
 // Create a new lesson
-router.post('/', authenticateJWT, logActivity('user_created_lesson'), lessonController.createLesson.bind(lessonController));
+router.post('/', authenticateJWT, logActivity('user_created_lesson'), upload.fields([{ name: "resources", maxCount: 10 }]), lessonController.createLesson.bind(lessonController));
 
 // Get all lessons
 router.get('/', logActivity('user_viewed_lessons'), lessonController.getLessons.bind(lessonController));
@@ -23,7 +24,7 @@ router.get('/author/:authorId', logActivity('user_viewed_lessons_by_author'), le
 router.get('/section/:sectionId', logActivity('user_viewed_lessons_by_section'), lessonController.getLessonsBySectionId.bind(lessonController));
 
 // Update a lesson
-router.put('/:id', authenticateJWT, logActivity('user_updated_lesson'), lessonController.updateLesson.bind(lessonController));
+router.patch('/:id', authenticateJWT, logActivity('user_updated_lesson'), upload.fields([{ name: "resources", maxCount: 10 }]), lessonController.updateLesson.bind(lessonController));
 
 // Delete a lesson
 router.delete('/:id', authenticateJWT, logActivity('user_deleted_lesson'), lessonController.deleteLesson.bind(lessonController));

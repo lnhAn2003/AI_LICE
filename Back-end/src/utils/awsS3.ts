@@ -47,8 +47,7 @@ export const upload = multer({
   },
 });
 
-// upload file to cloud with aws (gameshared)
-export const gamesharedUpload = async (
+export const fileUpload = async (
   buffer: Buffer,
   folder: string,
   filename: string,

@@ -1,14 +1,8 @@
 import React from 'react';
 
-interface Badge {
-  icon: string;
-  title: string;
-  description: string;
-}
-
 interface BadgesProps {
-  earnedBadges: Badge[];
-  upcomingBadges: Badge[];
+  earnedBadges: Array<{ icon: string; title: string; description: string }>;
+  upcomingBadges: Array<{ icon: string; title: string; description: string }>;
 }
 
 const Badges: React.FC<BadgesProps> = ({ earnedBadges, upcomingBadges }) => {

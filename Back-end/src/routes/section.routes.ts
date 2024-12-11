@@ -23,7 +23,7 @@ router.get('/author/:authorId', logActivity('user_viewed_sections_by_author'), s
 router.get('/:id', logActivity('user_viewed_section'), sectionController.getSectionById.bind(sectionController));
 
 // Update a section
-router.put('/:id', authenticateJWT, logActivity('user_updated_section'), sectionController.updateSection.bind(sectionController));
+router.patch('/:id', authenticateJWT, logActivity('user_updated_section'), sectionController.updateSection.bind(sectionController));
 
 // Delete a section
 router.delete('/:id', authenticateJWT, logActivity('user_deleted_section'), sectionController.deleteSection.bind(sectionController));

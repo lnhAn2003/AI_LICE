@@ -2,10 +2,38 @@ import mongoose from "mongoose";
 import Course, { ICourse } from "../models/course.model";
 import Section from "../models/section.model";
 import Lesson, { ILesson } from "../models/lesson.model";
+import { fileUpload } from "../utils/awsS3";
 
 class CourseService {
-  public async createCourse(courseData: Partial<ICourse>): Promise<ICourse> {
-    const course = new Course(courseData);
+  public async createCourse(
+    courseData: Partial<ICourse>,
+    images?: { buffer: Buffer; mimeType: string }[],
+    resources?: { buffer: Buffer; mimeType: string }[]
+  ): Promise<ICourse> {
+    const folder = `courses/${courseData.title || Date.now()}`;
+
+    const screenshotUrls = images
+      ? await Promise.all(
+          images.map((image, index) =>
+            fileUpload(image.buffer, `${folder}/images`, `screenshot-${index + 1}.jpg`, image.mimeType)
+          )
+        )
+      : [];
+
+    const resourceUrls = resources
+      ? await Promise.all(
+          resources.map((resource, index) =>
+            fileUpload(resource.buffer, `${folder}/resources`, `resource-${index + 1}`, resource.mimeType)
+          )
+        )
+      : [];
+
+    const course = new Course({
+      ...courseData,
+      screenshot: screenshotUrls,
+      resource: resourceUrls,
+    });
+
     return await course.save();
   }
 
@@ -45,8 +73,35 @@ class CourseService {
 
   public async updateCourse(
     id: string,
-    updateData: Partial<ICourse>
+    updateData: Partial<ICourse>,
+    images?: { buffer: Buffer; mimeType: string }[],
+    resources?: { buffer: Buffer; mimeType: string }[]
   ): Promise<ICourse | null> {
+    const course = await Course.findById(id);
+    if (!course) {
+      throw new Error("Course not found");
+    }
+
+    const folder = `courses/${course.title || id}`;
+
+    if (images && images.length > 0) {
+      const screenshotUrls = await Promise.all(
+        images.map((image, index) =>
+          fileUpload(image.buffer, `${folder}/images`, `screenshot-${index + 1}.jpg`, image.mimeType)
+        )
+      );
+      updateData.screenshot = [...(course.screenshot || []), ...screenshotUrls];
+    }
+
+    if (resources && resources.length > 0) {
+      const resourceUrls = await Promise.all(
+        resources.map((resource, index) =>
+          fileUpload(resource.buffer, `${folder}/resources`, `resource-${index + 1}`, resource.mimeType)
+        )
+      );
+      updateData.resource = [...(course.resource || []), ...resourceUrls];
+    }
+
     return await Course.findByIdAndUpdate(id, updateData, { new: true });
   }
 

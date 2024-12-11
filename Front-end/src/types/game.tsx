@@ -33,16 +33,7 @@ export interface GameData {
             comment: string;
         }[];
     };
-    comments: {
-        username: string;
-        date: string;
-        comment: string;
-        replies?: {
-            username: string;
-            date: string;
-            comment: string;
-        }[];
-    }[];
+    comments: Comment[];
     ratingCount: number;
     successVotes: SuccessVotes;
     _id: string;

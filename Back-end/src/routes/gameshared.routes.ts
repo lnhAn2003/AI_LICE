@@ -9,7 +9,7 @@ const router = Router();
 const upload = multer();
 
 // Create a new game
-router.post("/", authenticateJWT, logActivity('user_created_game'),upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 },]), gameSharedController.createGameShared.bind(gameSharedController));
+router.post("/", authenticateJWT, logActivity('user_created_game'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 },]), gameSharedController.createGameShared.bind(gameSharedController));
 
 // Get all games with activity logging
 router.get("/", gameSharedController.getAllGameShared.bind(gameSharedController));
@@ -21,7 +21,7 @@ router.get('/search', gameSharedController.searchGames.bind(gameSharedController
 router.get("/:id", gameSharedController.getGameSharedById.bind(gameSharedController));
 
 // Update a game
-router.put("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_updated_game'), gameSharedController.updateGameShared.bind(gameSharedController));
+router.patch("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_updated_game'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), gameSharedController.updateGameShared.bind(gameSharedController));
 
 // Delete a game
 router.delete("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_deleted_game'), gameSharedController.deleteGameShared.bind(gameSharedController));

@@ -36,3 +36,36 @@ export interface Statistics {
   gamesShared: number;
   aiInteractions: number;
 };  
+
+
+export interface UserProfileData {
+  _id: string;
+  username: string;
+  email: string;
+  profile: {
+    avatarUrl?: string;
+    bio?: string;
+    socialLinks?: string[];
+    locale?: string;
+    preferences?: {
+      notifications?: boolean;
+      theme?: string;
+    };
+  };
+  roleId: {
+    _id: string;
+    name: string;
+  };
+  status: {
+    online: boolean;
+    lastActive: string;
+  };
+  threads: { _id: string; title: string }[];
+  posts: { _id: string; content: string }[];
+  gamesShared: string[];
+  aiInteractions: any[];
+  joinedAt: string;
+  lastLogin: string;
+  __v: number;
+  favorites: any[];
+}

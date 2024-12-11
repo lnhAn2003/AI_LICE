@@ -17,8 +17,8 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ activityData }) => {
     <div className='dark:bg-gray-800'>
       <h3 className="text-xl font-semibold mb-4">Daily Activity</h3>
       <div
-        className="p-4 dark:bg-gray-700 rounded-lg shadow w-full" // Ensure full width
-        style={{ maxWidth: '800px', margin: '0 auto' }} // Match the width of the badge component container
+        className="p-4 dark:bg-gray-700 rounded-lg shadow w-full" 
+        style={{ maxWidth: '800px', margin: '0 auto' }} 
       >
         <CalendarHeatmap
           startDate={startDate}
