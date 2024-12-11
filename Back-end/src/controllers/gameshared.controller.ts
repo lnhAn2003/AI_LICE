@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import GameSharedService from "../services/gameshared.service";
 import mongoose from "mongoose";
 import { IGameShared } from "../models/gameshared.model";
-import multer from 'multer';
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -11,8 +10,6 @@ export interface AuthRequest extends Request {
 export interface MulterFiles {
   [fieldname: string]: Express.Multer.File[];
 }
-
-const upload = multer();
 
 class GameSharedController {
   public async createGameShared(req: AuthRequest, res: Response): Promise<void> {
@@ -25,10 +22,8 @@ class GameSharedController {
 
       const uploadedBy = new mongoose.Types.ObjectId(user.id);
 
-      // Explicitly assert the type of req.files
       const files = req.files as MulterFiles;
 
-      // Validate file and images
       if (!files || !files['file'] || !files['images']) {
         res.status(400).json({ message: 'File and images are required' });
         return;

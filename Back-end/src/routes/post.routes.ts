@@ -3,18 +3,13 @@ import PostController from '../controllers/post.controller';
 import { authenticateJWT } from '../middlewares/auth.middleware';
 import { checkPostOwner } from '../middlewares/post.middleware';
 import { logActivity } from '../middlewares/log.middleware';
-import { upload } from '../utils/awsS3';
+import multer from 'multer';
 
 const router = Router();
+const upload = multer();
 
 // Create a new post (authentication required, activity logged)
-router.post(
-    '/',
-    authenticateJWT,
-    upload.fields([{ name: "images", maxCount: 5 }]),
-    logActivity('user_created_post'),
-    PostController.createPost.bind(PostController)
-  );
+router.post('/', authenticateJWT, logActivity('user_created_post'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), PostController.createPost.bind(PostController));
 // Get all posts
 router.get('/', PostController.getPosts.bind(PostController));
 
@@ -28,7 +23,7 @@ router.get('/user/:userId', PostController.getPostsByUserId.bind(PostController)
 router.get('/thread/:threadId', PostController.getPostsByThreadId.bind(PostController));
 
 // Update a post (authentication and ownership check required, activity logged)
-router.put('/:id', authenticateJWT, checkPostOwner, logActivity('user_updated_post'), PostController.updatePost.bind(PostController));
+router.put('/:id', authenticateJWT, checkPostOwner, logActivity('user_updated_post'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), PostController.updatePost.bind(PostController));
 
 // Delete a post (authentication and ownership check required, activity logged)
 router.delete('/:id', authenticateJWT, checkPostOwner, logActivity('user_deleted_post'), PostController.deletePost.bind(PostController));

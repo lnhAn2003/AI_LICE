@@ -10,6 +10,10 @@ export interface AuthRequest extends Request {
     user?: any;
 }
 
+export interface MulterFiles {
+    [fieldname: string]: Express.Multer.File[];
+  }
+
 class CommentController {
     public async createComment(req: AuthRequest, res: Response): Promise<void> {
         try {
@@ -109,27 +113,39 @@ class CommentController {
 
     public async updateComment(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const user = req.user as { id: string };
-            if (!user) {
-                res.status(401).json({ message: 'Unauthorized' });
-                return;
-            }
-
-            if (!req.body.content || req.body.content.trim() === '') {
-                res.status(400).json({ message: 'Content cannot be empty' });
-                return;
-            }
-
-            const comment = await CommentService.updateComment(req.params.id, req.body.content, user.id);
-            if (!comment) {
-                res.status(404).json({ message: 'Comment not found or already deleted' });
-            } else {
-                res.status(200).json(comment);
-            }
+          const user = req.user as { id: string };
+          if (!user) {
+            res.status(401).json({ message: "Unauthorized" });
+            return;
+          }
+      
+          if (!req.body.content || req.body.content.trim() === "") {
+            res.status(400).json({ message: "Content cannot be empty" });
+            return;
+          }
+      
+          const files = req.files as MulterFiles | undefined;
+          const imageFiles = files?.["images"]?.map((file) => ({
+            buffer: file.buffer,
+            mimeType: file.mimetype,
+          }));
+      
+          const comment = await CommentService.updateComment(
+            req.params.id,
+            req.body.content,
+            imageFiles,
+            user.id
+          );
+      
+          if (!comment) {
+            res.status(404).json({ message: "Comment not found or already deleted" });
+          } else {
+            res.status(200).json(comment);
+          }
         } catch (error: any) {
-            res.status(400).json({ message: error.message });
+          res.status(400).json({ message: error.message });
         }
-    }
+      }
 
     public async softDeleteComment(req: AuthRequest, res: Response): Promise<void> {
         try {

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import GameShared, { IGameShared } from "../models/gameshared.model";
 import User from "../models/user.model";
-import { gamesharedUpload } from "../utils/awsS3";
+import { fileUpload } from "../utils/awsS3";
 
 class GameSharedService {
   public async createGameShared(
@@ -11,11 +11,11 @@ class GameSharedService {
   ): Promise<IGameShared> {
     const folder = `games/${gameData.title || Date.now()}`;
 
-    const fileUrl = await gamesharedUpload(file.buffer, `${folder}/files`, `${gameData.title}_${Date.now()}`, file.mimeType);
+    const fileUrl = await fileUpload(file.buffer, `${folder}/files`, `${gameData.title}_${Date.now()}`, file.mimeType);
 
     const imageUrls = await Promise.all(
       images.map((image, index) =>
-        gamesharedUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+        fileUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
       )
     );
 
@@ -80,7 +80,7 @@ class GameSharedService {
     const folder = `games/${game.title || id}`;
 
     if (file) {
-      const fileUrl = await gamesharedUpload(
+      const fileUrl = await fileUpload(
         file.buffer,
         `${folder}/files`,
         `${game.title || 'game'}_${Date.now()}`,
@@ -92,7 +92,7 @@ class GameSharedService {
     if (images && images.length > 0) {
       const imageUrls = await Promise.all(
         images.map((image, index) =>
-          gamesharedUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+          fileUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
         )
       );
       updateData.images = imageUrls;

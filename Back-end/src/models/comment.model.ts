@@ -5,6 +5,7 @@ export interface IComment extends Document {
     targetId: mongoose.Types.ObjectId;
     authorId: mongoose.Types.ObjectId;
     content: string;
+    images?: string[]; 
     createdAt: Date;
     updatedAt: Date;
     isEdited: boolean;
@@ -16,13 +17,15 @@ export interface IComment extends Document {
         editedBy?: mongoose.Types.ObjectId;
     }[];
     replies?: IComment[];
-};
+}
+
 
 const CommentSchema: Schema<IComment> = new Schema({
     targetType: { type: String, required: true },
     targetId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: "targetType" },
     authorId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     content: { type: String, required: true },
+    images: [{ type: String }], 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     isEdited: { type: Boolean, default: false },
@@ -34,6 +37,7 @@ const CommentSchema: Schema<IComment> = new Schema({
         editedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
     }],
 });
+
 
 CommentSchema.virtual('replies', {
     ref: 'Comment',
