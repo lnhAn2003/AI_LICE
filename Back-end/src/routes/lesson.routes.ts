@@ -23,7 +23,7 @@ router.get('/author/:authorId', logActivity('user_viewed_lessons_by_author'), le
 router.get('/section/:sectionId', logActivity('user_viewed_lessons_by_section'), lessonController.getLessonsBySectionId.bind(lessonController));
 
 // Update a lesson
-router.put('/:id', authenticateJWT, logActivity('user_updated_lesson'), lessonController.updateLesson.bind(lessonController));
+router.patch('/:id', authenticateJWT, logActivity('user_updated_lesson'), lessonController.updateLesson.bind(lessonController));
 
 // Delete a lesson
 router.delete('/:id', authenticateJWT, logActivity('user_deleted_lesson'), lessonController.deleteLesson.bind(lessonController));

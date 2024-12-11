@@ -21,7 +21,7 @@ router.get('/search', gameSharedController.searchGames.bind(gameSharedController
 router.get("/:id", gameSharedController.getGameSharedById.bind(gameSharedController));
 
 // Update a game
-router.put("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_updated_game'), gameSharedController.updateGameShared.bind(gameSharedController));
+router.patch("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_updated_game'), gameSharedController.updateGameShared.bind(gameSharedController));
 
 // Delete a game
 router.delete("/:id", authenticateJWT, checkGameSharedOwner, logActivity('user_deleted_game'), gameSharedController.deleteGameShared.bind(gameSharedController));

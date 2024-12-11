@@ -15,7 +15,7 @@ router.get('/:targetType/:targetId', CommentController.getCommentByTarget.bind(C
 router.get('/:id', CommentController.getCommentById.bind(CommentController));
 
 // Update a comment by ID (requires authentication and comment ownership check)
-router.put('/:id', authenticateJWT, checkCommentOwner, CommentController.updateComment.bind(CommentController));
+router.patch('/:id', authenticateJWT, checkCommentOwner, CommentController.updateComment.bind(CommentController));
 
 // Delete a comment by ID (requires authentication and comment ownership check)
 router.delete('/:id', authenticateJWT, checkCommentOwner, CommentController.softDeleteComment.bind(CommentController));

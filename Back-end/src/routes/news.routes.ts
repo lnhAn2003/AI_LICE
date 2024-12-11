@@ -15,7 +15,7 @@ router.get("/", newsController.getAllNews.bind(newsController));
 router.get("/:id", newsController.getNewsById.bind(newsController));
 
 // Update a news article
-router.put("/:id", authenticateJWT,  checkRoleAndPermission('Admin', 'manage_news'), newsController.updateNews.bind(newsController));
+router.patch("/:id", authenticateJWT,  checkRoleAndPermission('Admin', 'manage_news'), newsController.updateNews.bind(newsController));
 
 // Delete a news article
 router.delete("/:id", authenticateJWT,  checkRoleAndPermission('Admin', 'manage_news'), newsController.deleteNews.bind(newsController));

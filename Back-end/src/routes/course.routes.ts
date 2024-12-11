@@ -15,7 +15,7 @@ router.get("/",logActivity("user_viewed_courses"), courseController.getAllCourse
 router.get("/:id", logActivity("user_viewed_course"), courseController.getCourseById.bind(courseController));
 
 // Update a course
-router.put("/:id", authenticateJWT, logActivity("user_updated_course"), courseController.updateCourse.bind(courseController));
+router.patch("/:id", authenticateJWT, logActivity("user_updated_course"), courseController.updateCourse.bind(courseController));
 
 // Delete a course
 router.delete( "/:id", authenticateJWT, logActivity("user_deleted_course"), courseController.deleteCourse.bind(courseController));

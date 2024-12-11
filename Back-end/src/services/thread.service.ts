@@ -1,17 +1,43 @@
 import Thread, { IThread } from "../models/thread.model";
 import User from "../models/user.model";
+import { fileUpload } from "../utils/awsS3";
 
 class ThreadService {
-    public async createThread(threadData: Partial<IThread>): Promise<IThread> {
-        const thread = new Thread(threadData);
-        const savedThread = await thread.save();
-
-        await User.findByIdAndUpdate(threadData.authorId, {
-            $push: { threads: savedThread._id }
+    public async createThread(
+        threadData: Partial<IThread>,
+        file?: { buffer: Buffer; mimeType: string },
+        images?: { buffer: Buffer; mimeType: string }[]
+      ): Promise<IThread> {
+        const folder = `threads/${threadData.authorId || Date.now()}`;
+    
+        const fileUrl = file
+          ? await fileUpload(file.buffer, `${folder}/files`, `${threadData.title || Date.now()}_file`, file.mimeType)
+          : undefined;
+    
+        const imageUrls = images
+          ? await Promise.all(
+              images.map((image, index) =>
+                fileUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+              )
+            )
+          : [];
+    
+        const thread = new Thread({
+          ...threadData,
+          fileUrl,
+          images: imageUrls,
         });
-
+    
+        const savedThread = await thread.save();
+    
+        if (threadData.authorId) {
+          await User.findByIdAndUpdate(threadData.authorId, {
+            $push: { threads: savedThread._id },
+          });
+        }
+    
         return savedThread;
-    }
+      }
 
     public async getThreads(): Promise<IThread[]> {
         return await Thread.find()
@@ -91,9 +117,40 @@ class ThreadService {
 
     }
 
-    public async updateThread(id: string, updateData: Partial<IThread>): Promise<IThread | null> {
+    public async updateThread(
+        id: string,
+        updateData: Partial<IThread>,
+        file?: { buffer: Buffer; mimeType: string },
+        images?: { buffer: Buffer; mimeType: string }[]
+      ): Promise<IThread | null> {
+        const thread = await Thread.findById(id);
+        if (!thread) {
+          throw new Error("Thread not found");
+        }
+    
+        const folder = `threads/${thread.authorId || id}`;
+    
+        if (file) {
+          const fileUrl = await fileUpload(
+            file.buffer,
+            `${folder}/files`,
+            `${thread.title || "thread"}_file`,
+            file.mimeType
+          );
+          updateData.fileUrl = fileUrl;
+        }
+    
+        if (images && images.length > 0) {
+          const imageUrls = await Promise.all(
+            images.map((image, index) =>
+              fileUpload(image.buffer, `${folder}/images`, `image-${index + 1}.jpg`, image.mimeType)
+            )
+          );
+          updateData.images = [...(thread.images || []), ...imageUrls];
+        }
+    
         return await Thread.findByIdAndUpdate(id, updateData, { new: true });
-    }
+      }
 
     public async deleteThread(id: string): Promise<IThread | null> {
         const thread = await Thread.findById(id);
