@@ -27,7 +27,7 @@ router.get('/:id', UserController.getUserById.bind(UserController));
 router.get('/:id/activity', UserController.getUserActivity);
 
 // Update user details (authentication and ownership check required)
-router.put('/:id', authenticateJWT, checkUserOwner, logActivity('User_updated_profile'), UserController.updateUser.bind(UserController));
+router.patch('', authenticateJWT, logActivity('User_updated_profile'), UserController.updateUser.bind(UserController));
 
 // Delete a user account (authentication and ownership check required)
 router.delete('/:id', authenticateJWT, checkUserOwner, logActivity('User_deleted_profile'), UserController.deleteUser.bind(UserController));

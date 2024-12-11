@@ -10,6 +10,10 @@ export interface AuthRequest extends Request {
   user?: { id: string };
 }
 
+export interface MulterFiles {
+  [fieldname: string]: Express.Multer.File[];
+}
+
 class LessonController {
   public async createLesson(req: AuthRequest, res: Response): Promise<void> {
     try {
@@ -19,21 +23,20 @@ class LessonController {
         return;
       }
 
-      await UserService.updateLastActiveStatus(user.id, true);
+      const files = req.files as MulterFiles | undefined;
+      const resources = files?.['resources']?.map((file) => ({
+        buffer: file.buffer,
+        mimeType: file.mimetype,
+        originalname: file.originalname,
+      }));
 
-      const authorId = new mongoose.Types.ObjectId(user.id);
-      const lessonData: Partial<ILesson> = {
-        authorId,
+      const lessonData = {
+        ...req.body,
+        authorId: new mongoose.Types.ObjectId(user.id),
         sectionId: new mongoose.Types.ObjectId(req.body.sectionId),
-        title: req.body.title,
-        videoUrl: req.body.videoUrl,
-        textContent: req.body.textContent,
-        resources: req.body.resources,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       };
 
-      const lesson = await LessonService.createLesson(lessonData);
+      const lesson = await LessonService.createLesson(lessonData, resources);
       res.status(201).json(lesson);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
@@ -79,20 +82,23 @@ class LessonController {
 
   public async updateLesson(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const user = req.user;
-      if (!user) {
-        res.status(401).json({ message: 'Unauthorized' });
+      const files = req.files as MulterFiles | undefined;
+      const resources = files?.['resources']?.map((file) => ({
+        buffer: file.buffer,
+        mimeType: file.mimetype,
+        originalname: file.originalname,
+      }));
+
+      const updatedLesson = await LessonService.updateLesson(req.params.id, req.body, resources);
+
+      if (!updatedLesson) {
+        res.status(404).json({ message: 'Lesson not found' });
         return;
       }
 
-      const lesson = await LessonService.updateLesson(req.params.id, req.body);
-      if (!lesson) {
-        res.status(404).json({ message: 'Lesson not found' });
-      } else {
-        res.status(200).json(lesson);
-      }
+      res.status(200).json(updatedLesson);
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 

@@ -7,7 +7,7 @@ const router = Router();
 
 // Admin-only routes for managing notifications
 router.post('/', authenticateJWT, checkRoleAndPermission('admin', 'manage_notifications'), notificationController.createNotification.bind(notificationController));
-router.put('/:id',authenticateJWT, checkRoleAndPermission('admin', 'manage_notifications'), notificationController.updateNotification.bind(notificationController));
+router.patch('/:id',authenticateJWT, checkRoleAndPermission('admin', 'manage_notifications'), notificationController.updateNotification.bind(notificationController));
 router.delete('/:id', authenticateJWT, checkRoleAndPermission('admin', 'manage_notifications'), notificationController.deleteNotification.bind(notificationController));
 
 // General routes

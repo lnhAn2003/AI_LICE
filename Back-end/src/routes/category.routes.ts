@@ -16,7 +16,7 @@ router.get('/', CategoryController.getCategories.bind(CategoryController));
 router.get('/:id', CategoryController.getCategoryById.bind(CategoryController));
 
 // Update a category by ID (requires authentication, admin role, and permission to manage categories)
-router.put('/:id', authenticateJWT, checkRoleAndPermission('Admin', 'manage_categories'), checkDuplicateCategory, CategoryController.updateCategory.bind(CategoryController));
+router.patch('/:id', authenticateJWT, checkRoleAndPermission('Admin', 'manage_categories'), checkDuplicateCategory, CategoryController.updateCategory.bind(CategoryController));
 
 // Delete a category by ID (requires authentication, admin role, and permission to manage categories)
 router.delete('/:id', authenticateJWT, checkRoleAndPermission('Admin', 'manage_categories'), CategoryController.deleteCategory.bind(CategoryController));

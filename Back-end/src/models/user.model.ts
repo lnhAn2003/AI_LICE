@@ -21,7 +21,7 @@ export interface IUser extends Document {
     lastActive: Date;
   };
   joinedAt: Date;
-  lastLogin: Date;
+  lastLogin: Date; 
   threads?: mongoose.Types.ObjectId[];
   posts?: mongoose.Types.ObjectId[];
   gamesShared?: mongoose.Types.ObjectId[];

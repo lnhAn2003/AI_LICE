@@ -36,7 +36,15 @@ export const getUserServerSideProps: GetServerSideProps = async (context) => {
         lastActive: new Date(user.status.lastActive).toLocaleDateString(),
         role: user.role?.name || 'User',
         email: user.email,
-        socialLinks: user.profile?.socialLinks || [],
+        socialLinks: (user.profile?.socialLinks || []).map((link: string | string[]) => {
+          let platform = '';
+          if (link.includes('twitter')) platform = 'Twitter';
+          else if (link.includes('github')) platform = 'Github';
+          else if (link.includes('facebook')) platform = 'Facebook';
+          else if (link.includes('linkedin')) platform = 'Linkedin';
+          else platform = 'Website';
+          return { platform, url: link };
+        }),
         statistics: {
           threadsCreated: user.threads?.length || 0,
           postsMade: user.posts?.length || 0,

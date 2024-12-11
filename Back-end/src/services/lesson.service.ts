@@ -2,10 +2,28 @@
 import Lesson, { ILesson } from '../models/lesson.model';
 import Section from '../models/section.model';
 import User from '../models/user.model';
+import { fileUpload } from '../utils/awsS3';
 
 class LessonService {
-  public async createLesson(lessonData: Partial<ILesson>): Promise<ILesson> {
-    const lesson = new Lesson(lessonData);
+  public async createLesson(
+    lessonData: Partial<ILesson>,
+    resourceFiles?: { buffer: Buffer; mimeType: string; originalname: string }[]
+  ): Promise<ILesson> {
+    const folder = `lessons/${lessonData.title || Date.now()}`;
+
+    const resourceUrls = resourceFiles
+      ? await Promise.all(
+          resourceFiles.map((file) =>
+            fileUpload(file.buffer, `${folder}/resources`, file.originalname, file.mimeType)
+          )
+        )
+      : [];
+
+    const lesson = new Lesson({
+      ...lessonData,
+      resources: resourceUrls.map((url, index) => ({ name: `Resource ${index + 1}`, url })),
+    });
+
     const savedLesson = await lesson.save();
 
     await User.findByIdAndUpdate(lessonData.authorId, {
@@ -66,10 +84,29 @@ class LessonService {
       .populate({ path: 'sectionId', select: 'sectionTitle' });
   }
 
-  public async updateLesson(id: string, updateData: Partial<ILesson>): Promise<ILesson | null> {
+  public async updateLesson(
+    id: string,
+    updateData: Partial<ILesson>,
+    resourceFiles?: { buffer: Buffer; mimeType: string; originalname: string }[]
+  ): Promise<ILesson | null> {
     const lesson = await Lesson.findById(id);
     if (!lesson) {
-      return null;
+      throw new Error('Lesson not found');
+    }
+
+    const folder = `lessons/${lesson.title || id}`;
+
+    if (resourceFiles && resourceFiles.length > 0) {
+      const resourceUrls = await Promise.all(
+        resourceFiles.map((file) =>
+          fileUpload(file.buffer, `${folder}/resources`, file.originalname, file.mimeType)
+        )
+      );
+
+      updateData.resources = [
+        ...(lesson.resources || []),
+        ...resourceUrls.map((url, index) => ({ name: `Resource ${index + 1}`, url })),
+      ];
     }
 
     lesson.editHistory.push({
@@ -87,6 +124,7 @@ class LessonService {
     await lesson.save();
     return lesson;
   }
+
 
   public async deleteLesson(id: string): Promise<ILesson | null> {
     const lesson = await Lesson.findById(id);

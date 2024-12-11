@@ -72,7 +72,7 @@ class UserController {
   public async getProfile(req: AuthRequest, res: Response): Promise<void> {
     try {
       const user = await UserService.getUserById(req.user.id);
-      if (!user) 
+      if (!user)
         res.status(404).json({ message: 'User not found' });
       res.status(200).json(user);
     } catch (error: any) {
@@ -80,16 +80,27 @@ class UserController {
     }
   }
 
-  public async updateUser(req: Request, res: Response): Promise<void> {
+  public async updateUser(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const user = await UserService.updateUser(req.params.id, req.body);
-      
-      if (!user) res.status(404).json({ message: 'User not found' });
-      else res.status(200).json(user);
+      const user = req.user as { id: string };
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+      const userId = user.id;
+
+      const updatedUser = await UserService.updateUser(userId, req.body);
+      if (!updatedUser) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+
+      res.status(200).json(updatedUser);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
   }
+
 
   public async deleteUser(req: Request, res: Response): Promise<void> {
     try {
@@ -104,7 +115,7 @@ class UserController {
   public async changePassword(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { oldPassword, newPassword } = req.body;
-      const userId = req.user.id; 
+      const userId = req.user.id;
 
       if (!oldPassword || !newPassword) {
         res.status(400).json({ message: 'Old password and new password are required' });
@@ -135,9 +146,9 @@ class UserController {
   public async changeAvatar(req: AuthRequest, res: Response): Promise<void> {
     try {
       const user = req.user as { id: string };
-            if (!user) {
-                res.status(401).json({ message: 'Unauthorized' });
-                return;
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
       }
       const userId = req.user.id;
 

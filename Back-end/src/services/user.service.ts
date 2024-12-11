@@ -49,7 +49,39 @@ class UserService {
   }
 
   public async updateUser(id: string, updateData: Partial<IUser>): Promise<IUser | null> {
-    return await User.findByIdAndUpdate(id, updateData, { new: true }).select('-password');
+    const existingUser = await User.findById(id);
+    if (!existingUser) {
+      throw new Error('User not found');
+    }
+
+    // Convert existing user doc to plain object
+    const existingUserObj = existingUser.toObject();
+
+    // Merge nested objects like `profile` and `profile.preferences`
+    const updatedProfile = {
+      ...existingUserObj.profile,
+      ...(updateData.profile || {}),
+      preferences: {
+        ...existingUserObj.profile.preferences,
+        ...(updateData.profile?.preferences || {}),
+      },
+    };
+
+    // Construct the final update object
+    const finalUpdateData = {
+      ...updateData,
+      profile: updatedProfile,
+    };
+
+    // Ensure we do not re-hash the password here if it's not being updated
+    // Note: If password is changed, the 'save' middleware on the model will handle hashing.
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      finalUpdateData,
+      { new: true }
+    ).select('-password'); // Exclude the password field
+
+    return updatedUser;
   }
 
   public async deleteUser(id: string): Promise<IUser | null> {
