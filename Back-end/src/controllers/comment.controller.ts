@@ -12,75 +12,45 @@ export interface AuthRequest extends Request {
 
 export interface MulterFiles {
     [fieldname: string]: Express.Multer.File[];
-  }
+}
 
 class CommentController {
     public async createComment(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user as { id: string };
             if (!user) {
-                res.status(401).json({ message: 'Unauthorized' });
+                res.status(401).json({ message: "Unauthorized" });
                 return;
             }
 
             const { targetType, targetId, content, parentCommentId } = req.body;
 
-            if (!targetType || !targetId || !content || content.trim() === '') {
-                res.status(400).json({ message: 'Target type, target ID, and content are required' });
+            if (!targetType || !targetId || !content || content.trim() === "") {
+                res.status(400).json({ message: "Target type, target ID, and content are required" });
                 return;
             }
 
-            let targetExists = false;
-            // Add Course and Lesson checks
-            if (targetType === 'Post') {
-                targetExists = await postModel.exists({ _id: targetId }) !== null;
-            } else if (targetType === 'GameShared') {
-                targetExists = await gamesharedModel.exists({ _id: targetId }) !== null;
-            } else if (targetType === 'Course') {
-                targetExists = await courseModel.exists({ _id: targetId }) !== null; 
-            } else if (targetType === 'Lesson') {
-                targetExists = await lessonModel.exists({ _id: targetId }) !== null; 
-            }
+            const files = req.files as MulterFiles;
+            const file = files?.["file"]?.[0]
+                ? { buffer: files["file"][0].buffer, mimeType: files["file"][0].mimetype }
+                : undefined;
 
-            if (!targetExists) {
-                res.status(400).json({ message: 'Target ID does not match the specified target type or does not exist' });
-                return;
-            }
-
-            let parentComment = null;
-            if (parentCommentId) {
-                parentComment = await CommentService.getCommentById(parentCommentId);
-                if (!parentComment || !parentComment.isVisible) {
-                    res.status(400).json({ message: 'Parent comment does not exist or is not visible' });
-                    return
-                }
-            }
+            const images = files?.["images"]
+                ? files["images"].map((file) => ({
+                    buffer: file.buffer,
+                    mimeType: file.mimetype,
+                }))
+                : [];
 
             const commentData = {
                 targetType,
                 targetId: new mongoose.Types.ObjectId(targetId),
                 authorId: new mongoose.Types.ObjectId(user.id),
                 content: content.trim(),
-                createdAt: new Date(),
-                updatedAt: new Date(),
                 parentCommentId: parentCommentId ? new mongoose.Types.ObjectId(parentCommentId) : undefined,
             };
 
-            const comment = await CommentService.createComment(commentData);
-
-            // If this is a root-level comment (no parent), push it into the target document
-            if (!parentCommentId) {
-                if (targetType === 'Post') {
-                    await postModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
-                } else if (targetType === 'GameShared') {
-                    await gamesharedModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } });
-                } else if (targetType === 'Course') {
-                    await courseModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } }); // NEW
-                } else if (targetType === 'Lesson') {
-                    await lessonModel.findByIdAndUpdate(targetId, { $push: { commentId: comment._id } }); // NEW
-                }
-            }
-
+            const comment = await CommentService.createComment(commentData, file, images);
             res.status(201).json(comment);
         } catch (error: any) {
             res.status(500).json({ message: error.message });
@@ -113,39 +83,41 @@ class CommentController {
 
     public async updateComment(req: AuthRequest, res: Response): Promise<void> {
         try {
-          const user = req.user as { id: string };
-          if (!user) {
-            res.status(401).json({ message: "Unauthorized" });
-            return;
-          }
-      
-          if (!req.body.content || req.body.content.trim() === "") {
-            res.status(400).json({ message: "Content cannot be empty" });
-            return;
-          }
-      
-          const files = req.files as MulterFiles | undefined;
-          const imageFiles = files?.["images"]?.map((file) => ({
-            buffer: file.buffer,
-            mimeType: file.mimetype,
-          }));
-      
-          const comment = await CommentService.updateComment(
-            req.params.id,
-            req.body.content,
-            imageFiles,
-            user.id
-          );
-      
-          if (!comment) {
-            res.status(404).json({ message: "Comment not found or already deleted" });
-          } else {
-            res.status(200).json(comment);
-          }
+            const user = req.user as { id: string };
+            if (!user) {
+                res.status(401).json({ message: "Unauthorized" });
+                return;
+            }
+
+            const files = req.files as MulterFiles;
+            const file = files?.["file"]?.[0]
+                ? { buffer: files["file"][0].buffer, mimeType: files["file"][0].mimetype }
+                : undefined;
+
+            const images = files?.["images"]
+                ? files["images"].map((file) => ({
+                    buffer: file.buffer,
+                    mimeType: file.mimetype,
+                }))
+                : [];
+
+            const comment = await CommentService.updateComment(
+                req.params.id,
+                req.body,
+                file,
+                images,
+                user.id
+            );
+
+            if (!comment) {
+                res.status(404).json({ message: "Comment not found or already deleted" });
+            } else {
+                res.status(200).json(comment);
+            }
         } catch (error: any) {
-          res.status(400).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
-      }
+    }
 
     public async softDeleteComment(req: AuthRequest, res: Response): Promise<void> {
         try {
