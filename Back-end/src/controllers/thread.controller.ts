@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ThreadService from "../services/thread.service";
 import mongoose from "mongoose";
 import multer from "multer";
+import threadService from "../services/thread.service";
 
 export interface AuthRequest extends Request {
     user?: any;
@@ -21,6 +22,8 @@ class ThreadController {
             res.status(401).json({ message: "Unauthorized" });
             return;
           }
+
+          const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
     
           const authorId = new mongoose.Types.ObjectId(user.id);
           const files = req.files as MulterFiles;
@@ -43,6 +46,7 @@ class ThreadController {
           const threadData = {
             ...req.body,
             authorId,
+            tags,
             createdAt: new Date(),
             updatedAt: new Date(),
             views: 0,
@@ -85,8 +89,15 @@ class ThreadController {
         }
     }
 
-    public async updateThread(req: Request, res: Response): Promise<void> {
+    public async updateThread(req: AuthRequest, res: Response): Promise<void> {
         try {
+          const { id } = req.params;
+          const existingThread = await threadService.getThreadById(id);
+      if (!existingThread) {
+        res.status(404).json({ message: "Thread not found" });
+        return;
+      }
+
           const files = req.files as MulterFiles;
     
           const threadFile = files?.["file"]?.[0];
@@ -103,8 +114,18 @@ class ThreadController {
             buffer: img.buffer,
             mimeType: img.mimetype,
           }));
+
+        const tags = 
+          typeof req.body.tags === "string"
+          ? JSON.parse(req.body.tags)
+          : req.body.tags || existingThread.tags;
     
-          const thread = await ThreadService.updateThread(req.params.id, req.body, fileData, imageData);
+          const updateData = {
+            ...req.body,
+            tags,
+          }
+
+          const thread = await ThreadService.updateThread(req.params.id, updateData, fileData, imageData);
           if (!thread) {
             res.status(404).json({ message: "Thread not found" });
           } else {

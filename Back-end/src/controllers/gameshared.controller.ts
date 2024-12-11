@@ -37,6 +37,8 @@ class GameSharedController {
       const categories = req.body.categories ? JSON.parse(req.body.categories) : [];
       const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
       const platforms = req.body.platforms ? JSON.parse(req.body.platforms) : [];
+      const externalLinks = req.body.externalLinks ? JSON.parse(req.body.externalLinks) : [];
+
 
       const gameFile = files['file'][0];
       const imageFiles = files['images'];
@@ -56,6 +58,7 @@ class GameSharedController {
         categories,
         tags,
         platforms,
+        externalLinks,
         uploadedBy,
         newRelease: true,
         viewCount: 0,
@@ -103,6 +106,10 @@ class GameSharedController {
         return;
       }
 
+      if (req.body.externalLinks && typeof req.body.externalLinks === 'string') {
+        req.body.externalLinks = JSON.parse(req.body.externalLinks);
+      }
+
       const files = req.files as MulterFiles | undefined;
 
       const fileData = files?.['file']?.[0]
@@ -140,8 +147,7 @@ class GameSharedController {
         tags,
         platforms,
       };
-  
-      // Perform the update operation
+
       const updatedGame = await GameSharedService.updateGameShared(
         id,
         updateData,

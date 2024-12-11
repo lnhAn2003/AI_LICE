@@ -10,6 +10,7 @@ const upload = multer();
 
 // Create a new post (authentication required, activity logged)
 router.post('/', authenticateJWT, logActivity('user_created_post'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), PostController.createPost.bind(PostController));
+
 // Get all posts
 router.get('/', PostController.getPosts.bind(PostController));
 
@@ -23,9 +24,9 @@ router.get('/user/:userId', PostController.getPostsByUserId.bind(PostController)
 router.get('/thread/:threadId', PostController.getPostsByThreadId.bind(PostController));
 
 // Update a post (authentication and ownership check required, activity logged)
-router.patch('/:id', authenticateJWT, checkPostOwner, logActivity('user_updated_post'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), PostController.updatePost.bind(PostController));
+router.patch('/:id', authenticateJWT, logActivity('user_updated_post'), upload.fields([{ name: 'file', maxCount: 1 }, { name: 'images', maxCount: 5 }]), PostController.updatePost.bind(PostController));
 
 // Delete a post (authentication and ownership check required, activity logged)
-router.delete('/:id', authenticateJWT, checkPostOwner, logActivity('user_deleted_post'), PostController.deletePost.bind(PostController));
+router.delete('/:id', authenticateJWT, logActivity('user_deleted_post'), PostController.deletePost.bind(PostController));
 
 export default router;

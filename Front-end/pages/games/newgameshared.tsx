@@ -1,3 +1,4 @@
+// pages/games/newgameshared.tsx
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import axiosInstance from '../../src/utils/axiosInstance';

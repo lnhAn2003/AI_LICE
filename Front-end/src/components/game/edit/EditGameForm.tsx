@@ -1,6 +1,7 @@
+// src/components/game/edit/EditGameForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { GameData, Category } from '../../../types/game';
-import { TAG_COLORS } from '../../../../styles/tagcolors'; // adjust path as needed
+import { TAG_COLORS } from '../../../../styles/tagcolors'; 
 
 interface EditGameFormProps {
   initialData?: GameData;
