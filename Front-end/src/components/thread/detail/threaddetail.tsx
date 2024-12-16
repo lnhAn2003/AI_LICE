@@ -1,4 +1,4 @@
-// src/components/thread/detail/ThreadDetail.tsx
+// src/components/thread/detail/threaddetail.tsx
 import React from "react";
 import ThreadInfo from "./threadinfo";
 import PostsSection from "./postsection";
@@ -11,7 +11,7 @@ const ThreadDetail: React.FC<{ thread: ThreadData }> = ({ thread }) => {
       <ThreadInfo thread={thread} />
 
       {/* Posts Section */}
-      <PostsSection posts={thread.posts} />
+      <PostsSection posts={thread.posts} threadId={thread._id} />
     </div>
   );
 };

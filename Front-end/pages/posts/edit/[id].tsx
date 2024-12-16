@@ -48,7 +48,6 @@ const EditPostPage: React.FC<EditPostPageProps> = ({ postData, id }) => {
       });
       console.log('Response:', res.data);
       alert('Post updated successfully!');
-      // Redirect to the thread or studio
       router.push(`/threads/${postData.threadId._id}`);
     } catch (error: any) {
       console.error('Error updating post:', error.response?.data || error.message);

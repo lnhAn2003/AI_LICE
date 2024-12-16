@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
 import Post, { IPost } from "../models/post.model";

@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import PostService from "../services/post.service";
 import mongoose from "mongoose";
 import multer from 'multer';
-import { IPost } from "../models/post.model";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -41,13 +40,22 @@ class PostController {
         }
         : undefined;
 
+      const { threadId, ...restBody } = req.body;
+
+      if (!threadId || typeof threadId !== 'string' || !mongoose.Types.ObjectId.isValid(threadId)) {
+        res.status(400).json({ message: "Invalid or missing threadId" });
+        return;
+      }
+
       const postData = {
-        ...req.body,
+        ...restBody,
         authorId,
-        threadId: new mongoose.Types.ObjectId(req.body.threadId),
+        threadId: new mongoose.Types.ObjectId(threadId),
         createdAt: new Date(),
         updatedAt: new Date(),
       };
+
+      console.log(postData);
 
       const post = await PostService.createPost(postData, fileData, imageData);
       res.status(201).json(post);
