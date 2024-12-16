@@ -1,4 +1,5 @@
 // pages/games/details/[id].tsx
+
 import { NextPage } from "next";
 import GameInfo from "../../../src/components/game/detail/gameinfo";
 import Description from "../../../src/components/game/detail/description";
@@ -41,17 +42,20 @@ const GameDetailPage: NextPage<GameDetailPageProps> = ({ game }) => {
         <Changelog changelog={game.changelog} />
         <RatingsReviews
           averageRating={game.averageRating}
-          totalRatings={game.totalRatings}
+          totalRatings={game.ratingCount}
           reviews={game.reviews}
         />
         <CommunityFeedback feedback={game.communityFeedback} />
-        <CommentsSection comments={game.comments} />
+        <CommentsSection 
+          comments={game.comments} 
+          targetType="GameShared" 
+          targetId={game._id} 
+        />
       </main>
     </div>
   );
 };
 
 export default GameDetailPage;
-
 
 export { getGameDetailsServerSideProps as getServerSideProps } from "../../../src/serverside/gameshareds.serverside";
