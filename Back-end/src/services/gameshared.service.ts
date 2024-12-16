@@ -43,7 +43,7 @@ class GameSharedService {
   public async getGameSharedById(id: string): Promise<IGameShared | null> {
     const game = await GameShared.findById(id)
       .populate([
-        { path: 'uploadedBy', select: 'username' },
+        { path: 'uploadedBy', select: 'username profile.avatarURL' },
         { path: 'ratings.userId', select: 'username' },
         { path: 'categories', select: '_id name key'},
         { path: 'successVotes.userVotes.userId', select: 'username' },
@@ -52,12 +52,12 @@ class GameSharedService {
           match: { isVisible: true, parentCommentId: null },
           options: { sort: { createdAt: -1 } },
           populate: [
-            { path: 'authorId', select: 'username' },
+            { path: 'authorId', select: 'username profile' },
             {
               path: 'replies',
               match: { isVisible: true },
               options: { sort: { createdAt: -1 } },
-              populate: { path: 'authorId', select: 'username' },
+              populate: { path: 'authorId', select: 'username profile' },
             },
           ],
         },
