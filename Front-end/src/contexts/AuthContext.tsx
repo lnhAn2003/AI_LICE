@@ -1,3 +1,5 @@
+// src/contexts/AuthContext.tsx
+
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../utils/axiosInstance';
@@ -11,7 +13,8 @@ interface User {
   email: string;
   avatarUrl?: string;
   bio?: string;
-  role?: string;
+  roleId?: { _id: string; name: string };  
+  role?: string;   
   joinedDate?: string;
   lastActive?: string;
 }
@@ -44,8 +47,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           },
         })
         .then((response) => {
-          setUser(response.data);
-          socket?.emit('user-logged-in', response.data);
+          const fetchedUser = response.data;
+          // Use fetchedUser.roleId.name to set role
+          fetchedUser.role = fetchedUser.roleId?.name === 'Admin' ? 'Admin' : 'User';
+
+          setUser(fetchedUser);
+          socket?.emit('user-logged-in', fetchedUser);
         })
         .catch(() => {
           Cookies.remove('token');
@@ -61,15 +68,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email,
         password,
       });
-      const { token, user } = response.data;
+      const { token, user: fetchedUser } = response.data;
+
+      fetchedUser.role = fetchedUser.roleId?.name === 'Admin' ? 'Admin' : 'User';
 
       Cookies.set('token', token, { expires: 1 });
       setToken(token);
-      setUser(user);
+      setUser(fetchedUser);
 
-      socket?.emit('user-logged-in', user);
+      socket?.emit('user-logged-in', fetchedUser);
 
-      router.push('/auth/profile');
+      // If user is Admin, redirect to /admin, else redirect to /auth/profile
+      if (fetchedUser.role === 'Admin') {
+        router.push('/admin');
+      } else {
+        router.push('/auth/profile');
+      }
     } catch (error) {
       throw error;
     }
