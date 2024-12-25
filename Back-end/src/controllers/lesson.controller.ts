@@ -1,10 +1,7 @@
 // src/controllers/lesson.controller.ts
-
 import { Request, Response } from 'express';
 import LessonService from '../services/lesson.service';
-import UserService from '../services/user.service';
 import mongoose from 'mongoose';
-import { ILesson } from '../models/lesson.model';
 
 export interface AuthRequest extends Request {
   user?: { id: string };

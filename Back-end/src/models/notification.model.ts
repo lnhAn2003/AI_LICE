@@ -17,8 +17,8 @@ export interface INotification extends Document {
 const NotificationSchema: Schema<INotification> = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     type: { type: String, required: true },
-    referenceId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    referenceType: { type: String, required: true },
+    referenceId: { type: mongoose.Schema.Types.ObjectId },
+    referenceType: { type: String },
     message: { type: String, required: true },
     details: { type: String },
     priority: { type: String, enum: ['low', 'medium', 'high'], default: 'medium' },

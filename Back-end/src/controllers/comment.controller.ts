@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import CommentService from '../services/comment.service';
 import mongoose from 'mongoose';
-import postModel from '../models/post.model';
-import gamesharedModel from '../models/gameshared.model';
-import courseModel from '../models/course.model';
-import lessonModel from '../models/lesson.model';
 
 export interface AuthRequest extends Request {
     user?: any;

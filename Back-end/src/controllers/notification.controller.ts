@@ -12,6 +12,37 @@ class NotificationController {
         }
     }
 
+    public async createBroadcastNotification(
+        req: roleUserRequest,
+        res: Response
+      ): Promise<void> {
+        try {
+          const { message, priority = "medium" } = req.body;
+
+          if (!message) {
+            res.status(400).json({ message: "Message is required" });
+            return;
+          }
+
+          const notificationData = {
+            type: "admin_broadcast",
+            message,
+            priority,
+          };
+    
+          const notifications = await NotificationService.createNotificationForAllUsers(
+            notificationData
+          );
+    
+          res.status(201).json({
+            message: "Broadcast notifications sent successfully.",
+            count: notifications.length,
+          });
+        } catch (error: any) {
+          res.status(500).json({ message: error.message });
+        }
+      }
+
     public async getAllNotifications(req: Request, res: Response): Promise<void> {
         try {
             const notifications = await NotificationService.getAllNotifications();

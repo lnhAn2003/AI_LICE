@@ -1,5 +1,4 @@
 // src/types/express/index.d.ts
-
 import 'express';
 import { File } from 'multer';
 

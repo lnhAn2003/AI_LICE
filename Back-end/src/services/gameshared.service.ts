@@ -5,7 +5,7 @@ import { fileUpload } from "../utils/awsS3";
 
 class GameSharedService {
   public async createGameShared(
-    gameData: Partial<IGameShared>,
+    gameData: Partial<IGameShared>, 
     file: { buffer: Buffer; mimeType: string },
     images: { buffer: Buffer; mimeType: string }[]
   ): Promise<IGameShared> {
@@ -101,7 +101,6 @@ class GameSharedService {
     return await GameShared.findByIdAndUpdate(id, updateData, { new: true });
   }
   
-
   public async deleteGameShared(id: string): Promise<IGameShared | null> {
     const game = await GameShared.findById(id);
     if (!game) return null;
@@ -125,7 +124,6 @@ class GameSharedService {
     const game = await GameShared.findById(gameId);
     if (!game) throw new Error('Game not found');
 
-    // Find if the user has already rated the game
     const existingRatingIndex = game.ratings.findIndex(rating => rating.userId.toString() === userId);
 
     if (existingRatingIndex >= 0) {

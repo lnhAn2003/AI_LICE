@@ -7,6 +7,7 @@ export interface IPost extends Document {
   content: string;
   images?: string[];
   fileUrl?: string;
+  viewCount: number;
   commentId: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
@@ -24,6 +25,7 @@ const PostSchema: Schema<IPost> = new Schema({
   content: { type: String, required: true },
   images: [{ type: String }],
   fileUrl: { type: String },
+  viewCount: { type: Number, default: 0 },
   commentId: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

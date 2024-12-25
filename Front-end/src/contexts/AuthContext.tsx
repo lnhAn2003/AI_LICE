@@ -8,7 +8,7 @@ import { useSocketContext } from './SocketContext';
 
 interface User {
   profile: any;
-  id: string;
+  _id: string;
   username: string;
   email: string;
   avatarUrl?: string;
@@ -48,7 +48,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
         .then((response) => {
           const fetchedUser = response.data;
-          // Use fetchedUser.roleId.name to set role
           fetchedUser.role = fetchedUser.roleId?.name === 'Admin' ? 'Admin' : 'User';
 
           setUser(fetchedUser);

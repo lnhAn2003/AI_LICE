@@ -136,7 +136,7 @@ export interface GameData {
   uploadedBy: UploadedBy;
   images: string[];
   fileUrl: string | null;
-  externalLinks: ExternalLink[]; // Changed from ExternalLinksProps[] to ExternalLink[]
+  externalLinks: ExternalLink[]; 
   createdAt: string;
   updatedAt: string;
   downloadCount: number;

@@ -39,7 +39,9 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts, threadId }) => {
       });
       alert('Post created successfully!');
       setIsAddingPost(false);
-      // Optionally, refresh the posts list or append the new post
+      // Ideally, refresh the page or refetch posts here
+      // to display the newly created post.
+      // e.g., router.replace(router.asPath);
     } catch (error: any) {
       console.error('Error creating post:', error);
       const message = error.response?.data?.message || 'Failed to create post. Please try again.';
@@ -85,6 +87,37 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts, threadId }) => {
           <div className="prose dark:prose-invert text-gray-700 dark:text-gray-300 mb-4">
             {post.content}
           </div>
+
+          {/* Images (if any) */}
+          {post.images && post.images.length > 0 && (
+            <div className="flex flex-wrap gap-4 mb-4">
+              {post.images.map((imageUrl) => (
+                <img
+                  key={imageUrl}
+                  src={imageUrl}
+                  alt={`Image for post with ID: ${post._id}`}
+                  className="max-h-48 object-cover rounded-lg border border-gray-300 dark:border-gray-700"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* File attachment (if any) */}
+          {post.fileUrl && (
+            <div className="mb-4">
+              <Link href={`./${post.fileUrl}`}>
+              
+              </Link>
+              <a
+               
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                View Attached File
+              </a>
+            </div>
+          )}
 
           {/* Likes and Comments Count */}
           <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">

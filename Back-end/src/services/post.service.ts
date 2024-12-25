@@ -144,6 +144,10 @@ class PostService {
     return await Post.findByIdAndDelete(id);
   }
 
+  public async incrementViewCount(id: string): Promise<void> {
+      await Post.findByIdAndUpdate(id, { $inc: { viewCount: 1 } });
+    }
+
 }
 
 export default new PostService();

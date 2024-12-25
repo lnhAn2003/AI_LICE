@@ -2,6 +2,8 @@
 import { NextPage } from 'next';
 import { MyStudioData } from '../../src/types/studio';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import axiosInstance from '../../src/utils/axiosInstance';
 
 interface StudioPageProps {
   studioData: MyStudioData;
@@ -19,15 +21,37 @@ const MyStudioPage: NextPage<StudioPageProps> = ({ studioData }) => {
   }
 
   const [activeTab, setActiveTab] = useState<'games' | 'threads' | 'posts' | 'courses' | 'analytics' | 'notifications'>('games');
-
+  const [showModal, setShowModal] = useState(false);
+  const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const { user, threads, posts, courses, gamesShared } = studioData;
 
-  // Quick Stats
   const quickStats = {
     games: gamesShared.length,
     threads: threads.length,
     posts: posts.length,
     courses: courses.length
+  };
+
+  const openModal = (gameId: string) => {
+    setSelectedGameId(gameId);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedGameId(null);
+  };
+
+  const confirmDelete = async () => {
+    if (selectedGameId) {
+      try {
+        await axiosInstance.delete(`/gameshareds/${selectedGameId}`);
+        console.log('Game deleted successfully!');
+        closeModal();
+      } catch (error: any) {
+        console.error('Failed to delete game:', error);
+      }
+    }
   };
 
   return (
@@ -157,7 +181,9 @@ const MyStudioPage: NextPage<StudioPageProps> = ({ studioData }) => {
           {activeTab === 'games' && (
             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow space-y-4">
               <div className="flex space-x-4">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded">Add Game</button>
+                <Link className="px-4 py-2 bg-blue-600 text-white rounded" href={`/games/newgameshared`}>
+                  Add Game
+                </Link>
                 {/* Filters and Sorting would go here */}
                 <div className="flex space-x-2 text-sm text-gray-600 dark:text-gray-300">
                   <span>Filter: All</span>
@@ -184,11 +210,14 @@ const MyStudioPage: NextPage<StudioPageProps> = ({ studioData }) => {
                         ))}
                       </div>
                       <div className="flex space-x-2 text-xs text-gray-800 dark:text-gray-100 mt-4">
-                        <button className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">Edit</button>
+                        <Link className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded" href={`/games/edit/${game._id}`} passHref>
+                          Edit
+                        </Link>
                         <button className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">Analytics</button>
                         <button className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">Comments</button>
-                        <button className="px-2 py-1 bg-red-600 text-white rounded">Delete</button>
-                      </div>
+                        <button onClick={() => openModal(game._id)} className="px-2 py-1 bg-red-600 text-white rounded">
+                          Delete
+                        </button>                      </div>
                     </div>
                   ))}
                 </div>
@@ -337,7 +366,24 @@ const MyStudioPage: NextPage<StudioPageProps> = ({ studioData }) => {
             </div>
           )}
         </div>
-
+        {showModal && (
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-1/3">
+              <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Confirm Delete</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Are you sure you want to delete this game? This action cannot be undone.
+              </p>
+              <div className="flex justify-end space-x-4">
+                <button onClick={closeModal} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">
+                  Cancel
+                </button>
+                <button onClick={confirmDelete} className="px-4 py-2 bg-red-600 text-white rounded">
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

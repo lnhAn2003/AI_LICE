@@ -72,7 +72,10 @@ class ThreadController {
         try {
             const thread = await ThreadService.getThreadById(req.params.id);
             if (!thread) res.status(404).json({ message: 'Thread not found' });
-            else res.status(200).json(thread);
+            else {
+              await ThreadService.incrementViewCount(req.params.id);
+              res.status(200).json(thread);
+            }
         } catch (error: any) {
             res.status(400).json({ message: error.message });
         }
@@ -151,15 +154,6 @@ class ThreadController {
             const thread = await ThreadService.deleteThread(req.params.id);
             if (!thread) res.status(404).json({ message: 'Thread not found' });
             else res.status(200).json({ message: 'Thread deleted ' });
-        } catch (error: any) {
-            res.status(400).json({ message: error.message });
-        }
-    }
-
-    public async incrementViews(req: Request, res: Response): Promise<void> {
-        try {
-            await ThreadService.increaseViews(req.params.id);
-            res.status(200).json({ message: 'Thread view incremented' });
         } catch (error: any) {
             res.status(400).json({ message: error.message });
         }

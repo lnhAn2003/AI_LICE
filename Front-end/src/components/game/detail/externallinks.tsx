@@ -1,17 +1,28 @@
 // src/components/game/detail/externallinks.tsx
 import React from 'react';
-import { ExternalLink } from '../../../types/game'; 
+import { ExternalLink } from '../../../types/game';
+import axiosInstance from '../../../utils/axiosInstance';
 
 interface ExternalLinksComponentProps {
   links: ExternalLink[];
   downloadLink: string | null;
+  gameId: string;
 }
 
-const ExternalLinks: React.FC<ExternalLinksComponentProps> = ({ links, downloadLink }) => {
+const ExternalLinks: React.FC<ExternalLinksComponentProps> = ({ links, downloadLink, gameId }) => {
   const getLinkByName = (name: string): string | null => {
     const link = links.find(link => link.name === name);
     return link ? link.url : null;
   };
+
+  const handleDownload = async () => {
+    try {
+      await axiosInstance.patch(`/gameshareds/${gameId}/download`)
+      console.log('Download count incremented successfully');
+    } catch (error: any) {
+      console.error('Failed to increment download count:', error);
+    }
+  }
 
   return (
     <section className="my-8">
@@ -63,6 +74,7 @@ const ExternalLinks: React.FC<ExternalLinksComponentProps> = ({ links, downloadL
             className="inline-block px-6 py-3 bg-red-600 text-white rounded-full font-semibold hover:bg-red-700 transition-colors dark:bg-red-500 dark:hover:bg-red-600"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleDownload}
           >
             Download Now
           </a>

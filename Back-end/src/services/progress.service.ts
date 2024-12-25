@@ -1,6 +1,5 @@
 // src/services/progress.service.ts
 import Progress, { IProgress } from "../models/progress.model";
-import Course from "../models/course.model";
 import Section from "../models/section.model";
 import Lesson from "../models/lesson.model";
 import mongoose from "mongoose";

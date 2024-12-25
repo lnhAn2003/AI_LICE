@@ -115,12 +115,6 @@ const GameCollection: React.FC = () => {
             }
         }
 
-        if (filters.gameModes && filters.gameModes.length > 0) {
-            filtered = filtered.filter((game) =>
-                filters.gameModes.some((mode: string) => game.gameModes.includes(mode))
-            );
-        }
-
         if (filters.releaseDate) {
             const now = new Date();
             let startDate: Date | null = null;
@@ -135,14 +129,14 @@ const GameCollection: React.FC = () => {
                 startDate = new Date(filters.releaseDate.start);
                 const endDate = new Date(filters.releaseDate.end);
                 filtered = filtered.filter((game) => {
-                    const gameDate = new Date(game.releaseDate);
+                    const gameDate = new Date(game.createdAt);
                     return gameDate >= startDate! && gameDate <= endDate;
                 });
             }
 
             if (startDate) {
                 filtered = filtered.filter((game) => {
-                    const gameDate = new Date(game.releaseDate);
+                    const gameDate = new Date(game.createdAt);
                     return gameDate >= startDate!;
                 });
             }
@@ -168,11 +162,9 @@ const GameCollection: React.FC = () => {
             sortedGames.sort((a, b) => b.averageRating - a.averageRating);
         } else if (sortBy === 'Most Downloaded') {
             sortedGames.sort((a, b) => b.downloadCount - a.downloadCount);
-        } else if (sortBy === 'Success Rate') {
-            sortedGames.sort((a, b) => b.successVotes.percentage - a.successVotes.percentage);
         } else {
             sortedGames.sort(
-                (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+                (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
             );
         }
 
@@ -240,7 +232,7 @@ const GameCollection: React.FC = () => {
                                 key={game._id}
                                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transform hover:-translate-y-1 transition-all duration-100 border border-gray-400 dark:border-transparent"
                                 style={{
-                                    height: '250px', // Fixed card height
+                                    height: '250px',
                                 }}
                             >
                                 <Link href={`/games/details/${game._id}`}>

@@ -4,6 +4,7 @@ import { authenticateJWT } from '../middlewares/auth.middleware';
 import { checkPostOwner } from '../middlewares/post.middleware';
 import { logActivity } from '../middlewares/log.middleware';
 import multer from 'multer';
+import postController from '../controllers/post.controller';
 
 const router = Router();
 const upload = multer();
@@ -28,5 +29,8 @@ router.patch('/:id', authenticateJWT, logActivity('user_updated_post'), upload.f
 
 // Delete a post (authentication and ownership check required, activity logged)
 router.delete('/:id', authenticateJWT, logActivity('user_deleted_post'), PostController.deletePost.bind(PostController));
+
+// Increment view count for a game
+router.patch("/:id/views", postController.incrementViewCount.bind(postController));
 
 export default router;

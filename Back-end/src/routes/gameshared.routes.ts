@@ -44,4 +44,7 @@ router.patch("/:id/successvote", authenticateJWT, logActivity('user_voted_on_gam
 // Add a changelog entry
 router.patch('/:id/changelog', authenticateJWT, checkGameSharedOwner, logActivity('user_updated_game_changelog'), gameSharedController.addChangelogEntry.bind(gameSharedController));
 
+//Increase download count
+router.patch('/:id/download', authenticateJWT, logActivity('user_download_game'), gameSharedController.increaseDownloadCount.bind(gameSharedController));
+
 export default router;

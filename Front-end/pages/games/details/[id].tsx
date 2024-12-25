@@ -38,7 +38,7 @@ const GameDetailPage: NextPage<GameDetailPageProps> = ({ game }) => {
           platforms={game.platforms}
         />
         <Screenshots screenshots={game.screenshots} />
-        <ExternalLinks links={game.externalLinks} downloadLink={game.downloadLink} />
+        <ExternalLinks links={game.externalLinks} downloadLink={game.downloadLink} gameId={game._id} />
         <Changelog changelog={game.changelog} />
         <RatingsReviews
           averageRating={game.averageRating}

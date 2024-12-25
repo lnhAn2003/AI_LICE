@@ -78,7 +78,10 @@ class PostController {
     try {
       const post = await PostService.getPostById(req.params.id);
       if (!post) res.status(404).json({ message: 'Post not found' });
-      else res.status(200).json(post);
+      else {
+        await PostService.incrementViewCount(req.params.id);
+        res.status(200).json(post);
+      }
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -163,6 +166,15 @@ class PostController {
       res.status(400).json({ message: error.message });
     }
   }
+
+  public async incrementViewCount(req: Request, res: Response): Promise<void> {
+      try {
+        await PostService.incrementViewCount(req.params.id);
+        res.status(200).json({ message: "Post view incremented" });
+      } catch (error: any) {
+        res.status(400).json({ message: error.message });
+      }
+    }
 }
 
 export default new PostController();

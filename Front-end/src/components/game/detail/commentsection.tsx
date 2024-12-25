@@ -17,7 +17,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments, targetType,
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-  // State for managing replies
   const [replyContent, setReplyContent] = useState<Record<string, string>>({});
   const [openReplyInput, setOpenReplyInput] = useState<string | null>(null);
   const [openReplies, setOpenReplies] = useState<Record<string, boolean>>({});
@@ -26,7 +25,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments, targetType,
     setCurrentComments(comments);
   }, [comments]);
 
-  // Cleanup object URLs to prevent memory leaks
   useEffect(() => {
     return () => {
       imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
@@ -48,7 +46,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments, targetType,
       const filesArray = Array.from(e.target.files);
       setSelectedImages(filesArray);
 
-      // Generate previews
       const previews = filesArray.map(file => URL.createObjectURL(file));
       setImagePreviews(previews);
     }
@@ -160,7 +157,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments, targetType,
         })
       );
 
-      // Clear the reply input
       setReplyContent({ ...replyContent, [parentCommentId]: '' });
       setOpenReplyInput(null);
     } catch (error: any) {

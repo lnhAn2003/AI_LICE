@@ -65,6 +65,7 @@ export const getPostDetailsServerSideProps: GetServerSideProps = async (context)
       },
       content: postData.content || 'No content available',
       images: postData.images || [],
+      fileUrl: postData.fileUrl || [],
       comments: postData.comments.map((comment: any) => ({
         _id: comment._id || '',
         authorId: {

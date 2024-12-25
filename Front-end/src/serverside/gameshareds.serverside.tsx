@@ -23,7 +23,6 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
   try {
     const gameId = params?.id as string;
 
-    // Validate gameId
     if (!mongoose.Types.ObjectId.isValid(gameId)) {
       return { notFound: true };
     }
@@ -38,7 +37,6 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
 
     const safeString = (value: any): string | null => (typeof value === 'string' ? value : null);
 
-    // Map externalLinks as is
     const externalLinks: ExternalLink[] = gameData.externalLinks?.map((link: any) => ({
       _id: link._id,
       name: link.name,
@@ -46,7 +44,6 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       id: link.id,
     })) || [];
 
-    // Map changelog
     const changelog: ChangelogEntry[] = gameData.changelog?.map((entry: any) => ({
       date: entry.date,
       description: entry.description,
@@ -54,7 +51,6 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       id: entry.id,
     })) || [];
 
-    // Map ratings
     const ratings: Rating[] = gameData.ratings?.map((rating: any) => ({
       userId: {
         _id: rating.userId._id,
@@ -68,14 +64,12 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       id: rating.id,
     })) || [];
 
-    // Map reviews
     const reviews: RatingReview[] = gameData.ratings?.map((rating: any) => ({
       username: rating.userId.username || "Anonymous",
       comment: rating.comment || "",
       rating: rating.rating || 0,
     })) || [];
 
-    // Map communityFeedback
     const communityFeedback: CommunityFeedback = {
       likes: gameData.successVotes.likes || 0,
       dislikes: gameData.successVotes.dislikes || 0,
@@ -86,7 +80,6 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
       })) || [],
     };
 
-    // Map comments
     const mappedComments: Comment[] = gameData.comments?.map((comment: any) => ({
       _id: comment._id,
       targetType: comment.targetType,
