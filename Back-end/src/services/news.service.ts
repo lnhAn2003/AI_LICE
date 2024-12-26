@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import News, { INews } from "../models/news.model";
 
 class NewsService {

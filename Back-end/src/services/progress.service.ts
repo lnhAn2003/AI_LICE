@@ -1,6 +1,5 @@
 // src/services/progress.service.ts
 import Progress, { IProgress } from "../models/progress.model";
-import Course from "../models/course.model";
 import Section from "../models/section.model";
 import Lesson from "../models/lesson.model";
 import mongoose from "mongoose";
@@ -13,8 +12,16 @@ class ProgressService {
     });
 
     if (!progress) {
-      throw new Error("Progress not found. Please enroll in the course first.");
+      const newProgress = new Progress({
+        userId: new mongoose.Types.ObjectId(userId),
+        courseId: new mongoose.Types.ObjectId(courseId),
+        completedLessons: [],
+        completedSections: [],
+        overallProgress: 0,
+      });
+      return await newProgress.save();
     }
+    
 
     // Update completed lessons
     const lessonObjectId = new mongoose.Types.ObjectId(lessonId);
@@ -22,14 +29,12 @@ class ProgressService {
       progress.completedLessons.push(lessonObjectId);
     }
 
-    // Fetch the corresponding section and update its progress
     const lesson = await Lesson.findById(lessonObjectId);
     if (!lesson) throw new Error("Lesson not found");
     const sectionId = lesson.sectionId;
 
     await this.updateSectionProgress(progress, sectionId);
 
-    // Update overall course progress
     const totalLessons = await Lesson.countDocuments({
       sectionId: { $in: progress.completedSections.map((section) => section.toString()) },
     });

@@ -51,6 +51,8 @@ export const getThreadDetailsServerSideProps: GetServerSideProps = async (contex
                 _id: post._id,
                 content: post.content,
                 authorId: post.authorId, 
+                images: post.images || [],
+                fileUrl: post.fileUrl || null,
                 comments: post.comments || [],
                 createdAt: post.createdAt,
               })),

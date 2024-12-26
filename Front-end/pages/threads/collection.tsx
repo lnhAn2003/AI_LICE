@@ -105,7 +105,6 @@ const ThreadCollection: React.FC<ThreadData> = () => {
     setCurrentPage(1); 
   };
   
-
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -153,7 +152,7 @@ const ThreadCollection: React.FC<ThreadData> = () => {
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4 md:mb-0">
               All Threads
             </h2>
-            <Link href="/threads/create">
+            <Link href="/threads/newthread">
               <button className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
                 Create New Thread
               </button>

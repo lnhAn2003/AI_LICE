@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Thread, { IThread } from "../models/thread.model";
 import User, { IUser } from "../models/user.model";
 import Post, { IPost } from "../models/post.model";
@@ -144,6 +143,10 @@ class PostService {
     })
     return await Post.findByIdAndDelete(id);
   }
+
+  public async incrementViewCount(id: string): Promise<void> {
+      await Post.findByIdAndUpdate(id, { $inc: { viewCount: 1 } });
+    }
 
 }
 

@@ -33,6 +33,8 @@ export interface Post {
   _id: string;
   content: string;
   comments: Comment[];
+  images?: string[],
+  fileUrl?: string,
   authorId: Author;
   createdAt: string;
   likes?: string;

@@ -72,7 +72,6 @@ const RatingsReviews: React.FC<RatingsReviewsProps> = ({
             <p className="text-gray-700 dark:text-gray-300 mt-2">{review.comment}</p>
           </div>
         ))}
-        {/* Pagination controls can be added here */}
       </div>
     </section>
   );

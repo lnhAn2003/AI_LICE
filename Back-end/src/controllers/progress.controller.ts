@@ -7,7 +7,6 @@ export interface AuthRequest extends Request {
 }
 
 class ProgressController {
-    // Update progress
     public async updateProgress(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user;
@@ -30,7 +29,6 @@ class ProgressController {
         }
     }
 
-    // Get progress for a specific course
     public async getProgressByCourse(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user;
@@ -52,7 +50,6 @@ class ProgressController {
         }
     }
 
-    // Get all progress for a user
     public async getAllProgress(req: AuthRequest, res: Response): Promise<void> {
         try {
             const user = req.user;

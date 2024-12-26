@@ -38,7 +38,6 @@ const CommunityFeedback: React.FC<CommunityFeedbackProps> = ({ feedback }) => {
             <p className="text-gray-700 dark:text-gray-300 mt-2">{fb.comment}</p>
           </div>
         ))}
-        {/* Pagination controls can be added here */}
       </div>
     </section>
   );

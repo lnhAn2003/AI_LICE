@@ -9,7 +9,6 @@ interface ThreadData {
   _id: string;
   title: string;
   authorId: { _id: string, username: string };
-  // add other thread fields as needed
 }
 
 interface NewPostPageProps {
@@ -34,11 +33,10 @@ const NewPostPage: React.FC<NewPostPageProps> = ({ threadData, threadId }) => {
         },
       });
       alert('Post created successfully!');
-      // After creation, redirect to the thread page or user studio
       if (threadData && threadData._id) {
         router.push(`/threads/${threadData._id}`);
       } else {
-        router.push(`/studio/${user.id}`);
+        router.push(`/studio/${user._id}`);
       }
     } catch (error: any) {
       console.error('Error creating new post:', error);
@@ -61,7 +59,7 @@ const NewPostPage: React.FC<NewPostPageProps> = ({ threadData, threadId }) => {
       <EditPostForm 
         onSubmit={handleSubmit} 
         submitButtonText="Create Post" 
-        threadId={threadId || ''} // ensure we have a valid threadId here
+        threadId={threadId || ''} 
       />
     </div>
   );
@@ -71,7 +69,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { threadId } = context.query;
 
   if (!threadId || typeof threadId !== 'string') {
-    // No threadId provided, cannot create a post
     return {
       props: {
         threadData: null,

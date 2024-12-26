@@ -1,6 +1,5 @@
 // src/components/game/detail/gameinfo.tsx
 import React from 'react';
-import { UploadedBy } from '../../../types/game';
 import { GameData } from '../../../types/game';
 
 interface GameInfoProps {

@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import CommentService from '../services/comment.service';
 import mongoose from 'mongoose';
-import postModel from '../models/post.model';
-import gamesharedModel from '../models/gameshared.model';
-import courseModel from '../models/course.model';
-import lessonModel from '../models/lesson.model';
 
 export interface AuthRequest extends Request {
     user?: any;
@@ -17,45 +13,48 @@ export interface MulterFiles {
 class CommentController {
     public async createComment(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const user = req.user as { id: string };
-            if (!user) {
-                res.status(401).json({ message: "Unauthorized" });
-                return;
-            }
+          const user = req.user as { id: string };
+          if (!user) {
+            res.status(401).json({ message: "Unauthorized" });
+            return;
+          }
+    
+          const { targetType, targetId, content, parentCommentId } = req.body;
+    
+          if (!targetType || !targetId || !content || content.trim() === "") {
+            res.status(400).json({ message: "Target type, target ID, and content are required" });
+            return;
+          }
+    
+          const files = req.files as MulterFiles;
+          const file = files?.["file"]?.[0]
+            ? { buffer: files["file"][0].buffer, mimeType: files["file"][0].mimetype }
+            : undefined;
+    
+          const images = files?.["images"]
+            ? files["images"].map((file) => ({
+                buffer: file.buffer,
+                mimeType: file.mimetype,
+              }))
+            : [];
+    
+          const commentData = {
+            targetType,
+            targetId: new mongoose.Types.ObjectId(targetId),
+            authorId: new mongoose.Types.ObjectId(user.id),
+            content: content.trim(),
+            parentCommentId: parentCommentId ? new mongoose.Types.ObjectId(parentCommentId) : undefined,
+          };
+    
+          const comment = await CommentService.createComment(commentData, file, images);
 
-            const { targetType, targetId, content, parentCommentId } = req.body;
-
-            if (!targetType || !targetId || !content || content.trim() === "") {
-                res.status(400).json({ message: "Target type, target ID, and content are required" });
-                return;
-            }
-
-            const files = req.files as MulterFiles;
-            const file = files?.["file"]?.[0]
-                ? { buffer: files["file"][0].buffer, mimeType: files["file"][0].mimetype }
-                : undefined;
-
-            const images = files?.["images"]
-                ? files["images"].map((file) => ({
-                    buffer: file.buffer,
-                    mimeType: file.mimetype,
-                }))
-                : [];
-
-            const commentData = {
-                targetType,
-                targetId: new mongoose.Types.ObjectId(targetId),
-                authorId: new mongoose.Types.ObjectId(user.id),
-                content: content.trim(),
-                parentCommentId: parentCommentId ? new mongoose.Types.ObjectId(parentCommentId) : undefined,
-            };
-
-            const comment = await CommentService.createComment(commentData, file, images);
-            res.status(201).json(comment);
+          await comment.populate('authorId', 'username profile');
+    
+          res.status(201).json(comment);
         } catch (error: any) {
-            res.status(500).json({ message: error.message });
+          res.status(500).json({ message: error.message });
         }
-    }
+      }
 
 
     public async getCommentByTarget(req: Request, res: Response): Promise<void> {

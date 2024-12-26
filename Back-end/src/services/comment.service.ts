@@ -39,11 +39,11 @@ class CommentService {
       parentCommentId: null,
     })
       .populate([
-        { path: 'authorId', select: 'username' },
+        { path: 'authorId', select: 'username profile' },
         {
           path: 'replies',
           match: { isVisible: true },
-          populate: { path: 'authorId', select: 'username' },
+          populate: { path: 'authorId', select: 'username profile' },
           options: { sort: { createdAt: -1 } },
         },
       ])

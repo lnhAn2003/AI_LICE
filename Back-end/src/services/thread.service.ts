@@ -42,7 +42,7 @@ class ThreadService {
     public async getThreads(): Promise<IThread[]> {
         return await Thread.find()
             .populate({ path: 'authorId', select: 'username profile.avatarUrl' })
-            .populate({ path: 'posts', select: 'content' });
+            .populate({ path: 'posts', select: 'content images fileUrl ' });
 
     }
 
@@ -54,7 +54,7 @@ class ThreadService {
             })
             .populate({
                 path: 'posts', 
-                select: 'content createdAt',
+                select: 'content createdAt images fileUrl',
                 populate: [
                     {
                         path: 'authorId',
@@ -191,7 +191,7 @@ class ThreadService {
         );
     }
 
-    public async increaseViews(id: string): Promise<void> {
+    public async incrementViewCount(id: string): Promise<void> {
         await Thread.findByIdAndUpdate(id, { $inc: { views: 1 } }).exec();
     }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 
 interface ChangelogEntry {
   date: string;
-  changes: string;
+  description: string; // Changed from 'changes' to 'description'
 }
 
 interface ChangelogProps {
@@ -20,9 +20,9 @@ const Changelog: React.FC<ChangelogProps> = ({ changelog }) => {
         {changelog.map((log, index) => (
           <li key={index} className="p-4 bg-gray-100 rounded-lg dark:bg-gray-800">
             <strong className="block text-lg text-gray-800 dark:text-gray-100">
-              [{log.date}]
+              [{new Date(log.date).toLocaleDateString()}]
             </strong>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">{log.changes}</p>
+            <p className="text-gray-700 dark:text-gray-300 mt-2">{log.description}</p>
           </li>
         ))}
       </ul>

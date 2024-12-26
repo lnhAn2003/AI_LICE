@@ -18,13 +18,11 @@ const CourseCollection: React.FC = () => {
   useEffect(() => {
     const fetchCoursesAndCategories = async () => {
       try {
-        // Fetch courses
         const courseResponse = await axiosInstance.get('/courses');
         const allCourses = courseResponse.data as CourseData[];
         setCourses(allCourses);
         setFilteredCourses(allCourses);
 
-        // Fetch categories for courses (where key = 'course_key')
         const categoryResponse = await axiosInstance.get('/categories');
         const allCategories = categoryResponse.data as Category[];
         const courseCats = allCategories.filter((cat) => cat.key === 'course_key');
@@ -106,10 +104,8 @@ const CourseCollection: React.FC = () => {
     if (sortBy === 'Highest Rated') {
       sortedCourses.sort((a, b) => b.averageRating - a.averageRating);
     } else if (sortBy === 'Most Popular') {
-      // Implement popularity if you have a metric (e.g., ratingCount)
       sortedCourses.sort((a, b) => b.ratingCount - a.ratingCount);
     } else {
-      // Most Recent
       sortedCourses.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );

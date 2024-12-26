@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import CategoryService from '../services/category.service';
-import mongoose from 'mongoose';
 import categoryService from '../services/category.service';
 
 class CategoryController {

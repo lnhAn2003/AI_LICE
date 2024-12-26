@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import GameSharedService from "../services/gameshared.service";
 import mongoose from "mongoose";
 import { IGameShared } from "../models/gameshared.model";
+import notificationService from "../services/notification.service";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -66,12 +67,20 @@ class GameSharedController {
       };
 
       const game = await GameSharedService.createGameShared(gameData, fileData, imageData);
+      
+      const gameId = new mongoose.Types.ObjectId(gameData.id);
+      await notificationService.createNotification({
+        userId: uploadedBy,
+        type: "game_uploaded",
+        referenceId: gameId,
+        referenceType: "Gameshared",
+        message: "You have published new game !",
+      });
       res.status(201).json(game);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   }
-
 
   public async getAllGameShared(req: Request, res: Response): Promise<void> {
     try {
@@ -98,8 +107,15 @@ class GameSharedController {
 
   public async updateGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
+
+      const user = req.user as { id: string };
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
       const { id } = req.params;
-  
+
       const existingGame = await GameSharedService.getGameSharedById(id);
       if (!existingGame) {
         res.status(404).json({ message: "Game not found" });
@@ -114,28 +130,28 @@ class GameSharedController {
 
       const fileData = files?.['file']?.[0]
         ? {
-            buffer: files['file'][0].buffer,
-            mimeType: files['file'][0].mimetype,
-          }
+          buffer: files['file'][0].buffer,
+          mimeType: files['file'][0].mimetype,
+        }
         : undefined;
 
       const imageData = files?.['images']
         ? files['images'].map((img: Express.Multer.File) => ({
-            buffer: img.buffer,
-            mimeType: img.mimetype,
-          }))
+          buffer: img.buffer,
+          mimeType: img.mimetype,
+        }))
         : undefined;
 
       const categories =
         typeof req.body.categories === "string"
           ? JSON.parse(req.body.categories)
           : req.body.categories || existingGame.categories;
-  
+
       const tags =
         typeof req.body.tags === "string"
           ? JSON.parse(req.body.tags)
           : req.body.tags || existingGame.tags;
-  
+
       const platforms =
         typeof req.body.platforms === "string"
           ? JSON.parse(req.body.platforms)
@@ -154,18 +170,28 @@ class GameSharedController {
         fileData,
         imageData
       );
-  
+
       if (!updatedGame) {
         res.status(404).json({ message: "Game not found" });
         return;
       }
-  
+
+
+      const userId = new mongoose.Types.ObjectId(user.id);
+      await notificationService.createNotification({
+        userId: userId,
+        type: "game_updated",
+        referenceId: updatedGame.id,
+        referenceType: "Gameshared",
+        message: `You have updated your game (${updatedGame.title}) at ${updatedGame.updatedAt}`,
+      });
+
       res.status(200).json(updatedGame);
     } catch (error: any) {
       console.error("Error updating game:", error.message);
       res.status(500).json({ message: error.message });
     }
-  }  
+  }
 
   public async deleteGameShared(req: AuthRequest, res: Response): Promise<void> {
     try {
@@ -320,6 +346,13 @@ class GameSharedController {
     }
   }
 
+  public async increaseDownloadCount(req: Request, res: Response): Promise<void> {
+    try {
+      await GameSharedService.incrementDownloadCount(req.params.id) 
+    } catch (error: any) {
+      res.status(500).json({ message: error.message});
+    }
+  }
 }
 
 export default new GameSharedController();

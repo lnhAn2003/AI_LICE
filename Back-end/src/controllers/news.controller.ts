@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import NewsService from "../services/news.service";
 import mongoose from "mongoose";
-import { INews } from "../models/news.model";
 
 export interface AuthRequest extends Request {
   user?: any;

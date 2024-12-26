@@ -7,19 +7,19 @@ export interface IEditHistory {
 }
 
 export interface IComment extends Document {
-  targetType: string; // Target type (e.g., Post, GameShared, Course, Lesson)
-  targetId: mongoose.Types.ObjectId; // Target ID
-  authorId: mongoose.Types.ObjectId; // Comment author
-  content: string; // Comment content
-  images?: string[]; // URLs for uploaded images
-  fileUrl?: string; // URL for uploaded files
+  targetType: string; 
+  targetId: mongoose.Types.ObjectId; 
+  authorId: mongoose.Types.ObjectId; 
+  content: string; 
+  images?: string[];
+  fileUrl?: string;
   createdAt: Date;
   updatedAt: Date;
-  isEdited: boolean; // Indicates if the comment was edited
-  isVisible: boolean; // Indicates if the comment is visible
-  parentCommentId?: mongoose.Types.ObjectId; // Parent comment ID for replies
-  editHistory: IEditHistory[]; // List of previous edits
-  replies?: IComment[]; // Replies to this comment
+  isEdited: boolean;
+  isVisible: boolean; 
+  parentCommentId?: mongoose.Types.ObjectId;
+  editHistory: IEditHistory[]; 
+  replies?: IComment[];
 }
 
 const EditHistorySchema: Schema<IEditHistory> = new Schema(
@@ -37,14 +37,14 @@ const CommentSchema: Schema<IComment> = new Schema(
     targetId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: "targetType" },
     authorId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     content: { type: String, required: true },
-    images: [{ type: String }], // Array of image URLs
-    fileUrl: { type: String }, // File URL
+    images: [{ type: String }], 
+    fileUrl: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     isEdited: { type: Boolean, default: false },
     isVisible: { type: Boolean, default: true },
     parentCommentId: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
-    editHistory: [EditHistorySchema], // Edit history schema
+    editHistory: [EditHistorySchema], 
   },
   { timestamps: true }
 );
@@ -53,7 +53,7 @@ CommentSchema.virtual("replies", {
   ref: "Comment",
   localField: "_id",
   foreignField: "parentCommentId",
-  options: { sort: { createdAt: -1 } }, // Replies sorted by creation date
+  options: { sort: { createdAt: -1 } },
 });
 
 CommentSchema.set("toObject", { virtuals: true });

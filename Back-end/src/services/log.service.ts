@@ -1,4 +1,3 @@
-import { promises } from "dns";
 import Log, { ILog } from "../models/log.model";
 import mongoose from "mongoose";
 

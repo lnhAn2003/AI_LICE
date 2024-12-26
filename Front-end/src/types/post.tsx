@@ -43,6 +43,7 @@ export interface PostData {
   authorId: Author;
   content: string;
   images: string[];
+  fileUrl: string;
   comments: Comment[];
   createdAt: string;
   updatedAt: string;
