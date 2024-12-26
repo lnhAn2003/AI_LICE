@@ -8,11 +8,9 @@ export interface ExternalLink {
 }
 
 export interface ExternalLinksProps {
-  links: {
     officialWebsite: string | null;
     gameplayVideo: string | null;
     communityForum: string | null;
-  };
   downloadLink: string | null;
 }
 
@@ -136,7 +134,7 @@ export interface GameData {
   uploadedBy: UploadedBy;
   images: string[];
   fileUrl: string | null;
-  externalLinks: ExternalLink[]; 
+  externalLinks: ExternalLinksProps; 
   createdAt: string;
   updatedAt: string;
   downloadCount: number;
