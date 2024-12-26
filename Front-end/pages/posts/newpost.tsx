@@ -36,7 +36,7 @@ const NewPostPage: React.FC<NewPostPageProps> = ({ threadData, threadId }) => {
       if (threadData && threadData._id) {
         router.push(`/threads/${threadData._id}`);
       } else {
-        router.push(`/studio/${user.id}`);
+        router.push(`/studio/${user._id}`);
       }
     } catch (error: any) {
       console.error('Error creating new post:', error);

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import PostService from "../services/post.service";
 import mongoose from "mongoose";
-import multer from 'multer';
+import notificationService from "../services/notification.service";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -10,8 +10,6 @@ export interface AuthRequest extends Request {
 export interface MulterFiles {
   [fieldname: string]: Express.Multer.File[];
 }
-
-const upload = multer();
 
 class PostController {
   public async createPost(req: AuthRequest, res: Response): Promise<void> {
@@ -40,6 +38,7 @@ class PostController {
         }
         : undefined;
 
+
       const { threadId, ...restBody } = req.body;
 
       if (!threadId || typeof threadId !== 'string' || !mongoose.Types.ObjectId.isValid(threadId)) {
@@ -47,17 +46,26 @@ class PostController {
         return;
       }
 
+      const threadOId = new mongoose.Types.ObjectId(threadId);
+
       const postData = {
         ...restBody,
         authorId,
-        threadId: new mongoose.Types.ObjectId(threadId),
+        threadId: threadOId,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
 
-      console.log(postData);
-
       const post = await PostService.createPost(postData, fileData, imageData);
+
+      const postId = new mongoose.Types.ObjectId(postData.id);
+      await notificationService.createNotification({
+        userId: authorId,
+        type: "post_uploaded",
+        referenceId: postId,
+        referenceType: "Post",
+        message: `You have created new post !`,
+      });
       res.status(201).json(post);
     } catch (error: any) {
       console.error("Error creating post:", error);
@@ -107,6 +115,13 @@ class PostController {
 
   public async updatePost(req: AuthRequest, res: Response): Promise<void> {
     try {
+
+      const user = req.user as { id: string };
+      if (!user) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
       const { id } = req.params;
 
       const existingPost = await PostService.getPostById(id);
@@ -142,6 +157,16 @@ class PostController {
         return;
       }
 
+      const userId = new mongoose.Types.ObjectId(user.id);
+      const postId = new mongoose.Types.ObjectId(updateData.id);
+      await notificationService.createNotification({
+        userId: userId,
+        type: "post_updated",
+        referenceId: postId, 
+        referenceType: "Post",
+        message: `You have updated your post !`,
+      });
+
       res.status(200).json(updatedPost);
     } catch (error: any) {
       console.error("Error updating post:", error.message);
@@ -168,13 +193,13 @@ class PostController {
   }
 
   public async incrementViewCount(req: Request, res: Response): Promise<void> {
-      try {
-        await PostService.incrementViewCount(req.params.id);
-        res.status(200).json({ message: "Post view incremented" });
-      } catch (error: any) {
-        res.status(400).json({ message: error.message });
-      }
+    try {
+      await PostService.incrementViewCount(req.params.id);
+      res.status(200).json({ message: "Post view incremented" });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
     }
+  }
 }
 
 export default new PostController();

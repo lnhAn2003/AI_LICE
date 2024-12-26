@@ -1,5 +1,4 @@
-// src/components/index/Header.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Logo from './logo';
 import SearchBar from './searchbar';
 import NavBar from './navbar';
@@ -13,37 +12,59 @@ import { NotificationData } from '../../types/notification';
 const Header = () => {
   const { user, token } = useAuth();
   const { theme, setTheme } = useTheme();
-  
-  // Notification dropdown state
+
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
   const [loadingNotifs, setLoadingNotifs] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0); // State for unread count
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown
 
-  const toggleNotificationDropdown = async () => {
-    setShowNotifDropdown(!showNotifDropdown);
-
-    // If we open the dropdown and haven't loaded notifications, fetch the newest 5
-    if (!showNotifDropdown && user && token && notifications.length === 0) {
-      setLoadingNotifs(true);
+  // Fetch notifications and update unread count
+  const fetchNotifications = async () => {
+    if (user && token) {
       try {
         const userId = user._id;
-        let res = await axiosInstance.get<NotificationData[]>(`/notification/${userId}`);
-        let data = res.data;
+        const res = await axiosInstance.get<NotificationData[]>(`/notification/${userId}`);
+        const data = res.data;
 
         // Sort by createdAt descending
-        data.sort((a, b) => (new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()));
-        
-        // Only keep the 5 newest
-        data = data.slice(0, 5);
+        data.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf());
 
         setNotifications(data);
+        setUnreadCount(data.filter((notif) => !notif.read).length); // Update unread count
       } catch (error) {
         console.error('Error fetching notifications:', error);
-      } finally {
-        setLoadingNotifs(false);
       }
     }
   };
+
+  // Fetch notifications on mount
+  useEffect(() => {
+    fetchNotifications();
+  }, [user, token]);
+
+  const toggleNotificationDropdown = () => {
+    setShowNotifDropdown((prev) => !prev);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowNotifDropdown(false);
+      }
+    };
+
+    if (showNotifDropdown) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showNotifDropdown]);
 
   return (
     <header className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-lg">
@@ -56,10 +77,8 @@ const Header = () => {
           <NavBar />
         </div>
 
-        {/* Search Bar and Icons for Desktop */}
-        <div className="hidden md:flex items-center space-x-4">
-          <SearchBar />
-
+        {/* Right Icons */}
+        <div className="flex items-center space-x-4">
           {/* Theme Toggle Button */}
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -73,20 +92,28 @@ const Header = () => {
             )}
           </button>
 
-          {/* Notification Icon + Dropdown */}
+          {/* Notification Icon */}
           {token && user && (
-            <div className="relative">
+            <div className="relative flex items-center">
               <button
                 onClick={toggleNotificationDropdown}
-                className="relative focus:outline-none"
+                className="relative focus:outline-none flex items-center"
                 aria-label="Notifications"
               >
                 <FaBell className="text-2xl text-gray-700 dark:text-gray-100 hover:text-blue-500" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {unreadCount}
+                  </span>
+                )}
               </button>
 
               {/* Dropdown */}
               {showNotifDropdown && (
-                <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded shadow-lg z-50">
+                <div
+                  ref={dropdownRef}
+                  className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded shadow-lg z-50"
+                >
                   <div className="p-2 max-h-96 overflow-y-auto">
                     {loadingNotifs && <p className="text-sm p-2">Loading...</p>}
 
@@ -96,7 +123,6 @@ const Header = () => {
                       </p>
                     )}
 
-                    {/* Show only 5 newest notifications - no "Mark read" or "Delete" */}
                     {notifications.map((notif) => (
                       <div
                         key={notif._id}
@@ -148,11 +174,6 @@ const Header = () => {
               <FaUserCircle className="text-2xl cursor-pointer hover:text-blue-500" />
             </Link>
           )}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <NavBar isMobile />
         </div>
       </div>
     </header>

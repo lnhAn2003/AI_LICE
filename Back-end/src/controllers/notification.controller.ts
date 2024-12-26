@@ -89,6 +89,20 @@ class NotificationController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    public async markAsRead(req: Request, res: Response): Promise<void>{
+        try {
+            const { id } = req.params;
+            const notification = await NotificationService.markAsRead(id);
+            if (!notification) {
+                res.status(404).json({ message: 'Notification not found' });
+            } else {
+                res.status(200).json({ message: 'Notification have mark as read' });
+            }
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export default new NotificationController();

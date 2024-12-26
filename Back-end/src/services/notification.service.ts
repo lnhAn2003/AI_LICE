@@ -41,6 +41,13 @@ class NotificationService {
     public async deleteNotification(id: string): Promise<INotification | null> {
         return await Notification.findByIdAndDelete(id);
     }
+
+    public async markAsRead(id: string): Promise<INotification | null> {
+        return await Notification.findByIdAndUpdate(
+          id, 
+          { $set: {read: true, readAt: new Date() }}, 
+          { new: true } );
+    }
 }
 
 export default new NotificationService();

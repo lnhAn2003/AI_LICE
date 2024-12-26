@@ -39,9 +39,6 @@ const PostsSection: React.FC<PostsSectionProps> = ({ posts, threadId }) => {
       });
       alert('Post created successfully!');
       setIsAddingPost(false);
-      // Ideally, refresh the page or refetch posts here
-      // to display the newly created post.
-      // e.g., router.replace(router.asPath);
     } catch (error: any) {
       console.error('Error creating post:', error);
       const message = error.response?.data?.message || 'Failed to create post. Please try again.';

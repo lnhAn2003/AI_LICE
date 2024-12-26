@@ -67,6 +67,7 @@ class GameSharedController {
       };
 
       const game = await GameSharedService.createGameShared(gameData, fileData, imageData);
+      
       const gameId = new mongoose.Types.ObjectId(gameData.id);
       await notificationService.createNotification({
         userId: uploadedBy,

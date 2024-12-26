@@ -21,7 +21,7 @@ const NewThreadPage: React.FC = () => {
         },
       });
       alert('Thread created successfully!');
-      router.push(`/studio/${user.id}`);
+      router.push(`/studio/${user._id}`);
     } catch (error: any) {
       console.error('Error creating new thread:', error);
       const message = error.response?.data?.message || 'Failed to create new thread. Please try again.';
