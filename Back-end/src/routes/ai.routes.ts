@@ -1,19 +1,31 @@
+// routes/ai.routes.ts
+
 import { Router } from 'express';
-import AIInteractionController from '../controllers/ai.controller';
+import aiController from '../controllers/ai.controller';
 import { authenticateJWT } from '../middlewares/auth.middleware';
+import { body } from 'express-validator';
+import rateLimit from 'express-rate-limit';
 
 const router = Router();
 
-// Create a new AI interaction (requires authentication)
-router.post('/', authenticateJWT, AIInteractionController.createInteraction.bind(AIInteractionController));
+const aiRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  message: 'Too many AI requests from this IP, please try again after 15 minutes.',
+});
 
-// Get all AI interactions for a specific user by user ID (requires authentication)
-router.get('/user/:userId', authenticateJWT, AIInteractionController.getInteractionsByUser.bind(AIInteractionController));
+const aiValidationRules = [
+  body('interactionType').isString().withMessage('interactionType must be a string.').notEmpty().withMessage('interactionType is required.'),
+  body('request').isString().withMessage('request must be a string.').notEmpty().withMessage('request is required.'),
+  body('sourceLanguage').optional().isString().withMessage('sourceLanguage must be a string.'),
+  body('targetLanguage').optional().isString().withMessage('targetLanguage must be a string.'),
+];
 
-// Get a specific AI interaction by interaction ID (requires authentication)
-router.get('/:id', authenticateJWT, AIInteractionController.getInteractionById.bind(AIInteractionController));
+// Route to handle AI interactions
+router.post('/interact', aiRateLimiter, authenticateJWT, aiValidationRules, aiController.interact.bind(aiController));
 
-// Delete a specific AI interaction by interaction ID (requires authentication)
-router.delete('/:id', authenticateJWT, AIInteractionController.deleteInteraction.bind(AIInteractionController));
+// Fetch past interactions for the authenticated user
+router.get('/past-interactions', authenticateJWT, aiController.getPastInteractions.bind(aiController));
+
 
 export default router;

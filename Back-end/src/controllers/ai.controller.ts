@@ -1,44 +1,59 @@
+// controllers/ai.controller.ts
 import { Request, Response } from 'express';
-import AIInteractionService from '../services/ai.service';
+import AIService from '../services/ai.service';
+import IAIInteraction from '../models/ai.model';
+import mongoose from 'mongoose';
 
-class AIInteractionController {
-  public async createInteraction(req: Request, res: Response): Promise<void> {
+export interface AuthRequest extends Request {
+  user?: {
+    id: string;
+  };
+}
+
+class AIController {
+  public async interact(req: AuthRequest, res: Response): Promise<void> {
+    const { interactionType, request, sourceLanguage, targetLanguage } = req.body;
+    const user = req.user;
+
+    if (!user) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
     try {
-      const interaction = await AIInteractionService.createInteraction(req.body);
-      res.status(201).json(interaction);
+      const aiResponse = await AIService.interact(
+        user.id,
+        interactionType,
+        request,
+        sourceLanguage,
+        targetLanguage
+      );
+      res.status(200).json({ response: aiResponse });
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message || 'Internal Server Error' });
     }
   }
 
-  public async getInteractionsByUser(req: Request, res: Response): Promise<void> {
+  public async getPastInteractions(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const interactions = await AIInteractionService.getInteractionsByUser(req.params.userId);
+      const userId = req.user?.id; // Assuming `authenticateJWT` middleware adds user info to the request
+
+      if (!userId) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      const interactions = await IAIInteraction.find({ userId })
+        .sort({ createdAt: -1 }) // Most recent interactions first
+        .select('interactionType request response createdAt') // Include only relevant fields
+        .lean();
+
       res.status(200).json(interactions);
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
-    }
-  }
-
-  public async getInteractionById(req: Request, res: Response): Promise<void> {
-    try {
-      const interaction = await AIInteractionService.getInteractionById(req.params.id);
-      if (!interaction) res.status(404).json({ message: 'Interaction not found' });
-      else res.status(200).json(interaction);
-    } catch (error: any) {
-      res.status(400).json({ message: error.message });
-    }
-  }
-
-  public async deleteInteraction(req: Request, res: Response): Promise<void> {
-    try {
-      const interaction = await AIInteractionService.deleteInteraction(req.params.id);
-      if (!interaction) res.status(404).json({ message: 'Interaction not found' });
-      else res.status(200).json({ message: 'Interaction deleted' });
-    } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error('Error fetching past interactions:', error.message || error);
+      res.status(500).json({ message: 'Failed to fetch past interactions' });
     }
   }
 }
 
-export default new AIInteractionController();
+export default new AIController();

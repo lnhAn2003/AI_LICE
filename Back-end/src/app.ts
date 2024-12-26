@@ -23,6 +23,7 @@ import sectionRoutes from './routes/section.routes';
 import lessonRoutes from './routes/lesson.routes';
 import progressRoutes from './routes/progress.routes';
 import mystudioRoutes from './routes/mystudio.routes';
+import recommendationRoutes from './routes/recommendation.routes';
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use('/sections', sectionRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/progress', progressRoutes);
 app.use('/mystudio', mystudioRoutes);
+app.use('/recommendations', recommendationRoutes);
 
 // Database Connection
 mongoose

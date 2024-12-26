@@ -45,6 +45,7 @@ class CourseController {
       res.status(500).json({ message: error.message });
     }
   }
+
   
 
   public async getAllCourses(req: Request, res: Response): Promise<void> {
@@ -92,7 +93,7 @@ class CourseController {
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
-  }  
+  }
 
   public async deleteCourse(req: AuthRequest, res: Response): Promise<void> {
     try {

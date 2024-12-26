@@ -68,8 +68,10 @@ class CourseService {
             populate: { path: 'authorId', select: 'username profile.avatarUrl' },
           },
         ],
-      });
+      })
+      .exec();
   }
+
 
   public async updateCourse(
     id: string,
