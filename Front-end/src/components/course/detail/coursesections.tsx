@@ -1,5 +1,8 @@
+// src/components/course/detail/CourseSections.tsx
+
 import React from 'react';
 import { Section } from '../../../types/course';
+import Link from 'next/link';
 
 interface CourseSectionsProps {
   sections: Section[];
@@ -23,9 +26,17 @@ const CourseSections: React.FC<CourseSectionsProps> = ({ sections, userProgress 
               key={section._id}
               className="bg-white dark:bg-gray-800 shadow-md rounded-md p-6 transform transition hover:-translate-y-1 hover:shadow-lg"
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                {section.sectionTitle}
-              </h3>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                  {section.sectionTitle}
+                </h3>
+                {/* Edit Section Link */}
+                <Link className="text-red-500 hover:underline"
+                  href={`/courses/details/${section.courseId}/sections/${section._id}/edit`}
+                >
+                  Edit Section
+                </Link>
+              </div>
               <div className="mb-4">
                 <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   <span>Progress</span>
@@ -69,6 +80,13 @@ const CourseSections: React.FC<CourseSectionsProps> = ({ sections, userProgress 
                         {lesson.title}
                       </span>
                     )}
+                    {/* Edit Lesson Link */}
+                    <Link
+                      className="text-blue-500 hover:underline"
+                      href={`/courses/details/${section.courseId}/sections/${section._id}/lessons/edit/${lesson._id}`}
+                    >
+                      Edit
+                    </Link>
                   </li>
                 ))}
               </ul>

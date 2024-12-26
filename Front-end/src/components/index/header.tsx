@@ -11,7 +11,7 @@ import { FaSun, FaMoon, FaUserCircle } from 'react-icons/fa';
 
 const Header = () => {
   const { user, token } = useAuth();
-  const { theme, setTheme } = useTheme(); // Use the useTheme hook
+  const { theme, setTheme } = useTheme();
 
   return (
     <header className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-lg">

@@ -1,3 +1,4 @@
+// pages/courses/details/[id].tsx
 import { NextPage } from 'next';
 import { getCourseDetailsServerSideProps } from '../../../src/serverside/courses.serverside';
 import CourseInfo from '../../../src/components/course/detail/courseinfo';
@@ -10,6 +11,8 @@ import CommunityFeedback from '../../../src/components/course/detail/communityfe
 import CommentsSection from '../../../src/components/course/detail/commentsection';
 import CourseSections from '../../../src/components/course/detail/coursesections';
 import { CourseData } from '../../../src/types/course';
+import { useAuth } from '../../../src/hooks/useAuth';
+import Link from 'next/link';
 
 interface CourseDetailPageProps {
   course: CourseData | null;
@@ -24,6 +27,8 @@ const mockUserProgress = (course: CourseData) => {
 };
 
 const CourseDetailPage: NextPage<CourseDetailPageProps> = ({ course }) => {
+  const { user } = useAuth();
+
   if (!course) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -41,8 +46,18 @@ const CourseDetailPage: NextPage<CourseDetailPageProps> = ({ course }) => {
 
       {/* Hero Section */}
       <div className="pt-8 pb-12 bg-gradient-to-r from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <CourseInfo course={course} />
+          {user && (
+            <div className="space-x-2">
+              <Link className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600" href={`/courses/edit/${course._id}`}>
+                Edit Course
+              </Link>
+              <Link className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" href={`/courses/details/${course._id}/sections/new`}>
+                Add Section
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 

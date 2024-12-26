@@ -1,5 +1,4 @@
 // src/components/main/AboutUs.tsx
-
 import React from 'react';
 
 const AboutUs: React.FC = () => {

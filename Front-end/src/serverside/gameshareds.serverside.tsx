@@ -102,7 +102,7 @@ export const getGameDetailsServerSideProps: GetServerSideProps = async (context)
     }
     return {
       redirect: {
-        destination: "/error",
+        destination: "/games/collection",
         permanent: false,
       },
     };
